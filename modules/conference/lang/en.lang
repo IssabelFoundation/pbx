@@ -1,0 +1,93 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Conference" => "Conference",
+"State" => "State",
+"Past Conferences" => "Past Conferences",
+"Current Conferences" => "Current Conferences",
+"Future Conferences" => "Future Conferences",
+"Conference #" => "Conference #",
+"Conference Name" => "Conference Name",
+"Starts" => "Starts",
+"Ends" => "Ends",
+"Participants" => "Participants",
+"All" => "All",
+"New Conference" => "New Conference",
+"Conference Owner" => "Conference Owner",
+"Conference Number" => "Conference Number",
+"Moderator PIN" => "Moderator PIN",
+"Moderator Options" => "Moderator Options",
+"Announce" => "Announce",
+"Record" => "Record",
+"User PIN" => "User PIN",
+"Listen Only" => "Listen Only",
+"Wait for Leader" => "Wait for Leader",
+"User Options" => "User Options",
+"Start Time" => "Start Time",
+"Duration (HH:MM)" => "Duration (HH:MM)",
+"Recurs" => "Recurs",
+"Max Participants" => "Max Participants",
+"Reoccurs" => "Reoccurs",
+"for" => "for",
+"days" => "days",
+"Daily" => "Daily",
+"Weekly" => "Weekly",
+"Bi-weekly" => "Bi-weekly",
+"Moderator and user PINs must not be equal" => "Moderator and user PINs must not be equal",
+"Are you sure you wish to delete conference (es)?" => "Are you sure you wish to delete conference (es)?",
+"Id" => "Id",
+"CallerId" => "CallerId",
+"Mode" => "Mode",
+"Mute" => "Mute",
+"Kick" => "Kick",
+"Are you sure you wish to Mute caller (s)?" => "Are you sure you wish to Mute caller (s)?",
+"Are you sure you wish to Kick caller (s)?" => "Are you sure you wish to Kick caller (s)?",
+"Muted" => "Muted",
+"UnMuted" => "UnMuted",
+"Error when connecting to Asterisk Manager" => "Error when connecting to Asterisk Manager",
+"The conference installation is almost done. To complete it please" => "The conference installation is almost done. To complete it please",
+"Kick All" => "Kick All",
+"Invite Caller" => "Invite Caller",
+"The device wasn't write" => "The device was not written",
+"The device must be numeric" => "The device must be numeric",
+"The device couldn't be added to the conference" => "The device couldn't be added to the conference",
+"Filter"=>"Filter",
+"Show"=>"Show",
+"click here" => "click here",
+'Duration'=>'Duration',
+'Status'=>'Status',
+'Update'=>'Update',
+'No Extensions'=>'No Extensions',
+'Unselected' => 'Unselected',
+);
+?>

@@ -1,0 +1,76 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "Группа Внутренних номеров",
+    "Are you really sure you want to delete all the extensions in this server?" => "Вы действительно уверены, что хотите удалить все внутренние номера на этом сервере?",
+    "Invalid file extension.- It must be csv" => "Недействительное раширение файла.- Должно быть csv",
+    "Possible file upload attack. Filename" => "Возможно атака загрузки файла. Имя файла",
+    "Error" => "Ошибка",
+    "Secret weak. Line" => "Слабый пароль. Строка",
+    "Error updating Tech" => "Ошибка обновления Tech",
+    "Error updating Users" => "Ошибка обновления Users",
+    "Error updating Devices" => "Ошибка обновления Devices",
+    "Error updating Voicemail" => "Ошибка обновления Voicemail",
+    "Error processing CallWaiting" => "Ошибка обновления CallWaiting",
+    "Total extension updated" => "Все внутренние номера обновлены",
+    "Error, extension" => "Ошибка, внутренний номер",
+    "with" => "с",
+    "The file is incorrect or empty" => "Неверный или пустой файл",
+    "Verify the header" => "Проверьте заголовок",
+    "At minimum there must be the columns" => "Как минимум должны быть столбцы",
+    "Can't exist a extension empty. Line" => "Внутренний номер не может быть пустым. Строка",
+    "Can't exist a display name empty. Line" => "Имя для отображения не может быть пустым. Строка",
+    "Header File Extensions Batch" => "Первая линия должна содержать имя (или название) столбцов, и файл дожен иметь как минимум четыре столбца: Display Name, User Extension, Secret, Tech. Для более подробной информации о всех поддерживаемых параметрах, пожалуйста, читайте во встроенной справочной документации.",
+    "About Update Extensions Batch" => "Если вы загружаете файл с ранее созданными внутренними номерами, то эти внутренние номера будут обновлены.",
+    "There aren't extensions" => "Нет внутренних номеров",
+    "Download Extensions" => "Скачать текущие внутренние номера в CSV формате",
+    "Error processing Database Family" => "Ошибка обработки Семейства Базы Данных",
+    "Delete All Extensions" => "Удалить все Внутренние номера",
+    "All extensions deletes" => "Все внутренние номера удалены",
+    "Error to delete extensions" => "Ошибка удаления внутренних номеров",
+    "Could not delete the database" => "Не удаётся удалить базу данных",
+    "Could not delete the ASTERISK database" => "Не удаётся удалить базу данных ASTERISK",
+    "Unable delete AMPUSER in database astDB" => "Не удаётся удалить AMPUSER в базе данных astDB",
+    "Unable delete DEVICE in database astDB" => "Не удаётся удалить DEVICE в базе данных astDB",
+    "Unable delete CW in database astDB" => "Не удаётся удалить CW в базе данных astDB",
+    "Unable delete CF in database astDB" => "Не удаётся удалить CF в базе данных astDB",
+    "Unable delete CFB in database astDB" => "Не удаётся удалить CFB в базе данных astDB",
+    "Unable delete CFU in database astDB" => "Не удаётся удалить CFU в базе данных astDB",
+    "File" => "Файл для Загрузки (*.csv)",
+    "Message" => "Сообщение",
+    "Save" => "Загрузить CSV Файл",
+    "Error to insert or update Direct DID" => "Ошибка добавления или обновления Direct DID",
+    "Can't exist a technology empty. Line" => "Поле 'Tech' не может быть пустым. Строка",
+    "has a wrong tech in line" => "имеет неправильное значение tech в строке",
+    "Tech must be sip or iax" => "Поле 'Tech' должно быть sip или iax",
+    "The secret must be minimum" => "Пароль должен быть не менее 6 символов и содержать цифры и буквы, включая верхний и нижний регистр.",
+    "Line" => "Строка",
+);
+?>

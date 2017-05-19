@@ -1,0 +1,58 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Option" => "Optiuni",
+    "Unembedded freePBX" => "Centrala Telefonica",
+    "Basic" => "Baza",
+    "Extensions" => "Extensii",
+    "Feature Codes" => "Coduri Speciale",
+    "General Settings" => "Setari Generale",
+    "Outbound Routes" => "Rute de Iesire",
+    "Trunks" => "Trunchiuri",
+    "Inbound Call Control" => "Controlul Apelurilor de Intrare",
+    "Inbound Routes" => "Rute de Intrare",
+    "Announcements" => "Anunturi",
+    "Follow Me" => "Urmeaza-ma",
+    "IVR" => "Roobot Telefonic",
+    "Misc Destinations" => "Destinatii Speciale",
+    "Queues" => "Coada de Asteptare",
+    "Ring Groups" => "Grupuri de Sonerii",
+    "Time Conditions" => "Conditii de Timp",
+    "Internal Options & Configuration" => "Configuratie si Optiuni Interne",
+    "Conferences" => "Conferinte",
+    "Misc Applications" => "Aplicatii Speciale",
+    "Music on Hold" => "Muzica in Asteptare",
+    "PIN Sets" => "Seturi de coduri PIN",
+    "Paging and Intercom" => "Paging si Intercom",
+    "Parking Lot" => "Loturi de parcare",
+    "System Recordings" => "Inregistrari",
+    "Remote Access" => "Acces de la Distanta",
+);
+?>

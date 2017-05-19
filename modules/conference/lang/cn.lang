@@ -1,0 +1,87 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "会议",
+    "Past Conferences" => "过去会议",
+    "Current Conferences" => "当前会议",
+    "Future Conferences" => "将来会议",
+    "Conference #" => "会议 #",
+    "Conference Name" => "会议名称",
+    "Starts" => "开始",
+    "Ends" => "结束",
+    "Participants" => "参与者",
+    "All" => "所有",
+    "New Conference" => "新会议",
+    "Conference Owner" => "会议发起人",
+    "Conference Number" => "会议数量",
+    "Moderator PIN" => "管理员密码",
+    "Moderator Options" => "管理员选项",
+    "Announce" => "声明",
+    "Record" => "录音",
+    "User PIN" => "用户密码",
+    "Listen Only" => "只听",
+    "Wait for Leader" => "等待主持人",
+    "User Options" => "用户选项",
+    "Start Time" => "开始时间",
+    "Duration (HH:MM)" => "时间 (HH:MM)",
+    "Recurs" => "重新开始",
+    "Max Participants" => "最多参与者",
+    "Reoccurs" => "重新开始",
+    "days" => "天",
+    "Daily" => "每天",
+    "Weekly" => "每星期",
+    "Bi-weekly" => "每两星期",
+    "Moderator and user PINs must not be equal" => "管理员密码和用户密码不能相同",
+    "Are you sure you wish to delete conference (es)?" => "确定删除会议?",
+    "CallerId" => "来电显示",
+    "Mode" => "模式",
+    "Mute" => "静音",
+    "Kick" => "踢出",
+    "Are you sure you wish to Mute caller (s)?" => "确认要对这个用户设置静音?",
+    "Are you sure you wish to Kick caller (s)?" => "确认要踢出这个用户?",
+    "Muted" => "被静音",
+    "UnMuted" => "未静音",
+    "Error when connecting to Asterisk Manager" => "连接asterisk Manager 是出现错误",
+    "The conference installation is almost done. To complete it please" => "会议安装基本完成，彻底完成安装，请",
+    "Kick All" => "踢出所有人",
+    "Invite Caller" => "邀请用户",
+    "The device wasn't write" => "这个设备不能被写",
+    "The device must be numeric" => "设备必须是数字",
+    "The device couldn't be added to the conference" => "这个设备不能被添加到会议",
+    "Filter" => "过滤",
+    "Show" => "显示",
+    "click here" => "点击这里",
+    "Duration" => "时间",
+    "Status" => "状态",
+    "Update" => "更新",
+    "No Extensions" => "无分机",
+    "Unselected" => "无选择",
+);
+?>

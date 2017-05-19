@@ -1,0 +1,77 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Conferência",
+    "State" => "Estado",
+    "Past Conferences" => "Conferências Passadas",
+    "Current Conferences" => "Conferências em Andamento",
+    "Future Conferences" => "Conferências Futuras",
+    "Conference #" => "Conferência Número #",
+    "Conference Name" => "Nome da Conferência",
+    "Starts" => "Inicia",
+    "Ends" => "Termina",
+    "Participants" => "Participantes",
+    "All" => "Todos",
+    "New Conference" => "Nova conferência",
+    "Conference Owner" => "Dono da Conferência",
+    "Conference Number" => "Número da Conferência",
+    "Moderator PIN" => "PIN do Moderador",
+    "Moderator Options" => "Opções do Moderador",
+    "Announce" => "Anúncio",
+    "User PIN" => "PIN do Usuário",
+    "Listen Only" => "Apenas Escutar",
+    "Wait for Leader" => "Aguardar pelo Líder",
+    "User Options" => "Opções de Usuário",
+    "Start Time" => "Tempo de Início",
+    "Duration (HH:MM)" => "Duração (HH:MM)",
+    "Max Participants" => "Máximo de Participantes",
+    "for" => "para",
+    "days" => "dias",
+    "Daily" => "Diariamente",
+    "Weekly" => "Semanalmente",
+    "Moderator and user PINs must not be equal" => "Os PINs do Moderador e usuário não podem ser iguais",
+    "Are you sure you wish to delete conference (es)?" => "Você tem certeza que deseja apagar essa(s) conferência(s)?",
+    "Mode" => "Modo",
+    "Mute" => "Calar",
+    "Kick" => "Chutar",
+    "Are you sure you wish to Mute caller (s)?" => "Você tem certeza que deseja calar o(s) visitante(s)?",
+    "Are you sure you wish to Kick caller (s)?" => "Você tem certeza que deseja chutar o(s) visitante(s)?",
+    "Error when connecting to Asterisk Manager" => "Erro ao tentar conectar ao Asterisk Manager",
+    "The conference installation is almost done. To complete it please" => "A instalação da conferência esta quase pronta. Para concluir, por favor",
+    "Kick All" => "Chutar todos",
+    "Invite Caller" => "Convidar",
+    "The device wasn't write" => "O dispositivo não pôde ser escrito",
+    "The device must be numeric" => "O dispositivo deve ser numérico",
+    "The device couldn't be added to the conference" => "O dispositivo não pode ser adicionado para a conferência",
+    "Filter" => "Filtro",
+    "Show" => "Mostrar",
+    "click here" => "clique aqui",
+);
+?>

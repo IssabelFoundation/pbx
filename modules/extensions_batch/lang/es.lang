@@ -1,0 +1,72 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "Lote de Extensiones",
+    "Are you really sure you want to delete all the extensions in this server?" => "¿Está seguro que desea eliminar todas las extensiones de este servidor?",
+    "Invalid file extension.- It must be csv" => "Formato de archivo no válido.- Debe ser CSV",
+    "Possible file upload attack. Filename" => "Posible ataque de carga de archivo. Nombre de archivo",
+    "Secret weak. Line" => "Secret débil. Línea",
+    "Error updating Tech" => "Error al actualizar Tech",
+    "Error updating Users" => "Error al actualizar Users",
+    "Error updating Devices" => "Error al actualizar Devices",
+    "Error updating Voicemail" => "Error al actualizar Voicemail",
+    "Error processing CallWaiting" => "Error al procesar CallWaiting",
+    "Total extension updated" => "Total de extensiones actualizadas",
+    "Error, extension" => "Error, extensión",
+    "repeat in lines" => "se repite en líneas",
+    "with" => "con",
+    "The file is incorrect or empty" => "El archivo es incorrecto o está vacío.",
+    "Incomplete Columns" => "Columnas incompletas",
+    "Verify the header" => "Verifique la cabecera",
+    "At minimum there must be the columns" => "Como mínimo deben estar las columnas",
+    "Can't exist a extension empty. Line" => "No puede existir una extensión vacía. Línea",
+    "Can't exist a display name empty. Line" => "No puede existir un Display Name vacío. Línea",
+    "Please read the lines in the footer" => "Por favor lea las líneas en el pie de página",
+    "Header File Extensions Batch" => "La primera línea debe contener el nombre (o título) de las columnas, y el archivo debe tener como mínimo cuatro columnas: Display Name, User Extension, Secret, Tech. Para más información acerca de todos los parámetros soportados, por favor lea la ayuda embebida a este módulo.",
+    "About Update Extensions Batch" => "Si usted carga un archivo con extensiones existentes, estas extensiones serán actualizadas.",
+    "There aren't extensions" => "No hay extensiones",
+    "Download Extensions" => "Descargar las extensiones actuales en formato CSV",
+    "Error processing Database Family" => "Error al procesar la familia de base de datos.",
+    "Delete All Extensions" => "Eliminar todas las Extensiones",
+    "All extensions deletes" => "Todas las extensiones fueron eliminadas",
+    "Error to delete extensions" => "Error al eliminar extensiones",
+    "Unable to reload the changes" => "Incapaz de recargar los cambios",
+    "Could not delete the database" => "No se pudo eliminar la base de datos",
+    "Could not delete the ASTERISK database" => "No se pudo eliminar la base de datos ASTERISK",
+    "File" => "Archivo a cargar (*.csv)",
+    "Message" => "Mensaje",
+    "Save" => "Cargar archivo CSV",
+    "Error to insert or update Direct DID" => "Error al insertar o actualizar Direct DID",
+    "Can't exist a technology empty. Line" => "No puede existir una tecnología vacía. Línea",
+    "has a wrong tech in line" => "tiene una tecnología incorrecta en la línea",
+    "Tech must be sip or iax" => "Tech debe ser sip o iax",
+    "The secret must be minimum" => "El Secret debe tener como mínimo 6 caracteres alfanuméricos, incluído mayúsculas y minúsculas.",
+);
+?>

@@ -1,0 +1,84 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Extensions Batch" => "Extensions Batch",
+"Batch of Extensions" => "Batch of Extensions",
+"Are you really sure you want to delete all the extensions in this server?" => "Are you really sure you want to delete all the extensions in this server?",
+"Invalid file extension.- It must be csv" => "Invalid file extension.- It must be csv",
+"Possible file upload attack. Filename" => "Possible file upload attack. Filename",
+"Error" => "Error",
+"Secret weak. Line" => "Secret weak. Line",
+"Error updating Tech" => "Error updating Tech",
+"Error updating Users" => "Error updating Users",
+"Error updating Devices" => "Error updating Devices",
+"Error updating Voicemail" => "Error updating Voicemail",
+"Error processing CallWaiting" => "Error processing CallWaiting",
+"Total extension updated" => "Total extension updated",
+"Error, extension" => "Error, extension",
+"repeat in lines" => "repeat in lines",
+"with" => "with",
+"The file is incorrect or empty" => "The file is incorrect or empty",
+"Incomplete Columns" => "Incomplete Columns",
+"Verify the header" => "Verify the header",
+"At minimum there must be the columns" => "At minimum there must be the columns",
+"Can't exist a extension empty. Line" => "Can't exist an empty extension. Line",
+"Can't exist a display name empty. Line" => "Can't exist an empty display name. Line",
+"Please read the lines in the footer"=>"Please read the lines in the footer",
+"Header File Extensions Batch" => "The first line must contain the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+"About Update Extensions Batch" => "If you load a file with extensions already created, these extensions will be updated",
+"There aren't extensions" => "There aren't extensions",
+"Download Extensions" => "Download the current extensions in CSV format",
+"Error processing Database Family" => "Error processing Database Family",
+"Delete All Extensions" => "Delete All Extensions",
+"All extensions deletes" => "All extensions deleted",
+"Error to delete extensions" => "Error when deleting extensions",
+"Unable to reload the changes" => "Unable to reload the changes",
+"Could not delete the database" => "Could not delete the database",
+"Could not delete the ASTERISK database" => "Could not delete the ASTERISK database",
+"Unable delete AMPUSER in database astDB" => "Unable to delete AMPUSER in database astDB",
+"Unable delete DEVICE in database astDB" => "Unable to delete DEVICE in database astDB",
+"Unable delete CW in database astDB" => "Unable to delete CW in database astDB",
+"Unable delete CF in database astDB" => "Unable to delete CF in database astDB",
+"Unable delete CFB in database astDB" => "Unable to delete CFB in database astDB",
+"Unable delete CFU in database astDB" => "Unable to delete CFU in database astDB",
+"File" => "File to Upload (*.csv)",
+"Message"=>"Message",
+"There aren't extensions" => "There aren't extensions",
+"Save" => "Upload CSV File",
+"Error to insert or update Direct DID" => "Error when inserting or updating Direct DID",
+"Can't exist a technology empty. Line" => "Can't exist an empty technology. Line",
+"has a wrong tech in line" => "has a wrong tech in line",
+"Tech must be sip or iax" => "Tech must be sip or iax",
+"The secret must be minimum" => "The Secret must be minimum 6 alphanumeric characters, including upper and lowercase."
+);
+?>

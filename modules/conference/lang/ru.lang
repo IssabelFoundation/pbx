@@ -1,0 +1,87 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Конференция",
+    "State" => "Статус",
+    "Past Conferences" => "Прошедшие Конференции",
+    "Current Conferences" => "Текущие Конференции",
+    "Future Conferences" => "Будущие Конференции",
+    "Conference #" => "Конференция #",
+    "Conference Name" => "Имя Конференции",
+    "Participants" => "Участники",
+    "All" => "Все",
+    "New Conference" => "Новая Конференция",
+    "Conference Owner" => "Владелец Конференции",
+    "Conference Number" => "Номер Конференции",
+    "Moderator PIN" => "PIN Модератора",
+    "Moderator Options" => "Опции Модератора",
+    "Announce" => "Приветствие",
+    "Record" => "Запись",
+    "User PIN" => "PIN Пользователя",
+    "Listen Only" => "Только Слушать",
+    "Wait for Leader" => "Ждать Ведущего",
+    "User Options" => "Опции Пользователя",
+    "Start Time" => "Время Начала",
+    "Duration (HH:MM)" => "Длительность (ЧЧ:ММ)",
+    "Max Participants" => "Макс. Участников",
+    "Moderator and user PINs must not be equal" => "PIN-коды модератора и пользователя не должны совпадать",
+    "Are you sure you wish to delete conference (es)?" => "Вы уверены, что хотите удалить конференцию/конференции?",
+    "Mode" => "Режим",
+    "Mute" => "Отключить звук",
+    "Kick" => "Отключить",
+    "Are you sure you wish to Mute caller (s)?" => "Вы уверены, что хотите отключить звук участник(у/ам)?",
+    "Are you sure you wish to Kick caller (s)?" => "Вы уверены, что хотите отключить участник(а/ов)?",
+    "Muted" => "Без звука",
+    "UnMuted" => "Звук включён",
+    "Error when connecting to Asterisk Manager" => "Ошибка соединения с Asterisk Manager",
+    "The conference installation is almost done. To complete it please" => "Установка конференции почти выполнена. Пожалуйста, завершите её.",
+    "Kick All" => "Отключить Всех",
+    "Invite Caller" => "Пригласить Участника",
+    "The device wasn't write" => "Устройство не было записано",
+    "The device must be numeric" => "Устройство должно быть числовым значением",
+    "The device couldn't be added to the conference" => "Устройство не может быть добавлено в конференцию",
+    "Filter" => "Фильтр",
+    "Show" => "Показать",
+    "Duration" => "Длительность",
+    "Status" => "Статус",
+    "Update" => "Обновить",
+    "No Extensions" => "Нет Внутренних номеров",
+    "Unselected" => "Невыбран",
+    "Period" => "Период",
+    "Show Filter" => "Показать Фильтр",
+    "Hide Filter" => "Скрыть Фильтр",
+    "Filter applied: " => "Текущий фильтр: ",
+    "Page" => "Страница",
+    "records" => "записей",
+    "of" => "из",
+    "No records match the filter criteria" => "Нет записей, соответствующих критериям фильтра",
+    "More Options" => "Больше Опций",
+);
+?>

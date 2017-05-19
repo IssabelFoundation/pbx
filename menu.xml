@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <menulist>
+    <menuitem menuid="pbxconfig"              desc="PBX"                     parent=""          module="no"  link=""      order="5"></menuitem>
+    <menuitem menuid="pbxadmin"               desc="PBX Configuration"       parent="pbxconfig" module="yes" link=""      order="1">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="control_panel"          desc="Operator Panel"          parent="pbxconfig" module="yes" link=""      order="2">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="voicemail"              desc="Voicemail"               parent="pbxconfig" module="yes" link=""      order="3">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+            <group id="3" name="extension" desc="extension user"></group>
+        </permissions>
+        <privilege name="reportany" desc="List voicemails from all users, not just their own">
+            <grant2group name="administrator" />
+        </privilege>
+        <privilege name="downloadany" desc="Listen and download voicemails from all users, not just their own">
+            <grant2group name="administrator" />
+        </privilege>
+        <privilege name="deleteany" desc="Delete voicemails from any user through GUI">
+            <grant2group name="administrator" />
+        </privilege>
+    </menuitem>
+    <menuitem menuid="monitoring"             desc="Calls Recordings"              parent="pbxconfig" module="yes" link=""      order="4">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+            <group id="3" name="extension" desc="extension user"></group>
+        </permissions>
+        <privilege name="reportany" desc="List recordings from all users, not just their own">
+            <grant2group name="administrator" />
+        </privilege>
+        <privilege name="downloadany" desc="Listen and download recordings from all users, not just their own">
+            <grant2group name="administrator" />
+        </privilege>
+        <privilege name="deleteany" desc="Delete recordings from the system">
+            <grant2group name="administrator" />
+        </privilege>
+    </menuitem>
+    <menuitem menuid="endpoints"              desc="Batch Configurations"               parent="pbxconfig" module="no"  link=""      order="5">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+<!--
+    <menuitem menuid="endpoint_configurator"  desc="Endpoint Configurator"   parent="endpoints" module="yes" link=""      order="51">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="endpoints_batch"        desc="Batch of Endpoints"      parent="endpoints" module="yes" link=""      order="52">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+ -->
+    <menuitem menuid="extensions_batch"       desc="Batch of Extensions"     parent="endpoints" module="yes" link=""      order="53">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="conference"             desc="Conference"              parent="pbxconfig" module="yes" link=""      order="6">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="tools"                  desc="Tools"                   parent="pbxconfig" module="no"  link=""      order="8">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="asterisk_cli"           desc="Asterisk-Cli"            parent="tools"     module="yes" link=""      order="81">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="file_editor"            desc="Asterisk File Editor"    parent="tools"     module="yes" link=""      order="82">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="text_to_wav"            desc="Text to Wav"             parent="tools"     module="yes" link=""      order="83">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
+    <menuitem menuid="festival"            desc="Festival"             parent="tools"     module="yes" link=""      order="84">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"></group>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="recordings"            desc="Recordings"             parent="tools"     module="yes" link=""      order="85">
+      <permissions>
+        <group id="1" name="administrator" desc="total access"></group>
+        <group id="2" name="Operator" desc="Operator"></group>
+        <group id="3" name="extension" desc="extension user"></group>
+      </permissions>
+    </menuitem>
+    <menuitem menuid="fop"                    desc="Flash Operator Panel"    parent="pbxconfig" module="no"  link="admin/modules/fw_fop/index.php?menu=fop" order="9">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+            <group id="2" name="Operator" desc="Operator"></group>
+        </permissions>
+    </menuitem>
+  </menulist>
+</module>

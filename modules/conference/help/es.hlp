@@ -1,0 +1,89 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+
+<p>La opción "Conferencia" en Issabel permite crear y administrar cuartos de conferencia. Aquí se puede ver todas las conferencias pasadas, actuales y futuras.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_conference_report.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Si desea ver los detalles de cualquier conferencia creada haga click directamente en el nombre mostrado en la lista que aparece en la figura anterior. Tenga en cuenta que los parámetros de las conferencias existentes no pueden ser editados.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_conference_view.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<p>Si desea eliminar una conferencia seleccionela de la lista y haga click en el botón "Eliminar".</p>
+<br />
+<h2>Crear una conferencia</h2>
+<p>Para crear una conferencia haga click en "Nueva Conferencia" y llene los campos requeridos del formulario que aparecerá <i>(Figura 3)</i>. Si desea utilizar un cuarto de conferencia estático existente del menú "Configuración PBX", reemplace el parámetro "Número de Conferencia" por el número de la conferecia estática.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_conference_new.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+
+<p>A continuación una breve descripción de cada parámetro:</p>
+
+<table class="inline">
+  <tr>
+    <th>Nombre</th><th>Mandatorio</th><th>Descripción</th>
+  </tr>
+  <tr>
+    <td>Nombre de la Conferencia</td><td>Sí</td><td>Este es el nombre que se le dará a la conferencia.</td>
+  </tr>
+  <tr>
+    <td>PIN Moderador</td><td>No</td><td>Es una clave que el moderador debe ingresar para poder unirse a la conferencia.</td>
+  </tr>
+  <tr>
+    <td>PIN Usuario</td><td>No</td><td>Es una clave que los usuarios deben ingresar para poder unirse a la conferencia.</td>
+  </tr>
+  <tr>
+    <td>Fecha de Inicio</td><td>Sí</td><td>Fecha y hora en la cual inicia la conferencia.</td>
+  </tr>
+  <tr>
+    <td>Número de Conferencia</td><td>Sí</td><td>Cuando usted crea una conferencia un número aleatorio es creado automáticamente en este campo. Este número identifica a la conferencia.</td>
+  </tr>
+  <tr>
+    <td>Propietario de la Conferencia</td><td>No</td><td>El usuario que está a cargo de la conferencia.</td>
+  </tr>
+  <tr>
+    <td>Opciones de Moderador</td><td>No</td><td>Diferentes opciones para el moderador:<br />Anuncio: Anuncia la entrada del moderador <br />Grabar: Graba la conferencia</td>
+  </tr>
+  <tr>
+    <td>Opciones de Usuario</td><td>No</td><td>Diferentes opciones para el usuario:<br />Anuncio: Anuncia la entrada del usuario <br />Sólo escuchar: Permite que los usuarios que ingresan sólo puedan escuchar la conferencia pero no hablar <br />Esperar por líder: Los usuarios no podrán interactuar en la conferencia hasta que el moderador esté presente</td>
+  </tr>
+  <tr>
+    <td>Duración (HH:MM)</td><td>No</td><td>El tiempo de duración de la conferencia</td>
+  </tr>
+  <tr>
+    <td>Max Participantes</td><td>Sí</td><td>El máximo número de participantes que pueden estar en la conferencia simultáneamente.</td>
+  </tr>
+</table>
+<br />
+
+<h2>Administración de las Conferencias</h2>
+<p>Para administrar conferencias haga click en el link de los participantes de la conferencia actual (vea Figura 1). Aquí usted puede invitar, silenciar o retirar a los participantes de la conferencia y también puede ver el tiempo transcurrido de un usuario en la conferencia.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_conference_callers.png" border="0" />
+<p>Figura 4</p></div>
+<br />
+<h3>Invitar un participante</h3>
+<p>Hay dos maneras de que un participante se una a la conferencia:
+<ul style="list-style-type:decimal">
+<li>Seleccione el número de extensión de la lista desplegable y haga click en el botón "Llamada a Invitar". Inmediatamente la extensión seleccionada empezará a timbrar y cuando el usuario conteste será incorporado a la conferencia.</li>
+<li>Desde una extensión cualquiera marque el número <b>5555</b> luego se le pedirá que ingrese el número de la conferencia y finalmente el número de PIN en caso de estar configurado.</li>
+</ul>
+</p>
+
+<p>Si desea silenciar a un participante sólo seleccionelo en la columna debajo del botón "Callar" y haga click en ese mismo botón. Si desea expulsar a un participante selecciónelo en la columna debajo del botón "Botar".</p>
+
+<p>Si desea expulsar a todos los participantes, haga click en el botón "Botar a todos".</p>
+
+<p>Para actualizar la lista de los participantes de la conferencia haga click en el botón "Actualizar". Para salir de la conferencia haga click en "Cancelar" (Esta acción no afectará a la conferencia en curso)..</p>
+
+</body>
+</html>

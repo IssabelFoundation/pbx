@@ -1,0 +1,164 @@
+#!/usr/bin/php -q
+<?php
+
+  // TODO: 1) Verificar si el cuarto de conferencia se encuentra ocupado para usar otro cuarto alternativo
+  //       2) Reproducir mensaje de error en caso de que la extension no se encuentre en conversacion 
+  
+  // OJO:  No se pueden intervenir llamadas que se encuentren en conferencias y no se pueden atrapar colas 
+
+  /*
+  A continuacion 2 ejemplos de llamada transferida
+  ------------------------------------------------
+
+  Ejemplo 1) Se quiere intervenir a la 215.
+
+  Channel              Location             State   Application(Data)
+> SIP/215-0851c250     (None)               Up      Bridged Call(Local/201@from-in
+  Local/201@from-inter s@macro-dial:10      Up      Dial(SIP/215|25|rwWt)
+> Local/201@from-inter s@from-internal:1    Up      Bridged Call(Zap/3-1)
+  Zap/3-1              200@ext-queues:6     Up      Queue(200|t|||600) 
+
+  Ejemplo 2) Se quiere intervenir a la 217. Hay ambiguedad. Caso actualmente no soportado! Urgente Bug Fix.
+
+  Channel              Location             State   Application(Data)
+  SIP/212-085f72c8     *9@from-internal:2   Up      AGI(intervenir.agi)
+> SIP/217-085dd1b8     (None)               Up      Bridged Call(Local/201@from-in
+  Local/201@from-inter s@macro-dial:10      Up      Dial(SIP/217|25|rwWt)
+  Zap/3-1              200@ext-queues:6     Up      Queue(200|t|||600)
+> Local/201@from-inter s@from-internal:1    Up      Bridged Call(Zap/1-1)
+  Zap/1-1              200@ext-queues:6     Up      Queue(200|t|||600)
+  SIP/201-08575f48     (None)               Up      Bridged Call(Local/201@from-in
+  Local/201@from-inter s@macro-dial:10      Up      Dial(SIP/201||rwWt)
+> Local/201@from-inter s@from-internal:1    Up      Bridged Call(Zap/2-1)
+  Zap/2-1              200@ext-queues:6     Up      Queue(200|t|||600)
+  Zap/4-1              s@entrada:1          Up      Bridged Call(SIP/218-085b33d0)
+  SIP/218-085b33d0     s@macro-dialout-trun Up      Dial(ZAP/4/0016506944949|120|r                                                                         
+  */
+
+  //set_time_limit(0);
+  require_once "phpagi.php";
+  require_once "phpagi-asmanager.php";
+
+  // BLOQUE DE CONFIGURACION
+  $contexto   = "from-internal";
+  $meetmeRoom = "9000";
+  $debug      = true;
+  // Usuario definido en /etc/asterisk/manager.conf
+  $man_user   = "intervenir";
+  $man_pass   = "abc999";
+ 
+  $agi = new AGI();
+  $asm = new AGI_AsteriskManager();
+
+  $extensionInterventor = $agi->request['agi_callerid'];
+
+  if($debug) $agi->verbose("Extension Interventor: " . $extensionInterventor); 
+ 
+  //$agi->verbose("estoy aqui");
+  $agi->answer();
+  
+  // Ingrese numero de extension que desea intervenir seguido de la tecla numeral
+  $ext_a_intervenir = $agi->get_data('conf-getchannel', 20000, 3);
+ 
+  if($debug) $agi->verbose("Extension: " . $ext_a_intervenir['result']);
+ 
+  if($asm->connect("127.0.0.1", $man_user, $man_pass)) {
+
+    $arrChannels = $asm->command("show channels");
+    
+    $arrCanalInterventor = obtenerCanal($extensionInterventor, $arrChannels);
+    $arrCanalIntervenido = obtenerCanal($ext_a_intervenir['result'], $arrChannels);
+
+    if($debug) $agi->verbose("Canal Interventor: " . $arrCanalInterventor['canal1']);
+    if($debug) $agi->verbose("Canal Intervenido 1: " . $arrCanalIntervenido['canal1']);
+    if($debug) $agi->verbose("Canal Intervenido 2: " . $arrCanalIntervenido['canal2']);
+
+    if(esCanal($arrCanalIntervenido['canal1']) and esCanal($arrCanalIntervenido['canal2']) and esCanal($arrCanalInterventor['canal1'])) {
+        //$asm->Redirect($channel, $extrachannel, $exten, $context, $priority);
+
+        // Transfiero la extension del interventor a la sala de conferencias
+        $asm->Redirect($arrCanalInterventor['canal1'], "", $meetmeRoom, $contexto, "1");
+
+        // Transfiero la llamada en curso a la sala de conferencias
+        //$asm->Redirect($arrCanalIntervenido['canal1'], $arrCanalIntervenido['canal2'], $meetmeRoom, $contexto, "1");
+        $asm->Redirect($arrCanalIntervenido['canal1'], "", $meetmeRoom, $contexto, "1");
+        $asm->Redirect($arrCanalIntervenido['canal2'], "", $meetmeRoom, $contexto, "1");
+    
+    
+    
+    } else {
+        // Deberia reproducir un mensaje diciendo algo como "la extension $ext_a_intervenir no se encuentra en conversacion"
+        if($debug) $agi->verbose("La extension " . $ext_a_intervenir['result'] . " no se encuentra en conversacion");
+    }
+
+    $asm->disconnect();
+  }
+  
+  $agi->hangup();
+
+  ////// Funciones ///////
+  
+  function obtenerCanal($extension, $arrCanales, $bLocal=false)
+  {
+      global $agi, $debug; 
+      $resultado = "";
+      $arrData = explode("\n", $arrCanales['data']);
+  
+      foreach($arrData as $linea) {
+          // $agi->verbose(">>>>>>>>>>>>>>>>> $linea");
+
+          if($bLocal==false) {
+              // Canal normal
+              if(preg_match("/^((SIP|Zap|IAX2)\/$extension-[[:alnum:]]+)[[:space:]]/", $linea, $arrReg)) {
+                  // ENCUENTRO EL CANAL 1
+                  $resultado['canal1'] = $arrReg[1];
+    
+                  // ENCUENTRO EL CANAL 2  
+                  // Si se quiere intervenir a la extension de la persona llamada
+                  if(preg_match("/Bridged Call\(((SIP|Zap|IAX2)\/[[:digit:]]+\-[[:alnum:]]+)\)", $linea, $arrReg)) {
+                      if($debug) $agi->verbose("La extension $extension se encuentra puenteada con canal convencional");
+                      $resultado['canal2'] = $arrReg[1];
+                  // Si se quiere intervenir a la extension de la persona que llamo
+                  } else if(preg_match("/Dial\((SIP|Zap|IAX2)\/([[:digit:]]+)/", $linea, $arrReg)) {
+                      if($debug) $agi->verbose("La extension $extension marco a un canal convencional");
+                      $arrCanal = obtenerCanal($arrReg[2], $arrCanales);
+                      $resultado['canal2'] = $arrCanal['canal1'];
+                  // Si es una llamada puenteada por un canal tipo "Local"
+                  } else if(preg_match("/Bridged Call\(Local\/([[:digit:]]+)@/", $linea, $arrReg)) {
+                      if($debug) $agi->verbose("La extension $extension esta puenteada a un canal Local " . $arrReg[1]);
+                      // Ahora busco ese canal local con quien esta bridged
+                      $arrCanal = obtenerCanal($arrReg[1], $arrCanales, true);
+                      $resultado['canal2'] = $arrCanal['canal1'];
+                  } else {
+                      // No se encontro a la otra persona en la llamada
+                      if($debug) $agi->verbose("No se encontro la segunda persona en la llamada");
+                  }
+              }
+          } else {
+              // Canal puenteado con "Local"
+              if($debug) $agi->verbose("Buscando canal Local para extension $extension");
+
+              if(preg_match("#^Local/$extension#", $linea, $arrReg)) {
+                  if(preg_match("/Bridged Call\(((SIP|Zap|IAX2)\/[[:digit:]]+\-[[:alnum:]]+)\)/", $linea, $arrReg)) {
+                      $resultado['canal1'] = $arrReg[1];
+                      if($debug) $agi->verbose("Canal Local encontrado: " . $arrReg[1]);
+                  }
+              }
+          }
+      }
+      return $resultado;
+  }
+  
+  function esCanal($canal)
+  {
+      global $debug;
+
+      $canal = trim($canal);
+  
+      if(preg_match("/^(SIP|Zap|IAX2)\/[[:digit:]]+\-[[:alnum:]]+$/", $canal)) {
+          return true;
+      } else {
+          return false;
+      }
+  }
+?>

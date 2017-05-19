@@ -1,0 +1,87 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Conférence",
+    "State" => "Etat",
+    "Past Conferences" => "Conférences passées",
+    "Current Conferences" => "Conférences actuelles",
+    "Future Conferences" => "Conférences futures",
+    "Conference #" => "N° de conf.",
+    "Conference Name" => "Nom de la conf.",
+    "Starts" => "Début",
+    "Ends" => "Fin",
+    "All" => "Tous",
+    "New Conference" => "Nouvelle conférence",
+    "Conference Owner" => "Propriétaire",
+    "Conference Number" => "Numéro de conf.",
+    "Moderator PIN" => "PIN modérateur",
+    "Moderator Options" => "Options modérateur",
+    "Announce" => "Annonce",
+    "Record" => "Enregistrement",
+    "User PIN" => "PIN utilisateur",
+    "Listen Only" => "Ecouter seulement",
+    "Wait for Leader" => "Attente leader",
+    "User Options" => "Options utilisateur",
+    "Start Time (PST/PDT)" => "Heure de début (PST/PDT)",
+    "Duration (HH:MM)" => "Durée (HH:MM)",
+    "Recurs" => "Récursive",
+    "Max Participants" => "Participants max.",
+    "Reoccurs" => "Récursive",
+    "for" => "pour",
+    "days" => "jours",
+    "Daily" => "Quotidien",
+    "Weekly" => "Hebdomadaire",
+    "Bi-weekly" => "Bi-hebdomadaire",
+    "Moderator and user PINs must not be equal" => "Les PINs modérateur et utilisateur ne doivent pas être identique",
+    "Are you sure you wish to delete conference (es)?" => "Étes-vous sûr de vouloir effacer la(les) conférence(s) ?",
+    "CallerId" => "Id appelant",
+    "Mute" => "Sourdine",
+    "Kick" => "Raccrocher",
+    "Are you sure you wish to Mute caller (s)?" => "Étes-vous sûr de vouloir mettre en sourdine l'(les) appelant(s)?",
+    "Are you sure you wish to Kick caller (s)?" => "Étes-vous sûr de vouloir raccrocher l'(les) appelant(s)?",
+    "Muted" => "En sourdine",
+    "UnMuted" => "Sourdine désactivée",
+    "Error when connecting to Asterisk Manager" => "Erreur en se connectant au manager Asterisk",
+    "The conference installation is almost done. To complete it please" => "L'installation de la conférence est presque terminée. Pour la finir veuillez",
+    "Kick All" => "Sortir tout le monde",
+    "Invite Caller" => "Inviter appelant",
+    "The device wasn't write" => "Le périphérique n'a pas été écrit",
+    "The device must be numeric" => "Le périphérique doit être numérique",
+    "The device couldn't be added to the conference" => "Le périphérique n'a pas pu être ajouté à la conférence",
+    "Filter" => "Filtre",
+    "Show" => "Afficher",
+    "click here" => "cliquer ici",
+    "Duration" => "Duré",
+    "Status" => "Statut",
+    "Update" => "Mise à jour",
+    "No Extensions" => "Aucune extension",
+    "Unselected" => "Désélectionné",
+);
+?>

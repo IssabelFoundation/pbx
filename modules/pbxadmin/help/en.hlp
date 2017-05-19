@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “PBX Configuration” of the Menu “PBX” lets us configure extensions, trunks, routes, dialplan, queues, IVR and so on for Issabel.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_freepbx.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+<p>In the left part, we can observe that we have different options for configuration.</p>
+
+<p>Issabel uses the free software <a href="http://www.freepbx.org">FreePBX®</a> as a tool for administration of Asterisk; for more information check out the following link:</p>
+
+<p><a href="http://www.freepbx.org/support/documentation/module-documentation">http://www.freepbx.org/support/documentation/module-documentation</a></p>
+
+<p><a href="http://www.freepbx.org">FreePBX®</a> is a Registered Trademark of <a href="http://www.sangoma.com">Sangoma Technologies</a>. For more details visit www.freepbx.org and www.sangoma.com.</p>
+
+</body>
+</html>

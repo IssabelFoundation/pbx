@@ -1,0 +1,52 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Command" => "Comando",
+    "Execute" => "Ejecutar",
+    "Result" => "Resultado",
+    "File Editor" => "Editor de archivos de Asterisk",
+    "File List" => "Nombre de archivo",
+    "File Size" => "Tamaño de archivo",
+    "Back" => "Regresar",
+    "This file doesn't have permisses to read" => "Este archivo no tiene permisos de lectura",
+    "This file doesn't have permisses to write" => "Este archivo no tiene permisos de escritura",
+    "The changes was saved in the file" => "Los cambios han sido guardados en el archivo.",
+    "Doesn't have permisses to read" => "no tiene permisos de lectura",
+    "This is not a valid directory" => "No es un directorio válido",
+    "Please write the file name" => "Por favor escriba el nombre del archivo",
+    "New File" => "Nuevo Archivo",
+    "File already exist" => "El archivo ya existe",
+    "File" => "Archivo",
+    "Filter" => "Filtrar",
+    "Reload Asterisk" => "Recargar Asterisk",
+    "Asterisk has been reloaded" => "Asterisk ha sido recargado",
+    "Error when connecting to Asterisk Manager" => "Ocurrió un error al intentar conectarse con Asterisk",
+);
+?>

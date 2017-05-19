@@ -1,0 +1,64 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Option" => "Опция",
+    "Unembedded FreePBX®" => "Невстроенный FreePBX®",
+    "Basic" => "Основное",
+    "Extensions" => "Внутренние номера",
+    "Feature Codes" => "Сервисные Коды",
+    "General Settings" => "Общие Настройки",
+    "Outbound Routes" => "Исходящие Маршруты",
+    "Trunks" => "Транки",
+    "Inbound Call Control" => "Управление Входящими Вызовами",
+    "Inbound Routes" => "Входящие Маршруты",
+    "Announcements" => "Приветствия",
+    "Blacklist" => "Чёрный список",
+    "CallerID Lookup Sources" => "Источники CallerID",
+    "Follow Me" => "Следуй за Мной",
+    "Misc Destinations" => "Доп. Направления",
+    "Queue Priorities" => "Приоритеты Очередей",
+    "Queues" => "Очереди",
+    "Ring Groups" => "Группы Вызовов",
+    "Time Conditions" => "Временные Правила",
+    "Time Groups" => "Временные Группы",
+    "Internal Options & Configuration" => "Внутренние Опции и Настройки",
+    "Conferences" => "Конференции",
+    "Languages" => "Языки",
+    "Misc Applications" => "Доп. Приложения",
+    "Music on Hold" => "Музыка на Удержании",
+    "PIN Sets" => "Списки PIN-кодов",
+    "Paging and Intercom" => "Пейджинг и Интерком",
+    "Parking Lot" => "Парковка",
+    "System Recordings" => "Записи в Системе",
+    "Remote Access" => "Удалённый Доступ",
+    "Callback" => "Обратный Вызов",
+    " is a register trademark of " => "является зарегистрированной торговой маркой компании",
+);
+?>

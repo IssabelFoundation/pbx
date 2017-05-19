@@ -1,0 +1,66 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 1.0                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Option" => "Option",
+"Unembedded FreePBX®" => "Unembedded FreePBX®",
+"Basic" => "Basic",
+"Extensions" => "Extensions",
+"Feature Codes" => "Feature Codes",
+"General Settings" => "General Settings",
+"Outbound Routes" => "Outbound Routes",
+"Trunks" => "Trunks",
+"Inbound Call Control" => "Inbound Call Control",
+"Inbound Routes" => "Inbound Routes",
+"Announcements" => "Announcements",
+"Follow Me" => "Follow Me",
+"IVR" => "IVR",
+"Misc Destinations" => "Misc Destinations",
+"Queues" => "Queues",
+"Ring Groups" => "Ring Groups",
+"Time Conditions" => "Time Conditions",
+"Internal Options & Configuration" => "Internal Options & Configuration",
+"Conferences" => "Conferences",
+"Misc Applications" => "Misc Applications",
+"Music on Hold" => "Music on Hold",
+"PIN Sets" => "PIN Sets",
+"Paging and Intercom" => "Paging and Intercom",
+"Parking Lot" => "Parking Lot",
+"System Recordings" => "System Recordings",
+"Remote Access" => "Remote Access",
+"Callback" => "Callback",
+"DISA" => "DISA",
+"Warning: Updating FreePBX® through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update freePBX\"." => "Warning: Updating FreePBX® through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. <br />FreePBX® is a Registered Trademark of Sangoma Technologies. For more details visit www.freepbx.org and www.sangoma.com. To avoid conflicts with Issabel, it is always recommended to search/install updates only through the linux command \"yum update freePBX\".",
+"PBX Configuration" => "PBX Configuration",
+" is a register trademark of " => "is a register trademark of"
+);
+?>

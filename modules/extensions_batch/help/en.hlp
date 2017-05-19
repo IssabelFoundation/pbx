@@ -1,0 +1,99 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option "Batch of Extensions" from the menu "PBX" in Issabel allows creating extensions from a CSV file. Also you can download a CSV file with all the extensions that are currently configured in Issabel Server. This makes it easy the migration of data.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+<p>To download a CSV file with all the extensions created in Issabel, click on the "Download" link and save the file into your local hard drive.</p>
+
+<p>To upload a CSV with the extensions you want to create, click on "Examine" button, select the CSV file and click on "Upload CSV File" button.</p>
+
+<p><b>Make sure the following indications are taken into account:</b></p>
+<p>
+    <ul>
+        <li>Duplicated extensions are not allowed.</li>
+        <li>The first line of the CSV file must contain the headers of the columns.</li>
+        <li>The file must have at minimum four columns.</li>
+        <li>This type of file can be created and opened with any text editor or spreadsheets such as Open Office Calc, Excel, etc.</li>
+        <li>The separator of the columns is the comma.</li>
+    </ul>
+</p>
+<br />
+<p>The four mandatory parameters are the following:</p>
+
+<table class="inline">
+  <tr>
+    <th>Header</th><th>Type of data</th>
+  </tr>
+  <tr>
+    <td>Display Name</td><td>Text</td>
+  </tr>
+  <tr>
+    <td>User Extension</td><td>Number</td>
+  </tr>
+  <tr>
+    <td>Secret</td><td>Text</td>
+  </tr>
+  <tr>
+    <td>Tech</td><td>Text</td>
+  </tr>
+</table>
+
+<p>These parameters are also supported in the CSV file:</p>
+<table class="inline">
+  <th colspan="2">Parameters</th>  
+  <tr>
+    <td>Direct DID</td><td>Call Waiting</td>
+  </tr>
+  <tr>
+    <td>Voicemail Status</td><td>Voicemail Password</td>
+  </tr>
+  <tr>
+    <td>VM Options</td><td>Outbound CID</td>
+  </tr>
+  <tr>
+    <td>VM Email Address</td><td>VM Pager Email Address</td>
+  </tr>
+  <tr>
+    <td>VM Email Attachment</td><td>VM Play CID</td>
+  </tr>
+  <tr>
+    <td>VM Play Envelope</td><td>VM Delete Vmail</td>
+  </tr>
+  <tr>
+    <td>Context</td><td>Callgroup</td>
+  </tr>
+  <tr>
+    <td>Pickupgroup</td><td>Disallow</td>
+  </tr>
+  <tr>
+    <td>Allow</td><td>Deny</td>
+  </tr>
+  <tr>
+    <td>Permit</td><td>Record Incoming</td>
+  </tr>
+  <tr>
+    <td>Record Outgoing</td><td></td>
+  </tr>
+</table>
+<br />
+<p>Below an example of a CSV file opened with a simple text editor.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_csv.png" border="0" />
+<p>Figure 2</p></div>
+<br />
+
+<p>The same file opened with a spreadsheet:</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_calc.png" border="0" />
+<p>Figure 3</p></div>
+<br />
+
+</body>
+</html>

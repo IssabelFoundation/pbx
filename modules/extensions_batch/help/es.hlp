@@ -1,0 +1,99 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>La opción "Lote de Extensiones" del menú "PBX" en Issabel permite crear extensiones mediante la carga de un archivo CSV. También usted puede descargar un archivo con todas las extensiones existentes en el servidor Issabel. Esto hace muy fácil la migración de datos.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_extensions_batch.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Para descargar un archivo con todas las extensiones existentes usted debe hacer click en el enlace "Descargar las extensiones actuales en formato CSV" y guardar el archivo en su disco duro local.</p>
+
+<p>Para cargar un archivo con las extensiones que desea crear haga click en el botón "Examinar" y seleccione el archivo. Luego haga click en el botón "Cargar archivo CSV".</p>
+
+<p><b>Se deben tomar en cuenta las siguientes indicaciones:</b></p>
+<p>
+    <ul>
+        <li>Las extensiones duplicadas no son tomadas en cuenta.</li>
+        <li>La primera línea del archivo CSV debe contener el nombre de las columnas.</li>
+        <li>El archivo debe contener como mínimo las cuatro columnas especificadas anteriormente.</li>
+        <li>Este tipo de archivo puede ser creado y abierto con cualquier editor de texto u hoja de cálculo como por ejemplo OpenOffice Calc, Excel, etc.</li>
+        <li>El separador de las columnas debe ser la coma (,).</li>
+    </ul>
+</p>
+<br />
+<p>A continuación se muestran las columnas obligatorias para cargar el archivo CSV:</p>
+
+<table class="inline">
+  <tr>
+    <th>Nombre</th><th>Tipo de datos</th>
+  </tr>
+  <tr>
+    <td>Display Name</td><td>Texto</td>
+  </tr>
+  <tr>
+    <td>User Extension</td><td>Numérico</td>
+  </tr>
+  <tr>
+    <td>Secret</td><td>Texto</td>
+  </tr>
+  <tr>
+    <td>Tech</td><td>Texto</td>
+  </tr>
+</table>
+
+<p>Los siguientes campos también son soportados:</p>
+<table class="inline">
+  <th colspan="2">Parámetros</th>  
+  <tr>
+    <td>Direct DID</td><td>Call Waiting</td>
+  </tr>
+  <tr>
+    <td>Voicemail Status</td><td>Voicemail Password</td>
+  </tr>
+  <tr>
+    <td>VM Options</td><td>Outbound CID</td>
+  </tr>
+  <tr>
+    <td>VM Email Address</td><td>VM Pager Email Address</td>
+  </tr>
+  <tr>
+    <td>VM Email Attachment</td><td>VM Play CID</td>
+  </tr>
+  <tr>
+    <td>VM Play Envelope</td><td>VM Delete Vmail</td>
+  </tr>
+  <tr>
+    <td>Context</td><td>Callgroup</td>
+  </tr>
+  <tr>
+    <td>Pickupgroup</td><td>Disallow</td>
+  </tr>
+  <tr>
+    <td>Allow</td><td>Deny</td>
+  </tr>
+  <tr>
+    <td>Permit</td><td>Record Incoming</td>
+  </tr>
+  <tr>
+    <td>Record Outgoing</td><td></td>
+  </tr>
+</table>
+<br />
+<p>A continuación un ejemplo de un archivo CSV listo para ser cargado abierto con un editor de texto.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_extensions_batch_csv.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+
+<p>El mismo archivo abierto como hoja de cálculo:</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_extensions_batch_calc.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+#!/usr/bin/php -q
+<?php
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.4-28                                               |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: hangup.agi,v 1.1 2012-08-21 05:07:46 Alberto Santos asantos@palosanto.com Exp $ */
+
+/*********************************************************************************
+  This agi script will be executed every time a call is finished (hangup).
+  It will check for any executable script at /usr/local/elastix/addons_scripts
+  the folder addons_scripts does not exist by default it must be created by the
+  package or development that need it.
+  
+  The executable script will receive all the parameters of the call (asterisk),
+  for example:
+
+  /usr/local/elastix/addons_scripts/name_script  --uniqueid '1371156228.45' 
+  --answer '2013-06-13 15:43:48' --src '301' --dst '1234' --billsec '3'
+  --dstchannel '' --disposition 'ANSWERED' --accountcode '' 
+  --channel 'SIP/301-0000002d' --dial_trunk ''
+
+  Then the script can handle the parameters and do the tasks it has to do.
+
+  Here is an example about an script in /usr/local/elastix/addons_scripts
+  it must have executable permissions and root must be the owner and the group
+  it belongs.
+
+*******************EXAMPLE**********************
+  #!/usr/bin/php
+  <?php
+
+	require_once 'Console/Getopt.php';
+
+	// Parse command-line options
+	$opt = Console_Getopt::getopt($argv, '', array(
+	    'uniqueid=',
+	    'answer=',
+	    'source=',
+	    'destination=',
+	    'billsec=',
+	    'dstchannel=',
+	    'disposition=',
+	    'accountcode=',
+	    'channel=',
+	    'dial_trunk=',
+	));
+	if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+
+	$uniqueid = "";
+	$billsec = "";
+
+	foreach($opt[0] as $options){
+        	if($options[0] == "--uniqueid")
+                	$uniqueid = $options[1];
+	        elseif($options[0] == "--billsec")
+        	        $billsec = $options[1];
+	}
+
+	//Do something with variables needed... in this case $uniqueid and $billsec
+
+	exit(0);
+
+	function error_exit($sMsg, $errorcode = 1)
+	{
+	    fwrite(STDERR, $sMsg);
+	    exit($errorcode);
+	}
+
+  ?>
+ 
+*********************************************************************************/
+
+
+define("ADDONS_SCRIPTS_DIR","/usr/local/elastix/addons_scripts");
+
+require_once "phpagi.php";
+
+$AGI = new AGI();
+
+//The array $arrVariable contains all the necessary asterisk variables for addons scripts
+/******************************************************************/
+$arrVariables = array();
+$arrVariables["uniqueid"] 	= get_var($AGI,"CDR(uniqueid)");
+$arrVariables["answer"] 	= get_var($AGI,"CDR(answer)");
+$arrVariables["source"] 	= get_var($AGI,"CDR(src)");
+$arrVariables["destination"]	= get_var($AGI,"CDR(dst)");
+$arrVariables["billsec"] 	= get_var($AGI,"CDR(billsec)");
+$arrVariables["dstchannel"] 	= get_var($AGI,"CDR(dstchannel)");
+$arrVariables["disposition"] 	= get_var($AGI,"CDR(disposition)");
+$arrVariables["accountcode"] 	= get_var($AGI,"CDR(accountcode)");
+$arrVariables["channel"]	= get_var($AGI,"CDR(channel)");
+$arrVariables["dial_trunk"] 	= get_var($AGI,"DIAL_TRUNK");
+/******************************************************************/
+
+if(is_dir(ADDONS_SCRIPTS_DIR)){
+	$arrScripts = scandir(ADDONS_SCRIPTS_DIR);
+	if(is_array($arrScripts) && count($arrScripts)>0){
+		foreach($arrScripts as $script){
+		    if($script[strlen($script)-1]!="~" && $script!="." && $script!=".." && is_executable(ADDONS_SCRIPTS_DIR."/".$script)){
+			$infoScript = @stat(ADDONS_SCRIPTS_DIR."/".$script);
+			if(!is_executable(ADDONS_SCRIPTS_DIR."/".$script)) error("The addon script ".ADDONS_SCRIPTS_DIR."/".$script." must be executable");
+			elseif(!is_array($infoScript)) error("The addon script ".ADDONS_SCRIPTS_DIR."/".$script." does not exist!\n");
+			elseif ($infoScript[4] != 0) error("The addon script ".ADDONS_SCRIPTS_DIR."/".$script." has invalid owner (should be root)!\n");
+			elseif ($infoScript[5] != 0) error("The addon script ".ADDONS_SCRIPTS_DIR."/".$script." has invalid group (should be root)!\n");
+			else{
+				$parameters = "";
+				foreach($arrVariables as $key => $value){
+					if(empty($value))
+						$parameters .= " --$key ''";
+					else
+						$parameters .= " --$key ".escapeshellarg($value);
+				}
+				/*
+				  Now we proceed to call to the script with all the parameters as the following example:
+
+				  /usr/local/elastix/addons_scripts/name_script  --uniqueid '1371156228.45' --answer '2013-06-13 15:43:48' --src '301' --dst '1234' --billsec '3' --dstchannel '' --disposition 'ANSWERED' --accountcode '' --channel 'SIP/301-0000002d' --dial_trunk ''
+
+				*/
+
+				exec(ADDONS_SCRIPTS_DIR."/".$script.$parameters,$output,$ret);
+				if($ret != 0) error("The addon script ".ADDONS_SCRIPTS_DIR."/".$script." could not be executed successfully");
+			}
+		    }
+		}
+	}	
+}
+
+exit(0);
+
+// helper functions
+function get_var( $agi, $value) {
+	$r = $agi->get_variable( $value );
+
+        if ($r['result'] == 1) {
+                $result = $r['data'];
+                return $result;
+        }
+        return '';
+}
+
+function error($sMsg)
+{
+    fwrite(STDERR, $sMsg);
+}
+?>

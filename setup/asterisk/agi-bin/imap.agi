@@ -1,0 +1,858 @@
+#!/usr/bin/perl
+
+############################################################################
+# imap.agi - v0.1 - September 10, 2005                                     #
+#                                                                          #
+#   (c) Copyright 2005, theKid Enterprises, LLC                            #
+#                                                                          #
+# This code is released under the GNU Public License                       #
+#                                                                          #
+############################################################################
+# This script implements a simple Asterisk-to-IMAP interface, allowing the #
+# user to check their e-mail via telephone.  Replies are not currently     #
+# supported, nor are folders outside of the standard INBOX.                #
+#                                                                          #
+#  Menus:                                                                  #
+#                                                                          #
+#     Main Menu:                                                           #
+#      1:  Listen to new messages                                          #
+#      2:  Listen to all messages                                          #
+#      3:  Play a specific message                                         #
+#       #:  Hangup                                                         #
+#                                                                          #
+#     List Menu:                                                           #
+#      3:  Restart current message hdr                                     #
+#      4:  Previous message hdr                                            #
+#      5:  Play message body                                               #
+#      6:  Next message hdr                                                #
+#      7:  Delete message                                                  #
+#      *:  Return to prev menu                                             #
+#      #:  Hangup                                                          #
+#                                                                          #
+#     Messge Body:                                                         #
+#      3:  Go back to message hdr                                          #
+#      4:  Previous message hdr                                            #
+#      5:  Play message body                                               #
+#      6:  Next message hdr                                                #
+#      7:  Delete message                                                  #
+#      9:  Mark message as unread                                          #
+#      *:  Return to prev menu                                             #
+#      #:  Hangup                                                          #
+#                                                                          #
+#     Play selected message:                                               #
+#      3:  Repeat message header  (returns to List Menu)                   #
+#      5:  Repeat message body                                             #
+#      7:  Delete Message                                                  #
+#      9:  Mark message as unread                                          #
+#      *:  Return to prev menu                                             #
+#      #:  Hangup                                                          #
+#                                                                          #
+############################################################################
+
+############################################################################
+# NOTEs:                                                                   #
+#                                                                          #
+# Before executing this script, edit the variables at the beginning (below)#
+# to ensure that the values are correct for your system.                   #
+#                                                                          #
+# $DEBUG - Writes info to the Asterisk log if non-zero                     #
+# $T2WP - Location of text2wave, from Festival                             #
+# $SOUNDDIR - Location of Asterisk sound files                             #
+# $SOUNDTMP - Location of temporary/generated sound-from-text files        #
+#                                                                          #
+# Note that if $DEBUG is true, the 'Peek' flag is set on the IMAP server,  #
+# meaning that messages will not be marked as 'Seen'.  Otherwise, listening#
+# to a msg body WILL set the 'Seen' flag (listening to headers will not).  #
+#                                                                          #
+# -------------------------------------------------------------------------#
+# This script MUST be passed the IMAP Server as well as the Username and   #
+# password for that server (via the command line).  This is, after all,    #
+# a demo. ;)                                                               #
+#                                                                          #
+# An extension line might look like this:                                  #
+#                                                                          #
+# *99,2,AGI(imap.agi|user&password&servername)                             #
+#                                                                          #
+# -------------------------------------------------------------------------#
+# Many of the phrases used in this script are not available pre-recorded.  #
+# Switching in-and-out of Festival can be somewhat disconcerting, and can  #
+# apparently cause 'dead' spots, during which any key presses are ignored. #
+#                                                                          #
+# -------------------------------------------------------------------------#
+# Converting the message to an audio file takes far too long, at least on  #
+# my wimpy Asterisk server.  This is only a problem when playing a message #
+# body; hence the 'one moment, plase' prompt.                              #
+#                                                                          #
+# -------------------------------------------------------------------------#
+#                                                                          #
+# Finally, this script contains no message filtering of any kind.  Good    #
+# candidates would be e.g. drop any 'quoted' text in the message, strip    #
+# HTML from broken MIME messages, better handling of multi-part MIME, etc. #
+#                                                                          #
+############################################################################
+
+use Asterisk::AGI;
+use File::Basename;
+use Mail::IMAPClient;
+use MIME::Parser;
+use Digest::MD5 qw(md5_hex);
+use POSIX;
+
+my $DEBUG    = 1;
+my $T2WP     = "/usr/bin/";            # path to text2wave(1) binary
+my $SOUNDDIR = '/var/lib/asterisk/sounds';
+my $SOUNDTMP = $SOUNDDIR . '/tts';
+
+my $ZERO =   ord('0');                 # ASCII codes?
+my $ONE =    ord('1');                 # Give me a break!
+my $TWO =    ord('2');
+my $THREE =  ord('3');
+my $FOUR =   ord('4');
+my $FIVE =   ord('5');
+my $SIX =    ord('6');
+my $SEVEN =  ord('7');
+my $EIGHT =  ord('8');
+my $NINE =   ord('9');
+my $STAR =   ord('*');
+my $POUND =  ord('#');
+
+my $MAINKEYS = '123#';                 # keys recognized by main menu
+my $LISTKEYS = '34567*#';              # keys recognized by list menu
+my $BODYKEYS = '345679*#';             # .. by play msg body
+my $AMSGKEYS = '3579*#';               # .. when playing a selected msg
+
+my %MONTHV = ( Jan => 0, Feb => 1,  'Mar' => 2,
+               Apr => 3, May => 4,  'Jun' => 5,
+              Jul => 6, Aug => 7,  'Sep' => 8,
+              Oct => 9, Nov => 10, 'Dec' => 11  );
+
+my @MONTHN = ( 'January', 'February', 'March', 'April', 'May', 'June',
+               'July', 'August', 'September', 'October', 'November', 'December');
+
+my @DAYN   = ( 'Sunday', 'Monday', 'Tuesday',
+               'Wednesday', 'Thursday', 'Friday', 'Saturday');
+
+my $ONEDAY = (60 * 60) * 24;
+
+#-----------------------------------------------------------------------------
+# Notes:  must call with username, password, imap server                    #
+#-----------------------------------------------------------------------------
+
+die "Usage: $0 user&pass&server" if ($#ARGV != 0);
+
+my @auth = split('&', $ARGV0);
+die "Usage: $0 user&pass&server" if ($#auth != 2);
+
+my $AGI  = new Asterisk::AGI;
+my %input = $AGI->ReadParse();
+
+$AGI->setcallback(\&myExit);           # Hangup/Error detection
+
+my $IMAP = Mail::IMAPClient->new(
+           User    => $auth0,
+           Password => $auth1,
+           Server  => $auth2);
+
+if (! $IMAP->login)
+  {
+  $AGI->verbose("Unable to login ($auth0)") if ($DEBUG);
+  #$AGI->stream_file('?????', '""');
+  play_text("Sorry, I could not login to the IMAP server!");
+  myExit("Unable to login ($auth0)");
+  }
+
+if ( ! $IMAP->select("INBOX"))
+  {
+  $AGI->verbose("Unable to select INBOX", 1) if ($DEBUG);
+  #$AGI->stream_file('?????', '""');
+  play_text("Sorry, I could not find your inbox!");
+  myExit("Unable to select Inbox");
+  }
+
+$IMAP->Peek(1) if ($DEBUG);
+
+my %newMSGs;
+
+my $newmsgcnt = 0;
+my @seen   = $IMAP->seen;
+my @all    = $IMAP->messages;
+my $msgcnt = $#all;
+
+%hseen = ();
+foreach $_ (@seen)
+  {
+  $hseen{$_} = 1;
+  }
+
+foreach $msg (@all)
+  {
+  if ( ! exists($hseen{$msg}))
+    {
+    $newMSGs{$msg} = 1;
+    $newmsgcnt++;
+    }
+  }
+
+my $key = $AGI->stream_file('vm-youhave', $MAINKEYS);
+
+if ($newmsgcnt == 0)
+  {
+  $key = $AGI->stream_file('no', $MAINKEYS) if ($key == 0);
+  }
+else
+  {
+  $key = $AGI->say_number($newmsgcnt, $MAINKEYS) if ($key == 0);
+  }
+
+$key = $AGI->stream_file('new', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file((($newmsgcnt == 1) ? 'vm-message' : 'vm-messages'), $MAINKEYS) if ($key == 0);
+
+sleep(1) if ($key == 0);
+
+main_menu($key);  # Never returns..
+myExit("Mission Improbable!");
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub find_a_msg
+#                                                                          #
+# User wants to read a single message by #; find out what number!          #
+#                                                                          #
+{
+my $number ="";
+
+#my $key = $AGI->stream_file('?????', "0123456789#*") if ($key == 0);
+my $key = play_text("Enter the message number, followed by the pound sign", "0123456789#*");
+
+while ($key != $POUND)
+  {
+  return(0) if ($key == $STAR);
+  last      if ($key == $POUND);
+
+  $number .= $key if ($key != 0);
+  $AGI->wait_for_digit(7);
+
+  if (($number eq "") && ($key == 0))
+    {
+    #$key = $AGI->stream_file('?????', "0123456789#*") if ($key == 0);
+    $key = play_text("Enter the message number, followed by the pound sign", "0123456789#*");
+    }
+  else
+    {
+    #$key = $AGI->stream_file('?????', "0123456789#*") if ($key == 0);
+    $key = play_text("You must end with the pound sign.  Push the star key to abort.");
+    }
+  }
+
+if ( ! $IMAP->get_header($number, 'Date'))
+  {
+  #$key = $AGI->stream_file('?????', '""');
+  play_text("Sorry, message number " . $number . " could not be located.");
+  sleep(1);
+  return(0);
+  }
+
+$key = play_number_header($number, 0, $AMSGKEYS);
+$key = play_number_body2($number, $key);
+return(0);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub hangup
+#                                                                           #
+# User hit '#', end the session.                                            #
+#                                                                           #
+{
+$AGI->stream_file('goodbye', '""');
+$AGI->hangup();
+myExit();
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub list_messages
+#                                                                          #
+# Sequentially play each new message (newest first)                        #
+#                                                                          #
+{
+my ($new) = @_;                                # are we considering only 'unseen'?
+my $key = 0;
+
+if (($new) && ($newmsgcnt < 1))
+  {
+  $key = $AGI->stream_file('vm-youhave', $MAINKEYS);
+  $key = $AGI->stream_file('no', $MAINKEYS) if ($key == 0);
+  $key = $AGI->stream_file('new', $MAINKEYS) if ($key == 0);
+  $key = $AGI->stream_file('vm-messages', $MAINKEYS) if ($key == 0);
+  return($key);
+  }
+
+for ($i=$msgcnt; $i >=0; $i--)
+  {
+  $msg = $all$i;
+
+  next if (($new) && (! defined $newMSGs{$msg}));
+
+  # Note that "$key < 0" below does NOT imply 'hungup or error'.
+  # Rather, it's part of a kludge to pass keys through from the submenu
+
+  $key = play_msg_header($msg, $new, $LISTKEYS) unless ($key < 0);
+
+  $key = 0 - $key if ($key < 0) ;
+  $key = 0 if ($key == $EIGHT);                # kludge to skip hdr on return from body
+
+  while ($key == 0)
+    {
+    $key = play_list_menu();
+    $key = $AGI->wait_for_digit(10) if ($key == 0);
+    }
+
+  if ($key != 0)
+    {
+    if ($key == $THREE)                        # Repeat current hdr
+      {
+      $i++; next;                      # (Loop offsets increment)
+      }
+    elsif ($key == $FOUR)              # Play prev (newer) message
+      {
+      my $newmsg = -1;
+                                       # this is fairly ugly...
+      if ($i < $msgcnt)
+        {
+        if ($new)                      # (find prev 'new' message)
+          {
+         for $j ($i+1 .. $msgcnt)
+           {
+           if (defined $newMSGs{$all$j})
+             {
+             $newmsg = $j;
+             last;
+             }
+           }
+         }
+        else                           # (or select prev 'any' message)
+          {
+         $newmsg = $i + 1;
+          }
+       }
+
+      if ($newmsg < 0)
+        {
+       $key = $AGI->stream_file('vm-nomore', $LISTKEYS);
+       }
+      else
+        {
+       $i = $newmsg + 1;               # (account for loop decrement)
+       next;
+       }
+      }
+    elsif ($key == $FIVE)              # Play message body for this message
+      {
+      $key = play_msg_body($msg);
+
+      if ($key != $THREE)              # (key passthrough kludge)
+         {
+         $key = ($key > 0) ? (0 - $key) : (0 - $EIGHT);
+        }
+      next;
+      }
+    elsif ($key == $SIX)               # Play next (older) message
+      {
+      my $newmsg = -1;
+
+      if ($i > 0)
+        {
+        if ($new)                      # (find next 'new' message)
+          {
+          for ($j = $i-1; $j >= 0; $j--)
+           {
+           if (defined $newMSGs{$all$j})
+             {
+             $newmsg = $j;
+             last;
+             }
+           }
+         }
+       else
+          {
+          $newmsg = $i - 1;
+         }
+       }
+
+      if ($newmsg < 0)
+        {
+       $key = $AGI->stream_file('vm-nomore', $LISTKEYS);
+       }
+      else
+        {
+       $i = $newmsg + 1;               # (account for loop decrement)
+       next;
+       }
+      }
+    elsif ($key == $SEVEN)             # Delete message
+      {
+      my @m = ($msg);
+      my $c = $IMAP->delete_message(@m);
+      if (($DEBUG) && ($c != 1))
+        {
+       $AGI->verbose("delete_messge returned: " . $c, 1) if ($DEBUG);
+       }
+      $IMAP->stream_file('vm-deleted', '""');
+      }
+    elsif ($key == $STAR) { return(0); }
+    elsif ($key == $POUND) { hangup(); }
+    else
+      {
+      $AGI->verbose('PANIC #1 - ' . $key . '!!!',  1) if ($DEBUG);
+      $key = 0;
+      }
+    }
+  }
+
+return(0);             # non-executable?
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub main_menu
+#                                                                          #
+# Play and interpret the main menu                                         #
+#                                                                          #
+{
+my ($key) = @_;
+
+while (1)
+  {
+  while ($key == 0)
+    {
+    $key = play_main_menu();
+    $key = $AGI->wait_for_digit(10) if ($key == 0);
+    }
+
+  if ($key == $ONE)      { $key = list_messages(1); }
+  elsif ($key == $TWO)   { $key = list_messages(0); }
+  elsif ($key == $THREE) { $key = find_a_msg(); }
+  elsif ($key == $POUND)
+    {
+    hangup();
+    }
+  else
+   {
+   $AGI->verbose('PANIC #0 - ' . $key . '!!!',  1) if ($DEBUG);
+   $key = 0;
+   }
+  # Note: INVALID keys are not passed through from stream_file()
+  }
+
+# Only exits via hangup() option
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub myExit
+#                                                                          #
+# Terminate w/ cleanup                                                     #
+#                                                                          #
+{
+($msg) = @_;
+
+$IMAP->close;
+
+if ($msg != '')
+  {
+  $AGI->verbose("Exited: " . $msg) if ($DEBUG);
+  die $msg;
+  }
+exit;
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub parse_message_text
+#                                                                          #
+# Find something in the message we can 'read' to the user                  #
+#                                                                          #
+{
+my ($msgtxt) = @_;
+
+my $newtxt = '';
+my $parser =  new MIME::Parser;
+
+$parser->output_under('/tmp');
+$parser->decode_headers(1);
+$parser->extract_nested_messages(0);
+$parser->ignore_errors(1);
+
+my $entity = $parser->parse_data($msgtxt);
+
+if ($entity->bodyhandle)
+  {
+  $newtxt = $entity->bodyhandle->as_string;
+  }
+elsif ($entity->parts > -1)
+  {
+  $newtxt = $entity->parts(0);
+  }
+else
+  {
+  $newtxt = "Unable to parse message text!";
+  }
+
+return($newtxt);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_list_menu
+#                                                                          #
+# Play the 'listing messages' menu                                         #
+#                                                                          #
+{
+my $key = $AGI->stream_file('vm-press', $LISTKEYS);
+$key = $AGI->stream_file('digits/3', $LISTKEYS) if ($key == 0);
+$key = $AGI->stream_file('to-hear-msg-envelope', $LISTKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-prev', $LISTKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $LISTKEYS) if ($key == 0);
+$key = $AGI->stream_file('digits/5', $LISTKEYS) if ($key == 0);
+$key = $AGI->stream_file('to-listen-to-it', $LISTKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-next', $LISTKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-starmain', $LISTKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('to-hang-up', $LISTKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-press', $LISTKEYS) if ($key == 0);
+$key = $AGI->stream_file('pound', $LISTKEYS) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_main_menu
+#                                                                          #
+# Play the 'main' menu                                                     #
+#                                                                          #
+{
+my $key = $AGI->stream_file('vm-onefor', $MAINKEYS) if ($key == 0);
+#$key = $AGI->stream_file('?????', $MAINKEYS) if ($key == 0);
+$key = play_text("a list of new messages.", $MAINKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('digits/2', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('for', $MAINKEYS) if ($key == 0);
+#$key = $AGI->stream_file('?????', $MAINKEYS) if ($key == 0);
+$key = play_text("a list of all messages.", $MAINKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('digits/3', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('for', $MAINKEYS) if ($key == 0);
+#$key = $AGI->stream_file('?????', $MAINKEYS) if ($key == 0);
+$key = play_text("a specific message", $MAINKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('to-hang-up', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-press', $MAINKEYS) if ($key == 0);
+$key = $AGI->stream_file('pound', $MAINKEYS) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_body
+#                                                                          #
+# Plays just the mesesage body                                             #
+#                                                                          #
+{
+my ($msg) = @_;
+my $key;
+
+$key = play_msg_body_content($msg, $BODYKEYS);
+
+while (1)
+  {
+  while ($key == 0)
+    {
+    $key = play_msg_body_menu();
+    $key = $AGI->wait_for_digit(10) if ($key == 0);
+    }
+
+  if (($key == $THREE) || ($key == $FOUR) || ($key == $SIX) || ($key == $SEVEN))
+    {
+    return($key);
+    }
+  elsif ($key == $FIVE)
+    {
+    $key = play_msg_body_content($msg, $BODYKEYS);
+    next;
+    }
+  elsif ($key == $NINE)
+    {
+    my @m = ($msg);
+    $IMAP->unset_flag("Seen", @m);
+    $IMAP->stream_file('vm-saved', '""');
+    }
+  elsif ($key == $STAR)
+    {
+    return(0);
+    }
+  elsif ($key == $POUND)
+    {
+    hangup();
+    }
+  else
+    {
+    $AGI->verbose('PANIC #2 - ' . $key . '!!!',  1) if ($DEBUG);
+    $key = 0;
+    }
+  }
+
+# Only returns via $STAR option
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_body2
+#                                                                          #
+# Plays just the mesesage body (for a specific message)                    #
+#                                                                          #
+{
+my ($msg, $key) = @_;
+
+$key = play_msg_body_content($msg, $AMSGKEYS) if ($key == 0);
+
+while (1)
+  {
+  while ($key == 0)
+    {
+    $key = play_msg_body_menu2();
+    $key = $AGI->wait_for_digit(10) if ($key == 0);
+    }
+
+  if ($key == $THREE)
+    {
+    $key = play_msg_header($msg, 0, $AMSGKEYS);
+    }
+  elsif ($key == $FIVE)
+    {
+    $key = play_msg_body_content($msg, $AMSGKEYS);
+    }
+  elsif ($key == $SEVEN)
+    {
+    my @m = ($msg);
+    $IMAP->delete_message(@m);
+    $IMAP->stream_file('vm-deleted', '""');
+    $key = 0;
+    }
+  elsif ($key == $NINE)
+    {
+    my @m = ($msg);
+    $IMAP->unset_flag("Seen", @m);
+    $IMAP->stream_file('vm-saved', '""');
+    $key = 0;
+    }
+  elsif ($key == $STAR)
+    {
+    return(0);
+    }
+  elsif ($key == $POUND)
+    {
+    hangup();
+    }
+  else
+    {
+    $AGI->verbose('PANIC #3 - ' . $key . '!!!',  1) if ($DEBUG);
+    $key = 0;
+    }
+  }
+
+# Only returns via $STAR option
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_body_content
+#                                                                          #
+# Plays the actual text of the selected message body                       #
+#                                                                          #
+{
+my ($msg, $listenfor) = @_;
+
+my $msgtxt;
+
+$msgtxt = $IMAP->message_string($msg) or $msgtxt = "^";
+
+if ($msgtxt eq "^")
+  {
+  $IMAP->verbose("Unable to find msg text (" . $! . ")", 1) if ($DEBUG);
+  $msgtxt = "Unable to find message text!";
+  }
+elsif ($msgtxt eq "")
+  {
+  $IMAP->verbose("Empty message", 4) if ($DEBUG);
+  $msgtxt = "Message has no text!";
+  }
+else
+  {
+  $key = $AGI->stream_file('one-moment-please', $listenfor);
+  $msgtxt = parse_message_text($msgtxt);
+  }
+
+$key = play_text($msgtxt, $listenfor) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_body_menu
+#                                                                          #
+# Play the menu while viewing the msg body                                 #
+#                                                                          #
+{
+my $key = $AGI->stream_file('vm-repeat', $BODYKEYS);
+
+$key = $AGI->stream_file('vm-delete', $AMSGKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('digits/9', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('to', $BODYKEYS) if ($key == 0);
+#$key = $AGI->stream_file('?????', $BODYKEYS) if ($key == 0);
+$key = play_text("mark message as unread", $BODYKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-star', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-for', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('list', $BODYKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('to-hang-up', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-press', $BODYKEYS) if ($key == 0);
+$key = $AGI->stream_file('pound', $BODYKEYS) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_body_menu2
+#                                                                          #
+# Play the menu while viewing the msg body (selected msg context)          #
+#                                                                          #
+{
+my $key = $AGI->stream_file('vm-press', $AMSGKEYS);
+$key = $AGI->stream_file('digits/3', $AMSGKEYS) if ($key == 0);
+$key = $AGI->stream_file('to-hear-msg-envelope', $AMSGKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-repeat', $AMSGKEYS);
+
+$key = $AGI->stream_file('vm-delete', $AMSGKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-press', $AMSGKEYS) if ($key == 0);
+$key = $AGI->stream_file('digits/9', $AMSGKEYS) if ($key == 0);
+$key = $AGI->stream_file('to', $AMSGKEYS) if ($key == 0);
+#$key = $AGI->stream_file('?????', $AMSGKEYS) if ($key == 0);
+$key = play_text("mark message as unread", $AMSGKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('vm-starmain', $AMSGKEYS) if ($key == 0);
+
+$key = $AGI->stream_file('to-hang-up', $AMSGKEYS) if ($key == 0);
+$key = $AGI->stream_file('vm-press', $AMSGKEYS) if ($key == 0);
+$key = $AGI->stream_file('pound', $AMSGKEYS) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_msg_header
+#                                                                          #
+# Plays just the mesesage header                                           #
+#                                                                          #
+{
+my ($msg, $new, $listenfor) = @_;
+
+my $key;
+
+my $from = $IMAP->get_header($msg, 'From');
+my $date = $IMAP->get_header($msg, 'Date');
+my $subj = $IMAP->get_header($msg, 'Subject');
+
+
+if ($from =~ m|\W+\"*\w+\<|)
+  {
+  $from =~ s|^\w*\"*(^\<)+\<*.*$|$1|;
+  $from =~ s|"||sg;                    # " Fixup colorizers
+  }
+else
+  {
+  $from =~ s|^.*?\<(^\>)\>.*$|$1|;
+  }
+
+$date =~ s|^\S+,*(.*?)$|$1|s;          # Strip DOW name, if present
+$date =~ s|:| |sg;                     # remove colons from time
+
+my @dt = split(' ', $date);
+$dt1 = $MONTHV{$dt1};
+
+my $mtime = POSIX::mktime($dt5, $dt4, $dt3, $dt0, $dt1, ($dt2 - 1900));
+my $ctime = time();
+my @ltime = localtime($ctime);
+
+my $lag = $ltime0 + (60 * $ltime1) + (3600 * $ltime2);
+my $lag2 = ($ltime6 * $ONEDAY) + $lag;
+
+if (($ctime - $lag) <= $mtime)
+  {
+  $when = 'today';
+  }
+elsif ((($ctime - $lag) - $ONEDAY) <= $mtime)
+  {
+  $when = 'yesterday';
+  }
+elsif (($ctime - $lag2) <= $mtime)
+  {
+  my @ztime = localtime($mtime);
+  $when = $DAYN[$ztime6];
+  }
+else
+  {
+  $when = $MONTHN[$dt1] . ' ' . $dt0 . ', ' . $dt2;
+  }
+
+$when .= ' at ' . $dt3 . ':' . $dt4;
+
+my $txt = "From: " . $from . "  on " . $when . '.  Subject: ' . $subj . ".";
+$key = $AGI->stream_file('vm-message', $listenfor);
+$key = $AGI->stream_file('number', $listenfor);
+$key = $AGI->say_number($msg, $listenfor) if ($key == 0);
+
+$key = $AGI->wait_for_digit(.1) if ($key == 0);
+
+$key = play_text($txt, $listenfor) if ($key == 0);
+$key = $AGI->wait_for_digit(.1) if ($key == 0);
+return($key);
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+sub play_text
+#                                                                          #
+# Cloned from festival-play.pl - play a text string                        #
+#                                                                          #
+{
+my ($text, $listenfor) = @_;
+
+my $hash = md5_hex($text);
+my $wavefile = "$SOUNDTMP/tts-$hash.wav";
+
+open(fileOUT, ">$SOUNDTMP/say-text-$hash.txt");
+print fileOUT "$text";
+close(fileOUT);
+
+my $execf = $T2WP . "text2wave $SOUNDTMP/say-text-$hash.txt -F 8000 -o $wavefile";
+system($execf);
+unlink($SOUNDTMP ."/say-text-$hash.txt");
+
+my $key = $AGI->stream_file('tts/'.basename($wavefile,".wav"),$listenfor);
+return($key);
+}

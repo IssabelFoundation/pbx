@@ -1,0 +1,49 @@
+#!/usr/bin/perl -w  
+ 
+use Asterisk::AGI;  
+use Net::FTP;  
+ 
+my $AGI = new Asterisk::AGI;  
+my $server = "weather.noaa.gov";  
+my $basepath = "data/forecasts";  
+my $custpath = "city/ny";  
+my $filename = "new_york.txt";  
+ 
+my @lines;  
+ 
+$AGI->exec('AGI',"festival-weather-script.pl|\"The latest weather forecast for New York City. Press 1 to skip ahead.\"");  
+ 
+$ftp = Net::FTP->new($server, Debug => 0)  
+or die "Cannot connect to $server: $@";  
+ 
+ 
+$ftp->login("anonymous","a\@b.com")  
+or die "Cannot login with anonymous/a\@b.com", $ftp->message;  
+ 
+ 
+$ftp->cwd("$basepath/$custpath")  
+or die "Cannot change working directory ", $ftp->message;  
+ 
+$ftp->binary;  
+ 
+$ftp->get($filename,"/tmp/$filename.$$") || die "Error while downloading /tmp/$filename.$$!!!\n", $ftp->message;  
+ 
+open(INPUT,"</tmp/$filename.$$") || die "Could not open /tmp/$filename.$$\n";  
+while(<INPUT>) {  
+if(grep(/^\./,$_)) {  
+chomp($_);  
+$_ =~ s/^\.//;  
+push(@lines,$_);  
+print "$_\n";  
+}  
+}  
+ 
+for($i = 0; $i < scalar(@lines); $i++) {  
+$AGI->exec('AGI',"festival-weather-script.pl|\"$lines[$i]\"");  
+}  
+ 
+$AGI->exec('AGI',"festival-weather-script.pl|\"That concludes the extended weather forcast.\"");  
+ 
+unlink("/tmp/$filesname.$$");  
+ 
+exit; 

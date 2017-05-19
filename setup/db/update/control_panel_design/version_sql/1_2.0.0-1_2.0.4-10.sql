@@ -1,0 +1,12 @@
+BEGIN TRANSACTION;
+ALTER TABLE "area" ADD COLUMN color VARCHAR(7);
+UPDATE "area" SET color='#DEE4FA' WHERE id=1; 
+UPDATE "area" SET color='#FCF9D2' WHERE id=2;
+UPDATE "area" SET color='#D4DCDC' WHERE id=3;
+UPDATE "area" SET color='#E0FFEF' WHERE id=4;
+UPDATE "area" SET color='#FED0CF' WHERE id=5;
+UPDATE "area" SET color='#D0FFD0' WHERE id=6;
+INSERT INTO "area" VALUES(7, 'TrunksSIP', 271, 608, 'SIP/IAX Trunks', 3, '#D0FFFF');
+INSERT INTO "area" VALUES(8, 'Conferences', 100, 380, 'Conferences', 2, '#DACCCA');
+INSERT INTO "area" VALUES(9, 'Parkinglots', 229, 380, 'Parking lots', 2, '#F5F5DC');
+COMMIT;

@@ -1,0 +1,83 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "会議",
+    "State" => "状態",
+    "Past Conferences" => "終了した会議",
+    "Current Conferences" => "開催中の会議",
+    "Future Conferences" => "予約中の会議",
+    "Conference #" => "会議No",
+    "Conference Name" => "会議名",
+    "Starts" => "開始日時",
+    "Ends" => "終了日時",
+    "Participants" => "参加人数",
+    "All" => "全員",
+    "New Conference" => "新規会議",
+    "Conference Owner" => "会議主催者",
+    "Conference Number" => "会議番号",
+    "Moderator PIN" => "モデレータPIN",
+    "Moderator Options" => "モデレータオプション",
+    "Announce" => "発言",
+    "User PIN" => "ユーザPIN",
+    "Listen Only" => "モニタ限定",
+    "Wait for Leader" => "呼び出し待ち",
+    "User Options" => "ユーザオプション",
+    "Start Time" => "開始時刻",
+    "Duration (HH:MM)" => "会議時間(HH:MM)",
+    "Recurs" => "繰り返し",
+    "Max Participants" => "最大参加人数",
+    "Reoccurs" => "繰り返し回数",
+    "for" => "期限",
+    "days" => "日数",
+    "Daily" => "毎日",
+    "Weekly" => "毎週",
+    "Bi-weekly" => "隔週",
+    "Moderator and user PINs must not be equal" => "モデレータPINとユーザPINは同じ値を設定できません",
+    "Are you sure you wish to delete conference (es)?" => "本当に会議を削除しますか？",
+    "CallerId" => "発信者Id",
+    "Mode" => "モード",
+    "Mute" => "消音",
+    "Kick" => "退室",
+    "Are you sure you wish to Mute caller (s)?" => "本当に参加者を消音にしますか？",
+    "Are you sure you wish to Kick caller (s)?" => "本当に参加者を退室にしますか？",
+    "Muted" => "消音",
+    "UnMuted" => "消音解除",
+    "Error when connecting to Asterisk Manager" => "Asteriskマネージャ接続エラー",
+    "The conference installation is almost done. To complete it please" => "会議の設定がほぼ終了しました。会議を開始するには、",
+    "Kick All" => "全員を退室させる",
+    "Invite Caller" => "参加者を招待する",
+    "The device wasn't write" => "デバイスに書き込みできません",
+    "The device must be numeric" => "デバイスは、数字にしてください",
+    "The device couldn't be added to the conference" => "デバイスを会議に追加できませんでした",
+    "Filter" => "抽出条件",
+    "Show" => "表示",
+    "click here" => "クリックしてください",
+);
+?>

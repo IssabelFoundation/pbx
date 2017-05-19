@@ -1,0 +1,3 @@
+BEGIN TRANSACTION;
+UPDATE area SET description='DAHDI Trunks' WHERE id=6;
+COMMIT;

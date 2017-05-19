@@ -1,0 +1,93 @@
+#!/bin/sh
+#
+#   Script de inicio y finalizaci� de un servicio de framework
+#   de demonio de Palosanto Solutions, compatible con
+#   sistema de inicio de servicios de RedHat/Fedora (chkconfig).
+#   Este script asume que el servicio se inicia desde el comienzo
+#   con privilegios de usuario normal (no root)
+#
+#   chkconfig: 2345 91 19
+#   description: Elastix Update Helper
+#
+
+# Biblioteca de funciones de scripts
+if [ -f /etc/init.d/functions ] ; then
+    . /etc/init.d/functions
+elif [ -f /etc/rc.d/init.d/functions ] ; then
+    . /etc/rc.d/init.d/functions
+else
+    exit 0
+fi
+
+# Los siguientes parametros deben de configurarse segn el demonio
+DAEMON=festival
+PROGRAMA="Festival"
+USUARIO=asterisk
+
+# Los siguientes parametros son normalmente derivados de los dos primeros
+SERVICE_LOCK="/var/lock/subsys/$DAEMON"
+PIDFILE_SYSTEM="/var/run/$DAEMON.pid"
+
+start() {
+    echo -n $"Starting $PROGRAMA: "
+    PID=`pidof -s $DAEMON`
+    if [ $? -eq "0" ] ; then
+        echo -e "\t[  FAIL  ]"
+        echo "$DAEMON is already running"
+    else
+        /usr/bin/festival_server -l /var/log/festival > /dev/null 2>&1 &
+            RETVAL=$?
+        if [ $RETVAL = 0 ] ; then
+            touch $SERVICE_LOCK
+            echo -e "\t[  OK  ]"
+        else
+            echo -e "\t[  FAIL  ]"
+            echo "Error starting service $DAEMON"
+        fi
+    fi
+}
+
+stop() {
+    echo -n $"Stopping $PROGRAMA: "
+    PID=`pidof -s $DAEMON`
+    if [ $? -eq "0" ] ; then
+        killall festival_server
+        RETVAL=$?
+        if [ $RETVAL = 0 ] ; then
+            rm -f $SERVICE_LOCK
+            rm -f $PIDFILE_SYSTEM
+            echo -e "\t[  OK  ]"
+        else
+            echo -e "\t[  FAIL  ]"
+        fi
+    else
+        echo -e "\t[  FAIL  ]"
+        echo "$DAEMON is not running"
+    fi
+}
+
+restart() {
+    stop
+    start
+}
+
+case $1 in
+    start)
+        start
+    ;;
+    stop)
+        stop
+    ;;
+    restart)
+        restart
+    ;;
+    status)
+        status $DAEMON
+    ;;
+    *)
+
+    echo $"Uso: $prog {start|stop|restart|status}"
+    exit 1
+esac
+
+exit $RETVAL

@@ -1,0 +1,89 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Конференции",
+    "State" => "Вид",
+    "Past Conferences" => "Приключени Конференции",
+    "Current Conferences" => "Текущи Конференции",
+    "Future Conferences" => "Бъдещи Конференции",
+    "Conference #" => "Конференция №",
+    "Conference Name" => "Конференция Име",
+    "Starts" => "Започва",
+    "Ends" => "Приключва",
+    "Participants" => "Участници",
+    "All" => "Всички",
+    "New Conference" => "Нова Конференция",
+    "Conference Owner" => "Конференция Водещ",
+    "Conference Number" => "Конференция Номер",
+    "Moderator PIN" => "Модератор PIN",
+    "Moderator Options" => "Модератор Опции",
+    "Announce" => "Известяване",
+    "Record" => "Записване на Съобщение",
+    "User PIN" => "Потребител PIN",
+    "Listen Only" => "Само Слушател",
+    "Wait for Leader" => "Изчакване на Водещия",
+    "User Options" => "Потребител Опции",
+    "Start Time" => "Начало (Дата/Час)",
+    "Duration (HH:MM)" => "Времетраене (ЧЧ:ММ)",
+    "Recurs" => "Завърнали се",
+    "Max Participants" => "Максимално Участници",
+    "Reoccurs" => "Повтарящи се",
+    "for" => "за",
+    "days" => "дни",
+    "Daily" => "Дневен",
+    "Weekly" => "Седмичен",
+    "Bi-weekly" => "Двуседмичен",
+    "Moderator and user PINs must not be equal" => "Модераторът и потребителите трябва да са с различен PIN",
+    "Are you sure you wish to delete conference (es)?" => "Сигурни ли сте че искате да изтриете конференцията?",
+    "Id" => "Идентификация",
+    "CallerId" => "От Номер",
+    "Mode" => "Режим",
+    "Mute" => "Заглуши",
+    "Kick" => "Отстрани",
+    "Are you sure you wish to Mute caller (s)?" => "Сигурни ли сте че искате да заглушите участниците?",
+    "Are you sure you wish to Kick caller (s)?" => "Сигурни ли сте че искате да отстраните участниците?",
+    "Muted" => "Заглушен",
+    "UnMuted" => "Незаглушен",
+    "Error when connecting to Asterisk Manager" => "Грешка при свързване с Asterisk Manager",
+    "The conference installation is almost done. To complete it please" => "Инсталацията на Конференции е почти приключена. За да я завършите моля",
+    "Kick All" => "Отсрани Всички",
+    "Invite Caller" => "Покани",
+    "The device wasn't write" => "Телефонът не е записан",
+    "The device must be numeric" => "Телефонът трябва да съдържа само цифри",
+    "The device couldn't be added to the conference" => "Телефонът не може да бъде добавен към конференцията",
+    "Filter" => "Филтър",
+    "Show" => "Покажи",
+    "click here" => "кликнете тук",
+    "Duration" => "Продължителност",
+    "Status" => "Статус",
+    "Update" => "Обнови",
+    "No Extensions" => "Няма Вътрешни Номера",
+);
+?>

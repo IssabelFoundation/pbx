@@ -1,0 +1,56 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "فایل دسته ای داخلی ها",
+    "Invalid file extension.- It must be csv" => "خطا در قالب فایل، فایل باید با قالب csv باشد",
+    "Possible file upload attack. Filename" => "احتمال خطا در ارسال . نام فایل",
+    "Error" => "خطا",
+    "Error updating Users" => "خطا در به روز رسانی کاربران",
+    "Error updating Devices" => "خطا در به روزآوری تلفن ها",
+    "Error updating Voicemail" => "خطا در به روز رسانی صندوق صوتی",
+    "Error processing CallWaiting" => "خطا در پردازش سرویس نگهداشتن تماس",
+    "Total extension updated" => "Tجمع داخلی های به روز شده",
+    "Error, extension" => "خطا، داخلی",
+    "repeat in lines" => "تکرار در خط ها",
+    "with" => "با",
+    "The file is incorrect or empty" => "فایل اشتباه یا خالی است",
+    "Incomplete Columns" => "ستون ها ناقص",
+    "Verify the header" => "درستی سر ستون را بررسی کنید",
+    "At minimum there must be the columns" => "باید حداقل چند ستون وجود داشته باشد",
+    "Can't exist a extension empty. Line" => "نمی توان داخلی خالی ایجاد کرد، خط",
+    "Can't exist a secret empty. Line" => "رمز نمی تواند خالی باشد، خط",
+    "Can't exist a display name empty. Line" => "نام داخلی نمی تواند خالی باشد، خط",
+    "Please read the lines in the footer" => "لطفا خطوط پایین صفحه را بررسی کنید",
+    "Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+    "About Update Extensions Batch" => "اگر فایل حاوی داخلی هایی باشد که قبلا ایجاد شده اند، آنها به روز خواهند شد",
+    "There aren't extensions" => "داخلی ها وجود ندارند",
+    "Message" => "پیام ",
+);
+?>

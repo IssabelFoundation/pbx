@@ -1,0 +1,22 @@
+#!/usr/bin/perl -w
+use Socket;
+use IO::Handle;
+
+system("/usr/bin/killall op_server.pl");
+
+socket(SOCK, AF_INET, SOCK_STREAM, getprotobyname('tcp'))
+        or die "Cannot create a socket: $!\n";
+connect(SOCK, sockaddr_in(5038, inet_aton('127.0.0.1')))
+        or die "Cannot connect to the manager port\n";
+SOCK->autoflush(1);
+$text = "Action: Login\r\n";
+$text .= "Username: phpconfig\r\n";
+$text .= "Secret: php[onfig\r\n\r\n";
+$text .= "Action: Command\r\nCommand: reload\r\n\r\n";
+print SOCK $text;
+while (<SOCK>) {
+        print if not /Message:/ and not /Response:/ and not /END COMMAND/;
+        exit 0 if /END COMMAND/
+}
+
+exit 0;

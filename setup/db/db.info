@@ -1,0 +1,17 @@
+[control_panel_design]
+ignore_backup = no
+engine = sqlite3
+path   = /var/www/db
+deletable = yes
+
+[trunk]
+ignore_backup = no
+engine = sqlite3
+path   = /var/www/db
+deletable = yes
+
+[meetme]
+ignore_backup = no
+engine = mysql
+path   = /var/lib/mysql
+deletable = yes

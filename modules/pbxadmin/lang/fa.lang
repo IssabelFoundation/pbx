@@ -1,0 +1,60 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Option" => "گزینه",
+    "Unembedded freePBX" => "صفحه کنترل جدا",
+    "Basic" => "اصلی",
+    "Extensions" => "داخلی ها",
+    "Feature Codes" => "کدهای ویژه",
+    "General Settings" => "تنظیمات عمومی",
+    "Outbound Routes" => "مسیر تماس های خروجی ",
+    "Trunks" => "ترانک ها",
+    "Inbound Call Control" => " کنترل تماس های ورودی",
+    "Inbound Routes" => "مسیر تماس های ورودی",
+    "Announcements" => "اعلان های صوتی",
+    "Follow Me" => " مرا دنبال کن",
+    "IVR" => "منوی منشی دیجیتال",
+    "Misc Destinations" => " مقاصد مختلف",
+    "Queues" => "صف انتظار",
+    "Ring Groups" => "گروه پاسخگو",
+    "Time Conditions" => "شرايط زماني پاسخگويي",
+    "Internal Options & Configuration" => "تنظیمات و گزینه های داخلی",
+    "Conferences" => "كنفرانس صوتي",
+    "Misc Applications" => "برنامه‌هاي مختلف",
+    "Music on Hold" => "موزیک انتظار",
+    "PIN Sets" => "رمز گذاري",
+    "Paging and Intercom" => "فراخوانی و مخابره",
+    "Parking Lot" => "پارکینگ تماس",
+    "System Recordings" => "ضبط فایل های صوتی",
+    "Remote Access" => "دسترسی راه دور",
+    "Callback" => "تماس برگشتی",
+    "DISA" => "دسترسی بیرونی به خطوط سیستم",
+);
+?>

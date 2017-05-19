@@ -1,0 +1,141 @@
+#!/usr/bin/perl
+# YAWA - Yet another wakeup agi
+#
+
+use Asterisk::AGI;
+use Date::Manip;
+use strict;
+
+# Configuration
+my $pending_dir = "/var/spool/asterisk/wakeups/";
+my $local_context = 'wakeup-call';
+my $local_extension = '77';
+my $local_priority = 1;
+my $callerid = "Wakeup Call <77>";
+my $maxretries = 3;
+my $retrytime = 60;
+my $waittime = 24;
+my $input = "0";
+
+# Start agi and get the needed variables
+my $agi = new Asterisk::AGI;
+my %stuff = $agi->ReadParse;
+my ($channel) = $stuff{channel};
+$channel =~ s/-.*//;
+my($chan, $caller) = split(/\//, $channel);
+my $uniqueid = $stuff{uniqueid};
+
+	# Play menu till we get some input.
+	while (!$input)
+	{
+		if(!$input) { $input = $agi->stream_file('this-is-yr-wakeup-call', '1234'); }
+		if(!$input) { $input = $agi->stream_file('to-cancel-wakeup', '1234'); }
+		if(!$input) { $input = $agi->stream_file('press-1', '1234'); }
+		if(!$input) { $input = $agi->stream_file('to-snooze-for', '1234'); }
+		if(!$input) { $input = $agi->stream_file('digits/5', '1234'); }
+		if(!$input) { $input = $agi->stream_file('minutes', '1234'); }
+		if(!$input) { $input = $agi->stream_file('press-2', '1234'); }
+		if(!$input) { $input = $agi->stream_file('to-snooze-for', '1234'); }
+		if(!$input) { $input = $agi->stream_file('digits/10', '1234'); }
+		if(!$input) { $input = $agi->stream_file('minutes', '1234'); }
+		if(!$input) { $input = $agi->stream_file('press-3', '1234'); }
+		if(!$input) { $input = $agi->stream_file('to-snooze-for', '1234'); }
+		if(!$input) { $input = $agi->stream_file('digits/15', '1234'); }
+		if(!$input) { $input = $agi->stream_file('minutes', '1234'); }
+		if(!$input) { $input = $agi->stream_file('press-4', '1234'); }
+	}
+
+	$input = $input - 48;	# stream file returns ascii val
+
+	# ask the user a math question to verify they're awake
+	if ($input == 1)
+	{
+		$agi->exec('background', 'answer-math');
+		$agi->exec('wait', '1');
+		my $num1 = int(rand 99);
+		my $num2 = int(rand 99);
+		my $num3 = $num1 + $num2;
+		$agi->say_number($num1);
+		$agi->exec('background', 'plus');
+		$agi->say_number($num2);
+		my $answer = $agi->get_data('equals', 15000, length($num3));
+
+		if ($answer == $num3)	# correct
+		{
+			$agi->exec('background', 'wakeup-call-cancelled');
+		}
+		else	# oops, schedule another call
+		{
+			&createwake(1);
+			$agi->exec('background', 'vm-sorry');
+			$agi->exec('background', 'rqsted-wakeup-for');
+			$agi->exec('background', 'digits/5');
+			$agi->exec('background', 'minutes');
+			$agi->exec('background', 'vm-from');
+			$agi->exec('background', 'now');
+		}
+	}
+	elsif ($input == 2)	# snooze for 5
+	{
+		&createwake(5);
+		$agi->exec('background', 'rqsted-wakeup-for');
+		$agi->exec('background', 'digits/5');
+		$agi->exec('background', 'minutes');
+		$agi->exec('background', 'vm-from');
+		$agi->exec('background', 'now');
+	}
+	elsif ($input == 3)	# snooze for 10
+	{
+		&createwake(10);
+		$agi->exec('background', 'rqsted-wakeup-for');
+		$agi->exec('background', 'digits/10');
+		$agi->exec('background', 'minutes');
+		$agi->exec('background', 'vm-from');
+		$agi->exec('background', 'now');
+	}
+	elsif ($input == 4)	# snooze for 15
+	{
+		&createwake(15);
+		$agi->exec('background', 'rqsted-wakeup-for');
+		$agi->exec('background', 'digits/15');
+		$agi->exec('background', 'minutes');
+		$agi->exec('background', 'vm-from');
+		$agi->exec('background', 'now');
+	}
+	else	# pressed the wrong key, schedule another call.
+	{
+		&createwake(1);
+		$agi->exec('background', 'you-dialed-wrong-number');
+		$agi->exec('background', 'wrong-try-again-smarty');
+	}
+
+
+# creates wake file using argument for the number of minutes into the future
+sub createwake
+{
+	my $date = &UnixDate(DateCalc("today","+ ".$_[0]."minutes"), "%H%M");
+	my $filename = sprintf("%s%04s.%s.call", $pending_dir, $date, $caller);
+	open(FILE, ">$filename");
+
+	printf FILE q{#
+Channel: %s/%s
+
+MaxRetries: %s
+RetryTime: %s
+WaitTime: %s
+
+Callerid: %s
+
+Application: AGI
+data: wakeconfirm.agi
+},
+$chan, $caller,
+$maxretries,
+$retrytime,
+$waittime,
+$callerid,
+;
+
+	close(FILE);
+
+}

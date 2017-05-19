@@ -1,0 +1,55 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "内線一括設定",
+    "Invalid file extension.- It must be csv" => "内線用インポートファイルの形式が正しくありません。CSV形式にしてください。",
+    "Possible file upload attack. Filename" => "ファイルのアップロードを開始します。ファイル名：",
+    "Error" => "エラー",
+    "Error updating Users" => "ユーザ更新エラー",
+    "Error updating Devices" => "デバイス更新エラー",
+    "Error updating Voicemail" => "ボイスメール更新エラー",
+    "Error processing CallWaiting" => "コールウェイティング処理エラー",
+    "Total extension updated" => "内線更新数",
+    "Error, extension" => "エラー, 内線",
+    "repeat in lines" => "が重複、行間：",
+    "with" => "～",
+    "The file is incorrect or empty" => "ファイル内容が間違っているか、データがありません",
+    "Incomplete Columns" => "不完全なカラム名",
+    "Verify the header" => "ヘッダーの確認",
+    "At minimum there must be the columns" => "最低でもカラム名の１行が必要です",
+    "Can't exist a extension empty. Line" => "内線番号が空欄です。行：",
+    "Can't exist a display name empty. Line" => "表示名が空欄です。行：",
+    "Please read the lines in the footer" => "フッター内の行内容を確認してください",
+    "Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+    "About Update Extensions Batch" => "すでに作成済の内線番号がロードしあ場合、新しいデータで上書きします",
+    "There aren't extensions" => "内線がありません",
+    "Message" => "メッセージ",
+);
+?>

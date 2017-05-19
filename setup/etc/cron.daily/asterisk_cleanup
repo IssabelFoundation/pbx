@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ -d /var/lib/asterisk/sounds/tts ] ; then
+    /usr/bin/find /var/lib/asterisk/sounds/tts/ -type f -mtime +1 -delete
+fi

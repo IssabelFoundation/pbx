@@ -1,0 +1,57 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "Batch de Extensii",
+    "Invalid file extension.- It must be csv" => "Extensie Invalida - Trebuie sa fie csv",
+    "Possible file upload attack. Filename" => "Posibil atac de upload . Fisier",
+    "Error" => "Eroare",
+    "Error updating Tech" => "Eroare actualizare Tech",
+    "Error updating Users" => "Eroare actualizare Utilizatori",
+    "Error updating Devices" => "Eroare actualizare Dispozitive",
+    "Error updating Voicemail" => "Eroare actualizare Voicemail",
+    "Error processing CallWaiting" => "Eroare procesare CallWaiting",
+    "Total extension updated" => "Total extensii actualizate",
+    "Error, extension" => "Erore, extensie",
+    "repeat in lines" => "repetare in liniile",
+    "with" => "cu",
+    "The file is incorrect or empty" => "Fisierul este incorect sau gol",
+    "Incomplete Columns" => "Coloana incompleta",
+    "Verify the header" => "Verificati headerul",
+    "At minimum there must be the columns" => "Coloanele de aici trebuie sa fie la valoare minima",
+    "Can't exist a extension empty. Line" => "Nu poate exista o extensie goala. Linia",
+    "Can't exist a secret empty. Line" => "Nu poate exista un secret gol. Linia",
+    "Can't exist a display name empty. Line" => "Nu poate exista un nume display gol. Linia",
+    "Please read the lines in the footer" => "Va rog cititi liniile din subsol.",
+    "Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+    "About Update Extensions Batch" => "Daca incarcati un fisier cu extensii deja create aceste extensii vor fi actualizate",
+    "There aren't extensions" => "Nu sunt extensii",
+    "Message" => "Mesaje",
+);
+?>

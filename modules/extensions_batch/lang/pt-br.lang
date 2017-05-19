@@ -1,0 +1,56 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "Lote de Ramais",
+    "Invalid file extension.- It must be csv" => "Extensão inválida de arquivo. Deve ser um arquivo .csv",
+    "Possible file upload attack. Filename" => "Possível ataque de upload. No arquivo",
+    "Error" => "Erro",
+    "Error updating Tech" => "Erro ao atualizar Tech",
+    "Error updating Users" => "Erro ao atualizar Usuários",
+    "Error updating Devices" => "Erro ao atualizar Dispositivos",
+    "Error updating Voicemail" => "Erro ao atualizar Voicemail",
+    "Error processing CallWaiting" => "Erro ao processar CallWaiting",
+    "Total extension updated" => "Total de ramais atualizados",
+    "Error, extension" => "Erro, no ramal",
+    "repeat in lines" => "repetição nas linhas",
+    "with" => "com",
+    "The file is incorrect or empty" => "O arquivo está incorreto ou vazio",
+    "Incomplete Columns" => "Colunas incompletas",
+    "Verify the header" => "Verifique o cabeçalho",
+    "Can't exist a extension empty. Line" => "O campo de ramal não pode estar vazio. Linha",
+    "Can't exist a secret empty. Line" => "O campo de senha não pode estar vazio. Linha",
+    "Can't exist a display name empty. Line" => "O campo de nome não pode estar vazio. Linha",
+    "Please read the lines in the footer" => "Por favor leia as linhas no rodapé",
+    "Header File Extensions Batch" => "The first line must contains the name (or title) of the columns, and the file must have at minimum four columns: Display Name, User Extension, Secret, Tech. For more information about all the parameters supported, please read the online embedded help.",
+    "About Update Extensions Batch" => "Se você carregar um arquivo com ramais que já existem, esses ramais serão atualizados",
+    "There aren't extensions" => "Não são ramais",
+    "Message" => "Mensagem",
+);
+?>

@@ -1,0 +1,16 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+<p>La opción "Texto a Wav" del menú Issabel permite transformar texto a audio resultando un archivo en formato WAV o GSM. Para llevar a cabo este proceso sólo escriba lo que desee transformar a audio en la caja de texto y haga click en el botón "Ejecutar". Automáticamente se le pedirá elegir la ubicación y el nombre para guardar el archivo generado.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_text_to_wav.png" border="0" />
+<p>Figura 1</p></div>
+<br/ >
+
+</body>
+</html>

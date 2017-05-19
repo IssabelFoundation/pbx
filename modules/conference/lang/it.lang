@@ -1,0 +1,78 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Conferenza",
+    "State" => "Stato",
+    "Past Conferences" => "Conferenze passate",
+    "Current Conferences" => "Conferenze presenti",
+    "Future Conferences" => "Conferenze future",
+    "Conference #" => "Conferenza #",
+    "Conference Name" => "Nome Conferenza",
+    "Starts" => "Inizio",
+    "Ends" => "Fine",
+    "Participants" => "Partecipanti",
+    "All" => "Tutti",
+    "New Conference" => "Nuova Conferenza",
+    "Conference Owner" => "Proprietaro Conferenza",
+    "Conference Number" => "Numero Conferenza",
+    "Moderator PIN" => "PIN del Moderatore",
+    "Moderator Options" => "Opzioni Moderatore",
+    "Announce" => "Annuncio",
+    "User PIN" => "PIN Utente",
+    "Listen Only" => "Solo Ascolto",
+    "Wait for Leader" => "Attesa Leader",
+    "User Options" => "Opzioni Utente",
+    "Start Time" => "Ora di inizio",
+    "Duration (HH:MM)" => "Durata (OO:MM)",
+    "Recurs" => "Ricorre",
+    "Max Participants" => "Max Partecipanti",
+    "Reoccurs" => "Si Ripresenta",
+    "for" => "per",
+    "days" => "giorni",
+    "Daily" => "Giornalmente",
+    "Weekly" => "Settimanalmente",
+    "Bi-weekly" => "2 volte a Settimana",
+    "Moderator and user PINs must not be equal" => "Il PIN Moderatore e utente non devono essere uguali",
+    "Are you sure you wish to delete conference (es)?" => "Sei sicuro di voler cancellare la/le conferenza/e?",
+    "Id" => "Identificativo",
+    "CallerId" => "Identificativo Chiamante",
+    "Mode" => "Modo",
+    "Mute" => "Silenzia",
+    "Are you sure you wish to Mute caller (s)?" => "Sei sicuro di voler silenziare i/il chiamante/i?",
+    "Are you sure you wish to Kick caller (s)?" => "Sei sicuro di voler buttare fuori/il chiamante/i?",
+    "Muted" => "Silenziato",
+    "UnMuted" => "Desilenziato",
+    "Error when connecting to Asterisk Manager" => "Errore durante la connessione ad Asterisk Manager",
+    "The conference installation is almost done. To complete it please" => "l\'installazione della conferenza è quasi completato. Per completarlo perfavore",
+    "Filter" => "Filtro",
+    "Show" => "Visualizza",
+    "click here" => "Premi Qui",
+);
+?>

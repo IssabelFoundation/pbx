@@ -1,0 +1,50 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Recordings" => "Enregistrements",
+    "Record Name" => "Nom du fichier :",
+    "Record" => "Enregistrer",
+    "Insert the Recording Name" => "Insérez le nom d'enregistrement",
+    "The recording couldn't be realized" => "L'enregistrement n'a pas pu être effectué",
+    "The recording was saved" => "L'enregistement a été sauvegardé",
+    "To continue: record a message then click on save" => "Pour continuer: enregistrer un message puis cliquez sur Sauvegarder",
+    "Recording File" => "Enregistrement du fichier",
+    "Destiny directory couldn't be created" => "Le répertoire de destination n'a pas pu être créé",
+    "File Upload" => "Fichier à envoyer",
+    "ERROR" => "ERREUR",
+    "You don't have extension number associated with user" => "Votre compte utilisateur n'est associé à aucune extension. Vous pouvez lui en associer une en cliquant <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">ici</a>",
+    "The call couldn't be realized" => "L'appel ne peut être réalisé.",
+    "Error copying the file" => "Erreur de copie de fichier",
+    "Possible file upload attack" => "Possibilité d'attaque du fichier transmis.",
+    "contact_admin" => "Votre compte utilisateur n'est associé à aucune extension. Veuillez demander à l'administrateur de vous en assigner une",
+    "You can start your recording after you hear a beep in your phone. Once you have finished recording you must press the # key and then hangup" => "Vous pouvez commencer votre enregistrement après le bip sonore. Une fois celui-ci terminé, vous devez appuyez sur la touche # puis raccrocher",
+    "You do not need to add an extension to the record name" => "Vous n'avez pas besoin d'ajouter une extension de fichier au nom de l'enregistrement",
+);
+?>

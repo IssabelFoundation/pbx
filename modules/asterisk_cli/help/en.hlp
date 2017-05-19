@@ -1,0 +1,18 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>The option “Asterisk-Cli” of the Menu “PBX” in Issabel lets us execute Asterisk commands.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_asterisk_cli.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+
+<p>To execute a command, input the same in the Command field and click on the “Execute” button.</p>
+
+</body>
+</html>

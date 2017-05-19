@@ -1,0 +1,27 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>The option "Recordings" of the menu "PBX" in Issabel allows creating audio files from the recording of our voice. Also you can upload audio files from your hard disk. This option is only available if the connected user has an extension assigned to his account.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_record.png" border="0" />
+<p>Figure 1</p></div>
+<br />
+<p>To record an audio file, you have to enter the name of the recording and click on "Record" button. When your extension is ringing, answer the phone and start your voice recording after the tone. When done press '#' and hang up the phone. Click on "Save" button to save the recording.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_record_2.png" border="0" />
+<p>Figure 2</p></div>
+<br />
+<p>Also, you can upload an existing audio file.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_upload.png" border="0" />
+<p>Figure 3</p></div>
+<br />
+<p>This option was used with the Calendar module in old Issabel version. All the recordings and uploaded files are stores at <b>/var/lib/asterisk/sounds/custom/XXX</b> , where XXX is the extension number of the connected user.</p>
+
+</body>
+</html>
+
+

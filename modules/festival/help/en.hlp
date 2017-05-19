@@ -1,0 +1,15 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p>The option "Festival" of the menu "PBX" allows enabling and disabling the Festival service to work with Asterisk. Festival is a text-to-speech engine that can convert the text to audio.</p>
+        <div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_festival.png" border="0" />
+        <p>Figure 1</p></div>
+        <br />
+        <p>If the file /usr/share/festival/festival.scm is not configured properly, when you turn on the service it will do it automatically.</p>
+    </body>
+</html>
+

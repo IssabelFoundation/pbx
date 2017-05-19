@@ -1,0 +1,121 @@
+#!/usr/bin/php
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 2.0.4                                                |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: dialerd,v 1.2 2008/09/08 18:29:36 alex Exp $ */
+require_once 'Console/Getopt.php';
+
+// Parse command-line options
+$opt = Console_Getopt::getopt($argv, '', array(
+    'enable',   // Refresh configuration from database
+    'disable',  // Disable festival service
+));
+if (PEAR::isError($opt)) error_exit($opt->getMessage()."\n");
+//validateOptions($opt);
+foreach ($opt[0] as $option) switch ($option[0]) {
+case '--disable':
+    exit(action_disableFestival($opt) ? 0 : 1);
+case '--enable':
+    exit(action_enableFestival($opt) ? 0 : 1);
+}
+error_exit("No action specified (--enable, --disable)\n");
+
+function error_exit($sMsg, $errorcode = 1)
+{
+    fwrite(STDERR, $sMsg);
+    exit($errorcode);
+}
+
+
+function action_enableFestival($opt)
+{
+    // Add function definition to configuration file
+    $candidatos = array(
+        '/usr/share/festival/lib/festival.scm',
+        '/usr/share/festival/festival.scm',
+    );
+    $sArchivo = NULL;
+    foreach ($candidatos as $s) {
+        if (file_exists($s)) {
+            $sArchivo = $s;
+            break;
+        }
+    }
+    if (is_null($sArchivo)) {
+        error_exit("FATAL: $sArchivo not found!\n");
+    }
+
+    $sDefinicionTTS = <<<TEMP
+(define (tts_textasterisk string mode)
+"(tts_textasterisk STRING MODE)
+Apply tts to STRING. This function is specifically designed for
+use in server mode so a single function call may synthesize the
+string.
+This function name may be added to the server safe functions."
+   (let ((wholeutt (utt.synth (eval (list 'Utterance 'Text string)))))
+      (utt.wave.resample wholeutt 8000)
+      (utt.wave.rescale wholeutt 5)
+      (utt.send.wave.client wholeutt)))
+TEMP;
+	$fileString = file_get_contents($sArchivo);
+    if (strpos($fileString, $sDefinicionTTS) === FALSE) {
+    	if (FALSE === file_put_contents($sArchivo, $sDefinicionTTS, FILE_APPEND)) {
+    		error_exit("FATAL: failed to update $sArchivo !\n");
+    	}
+        print "Modified $sArchivo\n";
+    }
+    
+    // Add service to load on startup
+    $retval = NULL;
+    system('/sbin/chkconfig --add festival');
+    system('/sbin/chkconfig --level 345 festival on');
+    
+    // Start current instance of service
+    system('/sbin/service festival start > /dev/null 2>&1', $retval);
+    return ($retval == 0);
+}
+
+function action_disableFestival($opt)
+{
+    // Remove service to load on startup
+	system('/sbin/chkconfig festival off');
+    
+    // Return immediately if service is not running 
+    $retval = NULL; $output = NULL;
+    exec('/sbin/service festival status', $output, $retval);
+    if (FALSE !== strpos($output[0], 'festival.service')) {
+        // $output has a systemd report
+        if (FALSE === strpos(implode("\n", $output), '(running)'))
+            return TRUE;
+    } elseif ($retval == 0 && count($output) > 0 && FALSE === strpos($output[0], 'pid '))
+        return TRUE;
+
+    // Stop current instance of service
+    system('/sbin/service festival stop > /dev/null 2>&1', $retval);
+    return ($retval == 0);
+}
+?>

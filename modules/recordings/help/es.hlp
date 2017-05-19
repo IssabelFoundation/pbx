@@ -1,0 +1,27 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>La opción "Grabaciones" del menú "PBX" en Issabel permite crear archivos de audio por medio de grabaciones de voz. También permite subir archivos de audio desde el disco duro u otro dispositivo de almacenamiento. Esta opción está disponible sólamente si el usuario conectado tiene asociada una extensión a su cuenta.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_recordings_record.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+<p>Para grabar un archivo de audio primero debe escribir un nombre para el archivo y hacer click en el botón "Grabar". Cuando su extensión empiece a sonar descuelgue el teléfono y comienze a grabar su voz luego de escuchar el tono. Cuando haya terminado presione la tecla "#" y cuelgue el teléfono. Luego haga click en el botón "Guardar".</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_recordings_record_2.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<p>Puede también subir un archivo de audio. Ver Figura 3.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_recordings_upload.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+<p>Esta opción era utilizada en el módulo Calendario en versiones antiguas de Issabel. Todas las grabaciones y archivos subidos se encuentran almacenados en <b>/var/lib/asterisk/sounds/custom/XXX</b> , donde XXX es el número de extensión del usuario conectado.</p>
+
+</body>
+</html>
+
+

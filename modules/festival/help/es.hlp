@@ -1,0 +1,15 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p>La opción "Festival" del menú "PBX" permite habilitar o deshabilitar el servicio Festival. Este servicio es un sintetizador de voz que convierte texto a audio.</p>
+        <div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_festival.png" border="0" />
+        <p>Figura 1</p></div>
+        <br />
+        <p>Si el archivo /usr/share/festival/festival.scm no está configurado apropiadamente, cuando se habilite el servicio este lo hará automáticamente.</p>
+    </body>
+</html>
+

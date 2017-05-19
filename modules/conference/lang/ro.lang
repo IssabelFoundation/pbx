@@ -1,0 +1,75 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Elastix version 0.5                                                  |
+  | http://www.elastix.com                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
+  | Telfs. 2283-268, 2294-440, 2284-356                                  |
+  | Guayaquil - Ecuador                                                  |
+  | http://www.palosanto.com                                             |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Original Code is: Elastix Open Source.                           |
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  +----------------------------------------------------------------------+
+  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Conference" => "Conferinta",
+    "State" => "Stat",
+    "Past Conferences" => "Conferinte Trecute",
+    "Current Conferences" => "Conferinte curente",
+    "Future Conferences" => "Conferinte viitoare",
+    "Conference #" => "Conferinta #",
+    "Conference Name" => "Nume Conferinta",
+    "Starts" => "Incepute",
+    "Ends" => "Incheiate",
+    "Participants" => "Participanti",
+    "All" => "Toate",
+    "New Conference" => "Conferinta Noua",
+    "Conference Owner" => "Proprietar Conferinta",
+    "Conference Number" => "Conferenta Numarul",
+    "Moderator PIN" => "PIN Moderator",
+    "Moderator Options" => "Optiuni Moderator",
+    "Announce" => "Anunturi",
+    "User PIN" => "PIN Utilizator",
+    "Listen Only" => "Doar Ascultare",
+    "Wait for Leader" => "Asteapta Leader",
+    "User Options" => "Optiuni utilizator",
+    "Start Time" => "Ora Start",
+    "Duration (HH:MM)" => "Durata (HH:MM)",
+    "Max Participants" => "Maxim Participanti",
+    "for" => "pentru",
+    "days" => "zile",
+    "Daily" => "Zilnic",
+    "Weekly" => "Saptamanal",
+    "Bi-weekly" => "Bi-Saptamanal",
+    "Moderator and user PINs must not be equal" => "PINurile Moderatorului si al Userului trebuie sa fie diferite",
+    "Are you sure you wish to delete conference (es)?" => "Sigur vrei sa stergi conferint(a(ele)) ?",
+    "Are you sure you wish to Mute caller (s)?" => "Sigur vrei sa pui apelantul pe Mute ?",
+    "Are you sure you wish to Kick caller (s)?" => "Sigur vrei sa pui apelantul pe Kick ?",
+    "Error when connecting to Asterisk Manager" => "Eroare la conectarea cu Asterisk Manager",
+    "The conference installation is almost done. To complete it please" => "Instalarea conferintei e aproape gata. Pentru completare va rog",
+    "Kick All" => "Kick la toti",
+    "Invite Caller" => "Invita Apelant",
+    "The device wasn't write" => "Dispozitivul nu a fost scris",
+    "The device must be numeric" => "Dispozitivul trebuie sa fie numeric",
+    "The device couldn't be added to the conference" => "Dispozitivul nu a putut fi adaugat la conferinta",
+    "Filter" => "Filtru",
+    "Show" => "Afiseaza",
+    "click here" => "click aici",
+);
+?>

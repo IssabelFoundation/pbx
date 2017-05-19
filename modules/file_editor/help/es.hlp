@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>La opción "Editor de Archivos Asterisk" del menú "PBX" permite modificar los archivos de configuración de Asterisk sin necesidad de ingresar a una consola. Los archivos que se pueden modificar son los que se encuentran en el directorio /etc/asterisk/ .</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_file_editor.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+<h2>Editar archivos</h2>
+<p>Para encontrar un archivo deseado usted debe ingresar el nombre de este en laopción de filtro. Cuando encuentre el archivo haga click en el nombre y realice los cambios requeridos. Para aplicar los cambios haga click en el botón "Guardar" y luego en "Recargar Asterisk" en caso de ser necesario.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_file_editor_sip.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<h2>Crear un archivo</h2>
+<p>También se puede crear nuevos archivos en este directorio haciendo click en el botón "Nuevo Archivo". Los archivos nuevos serán creados con la extensión ".conf" dentro del directorio /etc/asterisk .</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/es_hlp_file_editor_new.png" border="0" />
+<p>Figura 3</p></div>
+</body>
+</html>
