@@ -10,7 +10,7 @@ Issabel is an open source distribution and GUI for Unified Communications system
 
 It uses the [Asterisk©](http://www.asterisk.org/ "Asterisk Home Page") open source PBX software as its core.
 
-System
+PBX
 ----
 
 Issabel PBX Modules
