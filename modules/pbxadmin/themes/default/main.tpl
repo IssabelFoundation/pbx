@@ -50,6 +50,7 @@
     </td>
     <td id="content_pbx" valign="top">{$htmlFPBX}</td>
   </tr>
+  {if $isissabelpbx == "0"}
   <tr>
     <td></td>
     <td valign="bottom">
@@ -60,4 +61,5 @@
       </div>
     </td>
   </tr>
+  {/if}
 </table>

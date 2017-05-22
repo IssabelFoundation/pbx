@@ -530,6 +530,11 @@ function getContent(&$smarty, $elx_module_name, $withList)
         $return_HTML .= load_view("$local_templates_dir/footer.php", null);
 
         if($withList){
+
+            $smarty->assign("isissabelpx", 0);
+            if(is_file("/etc/issabelpbx.conf")) {
+                $smarty->assign("isissabelpbx", 1);
+            }
             $smarty->assign("Option", _tr('Option'));
             $smarty->assign("Unembedded_freePBX", _tr('Unembedded FreePBX®'));
             $smarty->assign("Basic", _tr('Basic'));
