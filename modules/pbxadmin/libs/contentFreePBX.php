@@ -118,9 +118,15 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
     $bootstrap_settings['freepbx_auth'] = false;
 
-    // call bootstrap.php through freepbx.conf
-    if (!@include_once(getenv('FREEPBX_CONF') ? getenv('FREEPBX_CONF') : '/etc/freepbx.conf')) {
-                    include_once('/etc/asterisk/freepbx.conf');
+    if(is_file('/etc/issabelpbx.conf')) {
+        if (!@include_once(getenv('ISSABELPBX_CONF') ? getenv('ISSABELPBX_CONF') : '/etc/issabelpbx.conf')) {
+            include_once('/etc/asterisk/issabelpbx.conf');
+        }
+    } else {
+        // call bootstrap.php through freepbx.conf
+        if (!@include_once(getenv('FREEPBX_CONF') ? getenv('FREEPBX_CONF') : '/etc/freepbx.conf')) {
+            include_once('/etc/asterisk/freepbx.conf');
+        }
     }
 
     $username = "admin";
