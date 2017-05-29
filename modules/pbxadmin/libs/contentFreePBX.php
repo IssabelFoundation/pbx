@@ -116,7 +116,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             }
     }
 
-    $bootstrap_settings['freepbx_auth'] = false;
+    $bootstrap_settings['issabelpbx_auth'] = false;
 
     if(is_file('/etc/issabelpbx.conf')) {
         if (!@include_once(getenv('ISSABELPBX_CONF') ? getenv('ISSABELPBX_CONF') : '/etc/issabelpbx.conf')) {
@@ -165,7 +165,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             module_run_notification_checks();
     }
 
-    //draw up freepbx menu
+    //draw up menu
     $fpbx_menu = array();
 
     // pointer to current item in $fpbx_menu, if applicable
