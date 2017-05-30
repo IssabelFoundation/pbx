@@ -72,12 +72,6 @@ class paloSantoExtensionsBatch
             'allow'                 =>  'Allow',
             'deny'                  =>  'Deny',
             'permit'                =>  'Permit',
-            // FreePBX 2.11: campos obsoletos
-            /*
-            'record_in'             =>  'Record Incoming',
-            'record_out'            =>  'Record Outgoing',
-            */
-            // FreePBX 2.11: campos nuevos
             'recording_in_external' =>  'Record Incoming External',
             'recording_out_external'=>  'Record Outgoing External',
             'recording_in_internal' =>  'Record Incoming Internal',
@@ -200,7 +194,6 @@ class paloSantoExtensionsBatch
             if (preg_match('|^/CW/(\w+)|', $cw_key, $regs)) $callwait[$regs[1]] = $status;
         }
 
-        // FreePBX 2.11: ahora los parámetros de recording están en astdb
         $recording = array();
         foreach ($astman->database_show('AMPUSER') as $ampuser_key => $status) {
         	$regs = NULL;
@@ -218,11 +211,9 @@ class paloSantoExtensionsBatch
                     );
             	}
                 if (!isset($regs[2])) {
-                	// Formato de recording anterior a FreePBX 2.11
                     // out=Adhoc|in=Adhoc
                     // TODO: implementar mapeo no trivial
                 } else {
-                	// Formato de recording de FreePBX 2.11
                     $key = 'recording_'.$regs[3].(isset($regs[5]) ? '_'.$regs[5] : '');
                     if (isset($recording[$regs[1]][$key])) {
                         $recording[$regs[1]][$key] = $status;
@@ -395,7 +386,6 @@ class paloSantoExtensionsBatch
         if (!isset($extension['permit'])) $extension['permit'] = '0.0.0.0/0.0.0.0';
         if (!isset($extension['context'])) $extension['context'] = 'from-internal';
 
-        // FreePBX 2.11: Validar nuevos parámetros de grabación de llamadas
         foreach (array('recording_in_external', 'recording_out_external',
             'recording_in_internal', 'recording_out_internal') as $k) {
             if (!isset($extension[$k])) $extension[$k] = 'dontcare';
@@ -502,7 +492,7 @@ class paloSantoExtensionsBatch
 
     /**
      * Procedimiento para validar un Secret de cuenta de SIP/IAX. La regla usada
-     * por FreePBX es: el secreto debe ser de al menos 6 caracteres, y debe de
+     * por IssabelPBX es: el secreto debe ser de al menos 6 caracteres, y debe de
      * tener al menos dos dígitos y dos letras. Pero se admiten caracteres
      * arbitrarios fuera de estas restricciones.
      *
@@ -595,7 +585,7 @@ class paloSantoExtensionsBatch
             'deny'          =>  $extension['deny'],
             'permit'        =>  $extension['permit'],
 
-            //FreePBX 2.11: recording ya no se usa en mysql sino en astdb
+            //IssabelPBX 2.11: recording ya no se usa en mysql sino en astdb
             //'record_out'    =>  $extension['record_out'],
             //'record_in'     =>  $extension['record_in'],
         );
@@ -606,10 +596,10 @@ class paloSantoExtensionsBatch
                 'requirecalltoken'  =>  'yes',
                 'setvar'            =>  'REALCALLERIDNUM='.$extension['extension'],
 
-                // FreePBX 2.11: parámetro ya no aparece
+                // IssabelPBX 2.11: parámetro ya no aparece
                 //'notransfer'        =>  'yes',
 
-                // FreePBX 2.11: nuevos parámetros IAX2
+                // IssabelPBX 2.11: nuevos parámetros IAX2
                 'transfer'  =>  'yes',
             ));
         } elseif ($extension['tech'] == 'sip') {
@@ -622,7 +612,7 @@ class paloSantoExtensionsBatch
                 'canreinvite'       =>  'no',
                 'dtmfmode'          =>  'rfc2833',
 
-                // FreePBX 2.11: nuevos parámetros SIP
+                // IssabelPBX 2.11: nuevos parámetros SIP
                 'encryption'        =>  'no',
                 'qualifyfreq'       =>  '60',
                 'transport'         =>  'udp',
@@ -669,7 +659,7 @@ class paloSantoExtensionsBatch
         $params = array(
             $extension['name'],
             ($extension['voicemail'] == 'enable') ? 'default' : 'novm',
-            //FreePBX 2.11: recording ya no se usa en mysql sino en astdb
+            //IssabelPBX 2.11: recording ya no se usa en mysql sino en astdb
             //'out='.$extension['record_out'].'|in='.$extension['record_in'],
             '',
             isset($extension['outboundcid']) ? $extension['outboundcid'] : '',
@@ -771,11 +761,11 @@ class paloSantoExtensionsBatch
                 'ringtimer'     =>  0,
                 'voicemail'     =>  ($extension['voicemail'] == 'enable') ? 'default' : 'novm',
 
-                // Parámetros obsoletos en FreePBX 2.11
+                // Parámetros obsoletos en IssabelPBX 2.11
                 //'recording'     =>  'out='.$extension['record_out'].'|in='.$extension['record_in'],
                 'recording'     =>  '',
 
-                // FreePBX 2.11: nuevos parámetros (dontcare|always|never)
+                // IssabelPBX 2.11: nuevos parámetros (dontcare|always|never)
                 'recording/in/external' =>  $extension['recording_in_external'],
                 'recording/in/internal' =>  $extension['recording_in_internal'],
                 'recording/out/external'=>  $extension['recording_out_external'],
@@ -783,7 +773,7 @@ class paloSantoExtensionsBatch
                 'recording/ondemand'    =>  $extension['recording_ondemand'],
                 'recording/priority'    =>  $extension['recording_priority'], // 1..20 default 10
 
-                // FreePBX 2.11: por ahora las siguientes propiedades no se setean desde archivo
+                // IssabelPBX 2.11: por ahora las siguientes propiedades no se setean desde archivo
                 'answermode'            =>  'disabled',
                 'cfringtimer'           =>  0,
                 'concurrency_limit'     =>  0,
@@ -924,7 +914,7 @@ class paloSantoExtensionsBatch
         if (isset($this->_amportal['FOPRUN']['valor'])) {
             //bounce op_server.pl
             $wOpBounce = $this->_amportal['AMPBIN']['valor'].'/bounce_op.sh';
-            exec($wOpBounce.' &>'.$this->_astconfig['astlogdir']['valor'].'/freepbx-bounce_op.log');
+            exec($wOpBounce.' &>'.$this->_astconfig['astlogdir']['valor'].'/issabelpbx-bounce_op.log');
         }
 
         //store asterisk reloaded status

@@ -345,7 +345,7 @@ class paloSantoConference {
         return $parameters;
     }
 
-    function getDeviceFreePBX($dsn)
+    function getDeviceIssabelPBX($dsn)
     {
         $pDB = new paloDB($dsn);
         if($pDB->connStatus)

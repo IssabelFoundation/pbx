@@ -565,7 +565,7 @@ function show_callers($smarty, $module_name, $local_templates_dir, $pDB, $arrCon
     $pConference = new paloSantoConference($pDB);
     $room = getParameter("roomNo");
     $arrCallers = $pConference->ObtainCallers($dsn_agi_manager, $room);
-    $arrDevices = $pConference->getDeviceFreePBX($dsnAsterisk);
+    $arrDevices = $pConference->getDeviceIssabelPBX($dsnAsterisk);
     $arrData = array();
 
     if(is_array($arrCallers) && count($arrCallers)>0){

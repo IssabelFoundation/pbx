@@ -66,7 +66,7 @@ if ($provider_account['flagStatus']==0) {
         echo "Changing database trunk.db...\n";
         $pDB    = new paloDB("sqlite3:////var/www/db/trunk.db");
         $pDBNew = new paloDB("sqlite3:////var/www/db/trunk-pbx.db");
-        $pDBFreePBX = new paloDB(generarDSNSistema('asteriskuser', 'asterisk', '/var/www/html/'));
+        $pDBIssabelPBX = new paloDB(generarDSNSistema('asteriskuser', 'asterisk', '/var/www/html/'));
 
         $query  = "SELECT
                         t.name        AS account_name,
@@ -120,7 +120,7 @@ if ($provider_account['flagStatus']==0) {
                 if ($value['username'] != "" && $value['password'] != "") {
                     if ($value["account_name"] != "NuFone IAX") {
                         echo "Inserting trunk $value[account_name]...\n";
-                        insertAccount($data, $pDBNew, $pDBFreePBX);
+                        insertAccount($data, $pDBNew, $pDBIssabelPBX);
                     }
                     if (strtolower($tech) == "sip")
                         echo "Deleting trunk $value[account_name] from file /etc/asterisk/sip_custom.conf...\n";
@@ -156,7 +156,7 @@ if ($provider_account['flagStatus']==0) {
     	$pConfig2 = new paloConfig($arrAMP['ASTETCDIR']['valor'], "asterisk.conf", "=", "[[:space:]]*=[[:space:]]*");
     	$arrAST  = $pConfig2->leer_configuracion(false);
         echo "Reloading asterisk...\n";
-    	do_reloadAll($dsn_agi_manager, $arrAST, $arrAMP, $pDBFreePBX);
+    	do_reloadAll($dsn_agi_manager, $arrAST, $arrAMP, $pDBIssabelPBX);
     }
     $result = existDBField("provider", "orden", "trunk.db", $DataBaseRoot);
     if ($result['flagStatus']!=0)
@@ -306,14 +306,14 @@ function existDBTable($table, $db_name, $DataBaseRoot)
     return $result;
 }
 
-function insertAccount($data, &$pDB, &$pDBFreePBX)
+function insertAccount($data, &$pDB, &$pDBIssabelPBX)
 {
     $pDB->beginTransaction();
-    $pDBFreePBX->beginTransaction();
-    $id_trunk = getIdNextTrunk($pDBFreePBX);
-    if (!saveTrunkFreePBX($data,$id_trunk,$pDBFreePBX)) {
+    $pDBIssabelPBX->beginTransaction();
+    $id_trunk = getIdNextTrunk($pDBIssabelPBX);
+    if (!saveTrunkIssabelPBX($data,$id_trunk,$pDBIssabelPBX)) {
 	$pDB->rollBack();
-	$pDBFreePBX->rollBack();
+	$pDBIssabelPBX->rollBack();
 	echo "Error during the copy of trunks\n";
 	return false;
     }
@@ -321,11 +321,11 @@ function insertAccount($data, &$pDB, &$pDBFreePBX)
     $result = $pDB->genQuery($query, array_merge($data,array($id_trunk)));
     if ($result==FALSE) {
 	$pDB->rollBack();
-	$pDBFreePBX->rollBack();
+	$pDBIssabelPBX->rollBack();
         return false;
     }
     $pDB->commit();
-    $pDBFreePBX->commit();
+    $pDBIssabelPBX->commit();
     return true;
 }
 
@@ -364,7 +364,7 @@ function getTechnology($account_name, &$pDB)
     return $result['type_trunk'];
 }
 
-function saveTrunkFreePBX($data,$id,&$pDB)
+function saveTrunkIssabelPBX($data,$id,&$pDB)
 {
     if (strtolower($data[17]) == "sip") {
 	$tech = "sip";
@@ -541,7 +541,7 @@ function do_reloadAll($data_connection, $arrAST, $arrAMP, &$pDB)
     if (isset($arrAMP['FOPRUN']['valor'])) {
 	//bounce op_server.pl
 	$wOpBounce = $arrAMP['AMPBIN']['valor'].'/bounce_op.sh';
-	exec($wOpBounce.' &>'.$arrAST['astlogdir']['valor'].'/freepbx-bounce_op.log');
+	exec($wOpBounce.' &>'.$arrAST['astlogdir']['valor'].'/issabelpbx-bounce_op.log');
     }
 
     //store asterisk reloaded status
