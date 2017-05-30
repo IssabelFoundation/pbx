@@ -28,7 +28,7 @@
   $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
 global $arrLangModule;
 $arrLangModule = array(
-    "Unembedded freePBX" => "FreePBX",
+    "Unembedded IssabelPBX" => "IssabelPBX",
     "Basic" => "Simple",
     "Feature Codes" => "Codes Fonctions",
     "General Settings" => "Paramètres Généraux",

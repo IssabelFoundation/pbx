@@ -29,7 +29,7 @@
 global $arrLangModule;
 $arrLangModule = array(
     "Option" => "Опция",
-    "Unembedded FreePBX®" => "Невстроенный FreePBX®",
+    "Unembedded IssabelPBX®" => "Невстроенный IssabelPBX®",
     "Basic" => "Основное",
     "Extensions" => "Внутренние номера",
     "Feature Codes" => "Сервисные Коды",
@@ -58,7 +58,6 @@ $arrLangModule = array(
     "Parking Lot" => "Парковка",
     "System Recordings" => "Записи в Системе",
     "Remote Access" => "Удалённый Доступ",
-    "Callback" => "Обратный Вызов",
-    " is a register trademark of " => "является зарегистрированной торговой маркой компании",
+    "Callback" => "Обратный Вызов"
 );
 ?>

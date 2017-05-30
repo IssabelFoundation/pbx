@@ -24,7 +24,7 @@ $html .= '</head>  <div id="page">';//open page
 //add script warning
 $html .= '<noscript><div class="attention">'
 		. _('WARNING: Javascript is disabled in your browser. '
-		. 'The FreePBX administration interface requires Javascript to run properly. '
+		. 'The IssabelPBX administration interface requires Javascript to run properly. '
 		. 'Please enable javascript or switch to another  browser that supports it.') 
 		. '</div></noscript>';
 $html .= '<body>';

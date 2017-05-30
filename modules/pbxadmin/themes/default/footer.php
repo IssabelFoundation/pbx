@@ -101,7 +101,7 @@ if (file_exists("/var/www/html/admin/assets/js/pbxlib.js")) {
 }
 
 if (isset($module_name) && $module_name != '') {
-	$html .= framework_include_js_freepbx($module_name, $module_page);
+	$html .= framework_include_js_issabelpbx($module_name, $module_page);
 }
 
 if (!empty($js_content)) {

@@ -93,7 +93,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
     global $quietmode;
     global $recordings_save_path;
     global $path_to_dir;
-    global $itemid; // required by FreePBX 2.11.x daynight module
+    global $itemid; // required by IssabelPBX 2.11.x daynight module
     $return_HTML = "";
 
     // This needs to be included BEFORE the session_start or we fail so
@@ -123,7 +123,6 @@ function getContent(&$smarty, $elx_module_name, $withList)
             include_once('/etc/asterisk/issabelpbx.conf');
         }
     } else {
-        // call bootstrap.php through freepbx.conf
         if (!@include_once(getenv('FREEPBX_CONF') ? getenv('FREEPBX_CONF') : '/etc/freepbx.conf')) {
             include_once('/etc/asterisk/freepbx.conf');
         }
@@ -459,7 +458,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
     /* Lo siguiente es un SOBERANO HACKEO.
      *
-     * El módulo ivr de FreePBX tiene un HTML inválido que mete un <table> dentro
+     * El módulo ivr de IssabelPBX tiene un HTML inválido que mete un <table> dentro
      * de otro <table> lo cual es tolerado por el navegador en la interfaz no
      * embebida pero rompe el HTML dentro de Issabel. Aquí se recoge el HTML
      * inválido y se lo embebe dentro de un <tr><td>. */
@@ -486,7 +485,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
         //if we have a module loaded, load its css
         if (isset($module_name)) {
-                $return_HTML .= framework_include_css_freepbx();
+                $return_HTML .= framework_include_css_issabelpbx();
         }
 
         // If processing posback (fw_popover_process) and there are errors then we
@@ -521,7 +520,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
         //if we have a module loaded, load its css
         if (isset($module_name)) {
-                $return_HTML .= framework_include_css_freepbx();
+                $return_HTML .= framework_include_css_issabelpbx();
         }
 
         // send menu
@@ -542,7 +541,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
                 $smarty->assign("isissabelpbx", 1);
             }
             $smarty->assign("Option", _tr('Option'));
-            $smarty->assign("Unembedded_freePBX", _tr('Unembedded FreePBX®'));
+            $smarty->assign("Unembedded_IssabelPBX", _tr('Unembedded IssabelPBX'));
             $smarty->assign("Basic", _tr('Basic'));
             $smarty->assign("Extensions", _tr('Extensions'));
             $smarty->assign("Feature_Codes", _tr('Feature Codes'));
@@ -578,15 +577,14 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Languages", _tr('Languages'));
             $smarty->assign("VoiceMail_Blasting", _tr('VoiceMail Blasting'));
 
-            $smarty->assign("INFO", _tr("Warning: Updating FreePBX® through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update freePBX\"."));
-            $smarty->assign("footer_FreePBX", _tr(' is a register trademark of '));
+            $smarty->assign("INFO", _tr("Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"."));
             $smarty->assign("htmlFPBX", $return_HTML);
             return $smarty->fetch("$local_templates_dir/main.tpl");
         }
     }
 }
 
-function framework_include_css_freepbx() {
+function framework_include_css_issabelpbx() {
 	global $active_modules, $module_name, $module_page, $amp_conf;
 
 	$version			= get_framework_version();
@@ -663,7 +661,7 @@ function framework_include_css_freepbx() {
 	return $html;
 }
 
-function framework_include_js_freepbx($module_name, $module_page) {
+function framework_include_js_issabelpbx($module_name, $module_page) {
 	global $amp_conf, $active_modules;
 	$version			= get_framework_version();
 	$version_tag		= '?load_version=' . urlencode($version);

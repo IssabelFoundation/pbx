@@ -29,7 +29,7 @@
 global $arrLangModule;
 $arrLangModule = array(
     "Option" => "Opción",
-    "Unembedded FreePBX®" => "FreePBX® Sin embeber",
+    "Unembedded IssabelPBX®" => "IssabelPBX Sin embeber",
     "Basic" => "Básico",
     "Extensions" => "Extensiones",
     "Feature Codes" => "Códigos de funcionalidades",
@@ -54,7 +54,7 @@ $arrLangModule = array(
     "System Recordings" => "Grabaciones del Sistema",
     "Remote Access" => "Acceso Remoto",
     "Callback" => "Devolver Llamada",
-    "Warning: Updating FreePBX® through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update freePBX\"." => "Advertencia: Actualizar FreePBX® a través de su interfaz web ocasionará que se instalen versiones que pudieran aún no haber sido correctamente integradas con Issabel. <br />FreePBX® es una marca registrada de Sangoma Technologies. Para más detalles visite www.freepbx.org y www.sangoma.com. Para evitar conflictos con Issabel, es siempre recomendable buscar/instalar actualizaciones únicamente a través del comando linux \"yum update freePBX\".",
+    "Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"." => "Advertencia: Actualizar IssabelPBX a través de su interfaz web ocasionará que se instalen versiones que pudieran aún no haber sido correctamente integradas con Issabel. Para evitar conflictos con Issabel, es siempre recomendable buscar/instalar actualizaciones únicamente a través del comando linux \"yum update issabelPBX\".",
     "PBX Configuration" => "Configuración de PBX",
     "Blacklist" => "Lista negra",
     "CallerID Lookup Sources" => "Fuente de Búsqueda CallerID",
@@ -63,7 +63,6 @@ $arrLangModule = array(
     "Queue Priorities" => "Prioridades de Cola",
     "Time Groups" => "Grupos Horarios",
     "Languages" => "Idiomas",
-    "VoiceMail Blasting" => "Correo de Voz Masivo",
-    " is a register trademark of " => "es una marca registrada de",
+    "VoiceMail Blasting" => "Correo de Voz Masivo"
 );
 ?>

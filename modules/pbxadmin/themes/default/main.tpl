@@ -38,7 +38,7 @@
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=callback"  >{$Callback}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=disa"  >{$DISA}</a></li>
             <li>{$Option}</li>
-            <li style="float:left;border-right:0px"><a href="/admin/" target="_blank">{$Unembedded_freePBX}</a></li>
+            <li style="float:left;border-right:0px"><a href="/admin/" target="_blank">{$Unembedded_IssabelPBX}</a></li>
             <div style="height:0px">
                 <a href="#" class="info"><span style='margin-left:0.2cm; margin-top:-1.8cm; width:303px'>{$INFO}</span></a>
             </div>
@@ -55,9 +55,6 @@
     <td></td>
     <td valign="bottom">
       <div align="center">
-        <a href="http://www.freepbx.org" target="_blank" style="color: #444; text-decoration: none;">FreePBX®</a>
-        <a style="color: #444; text-decoration: none;">{$footer_FreePBX}</a>
-        <a href="http://www.sangoma.com/" target="_blank" style="color: #444; text-decoration: none;">Sangoma Technologies</a>
       </div>
     </td>
   </tr>

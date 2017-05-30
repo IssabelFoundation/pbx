@@ -29,7 +29,7 @@
 global $arrLangModule;
 $arrLangModule = array(
     "Option" => "گزینه",
-    "Unembedded freePBX" => "صفحه کنترل جدا",
+    "Unembedded IssabelPBX" => "صفحه کنترل جدا",
     "Basic" => "اصلی",
     "Extensions" => "داخلی ها",
     "Feature Codes" => "کدهای ویژه",

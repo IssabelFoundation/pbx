@@ -29,7 +29,7 @@
 
 function _moduleContent(&$smarty, $module_name)
 {
-    require_once "modules/$module_name/libs/contentFreePBX.php";
+    require_once "modules/$module_name/libs/contentIssabelPBX.php";
     $smarty->assign("title",_tr("PBX Configuration"));
     $smarty->assign("icon", "/modules/$module_name/images/pbx_configuration.png");
     $salida = getContent($smarty, $module_name, true);

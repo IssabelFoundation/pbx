@@ -14,11 +14,7 @@
 
 <p>In the left part, we can observe that we have different options for configuration.</p>
 
-<p>Issabel uses the free software <a href="http://www.freepbx.org">FreePBX®</a> as a tool for administration of Asterisk; for more information check out the following link:</p>
-
-<p><a href="http://www.freepbx.org/support/documentation/module-documentation">http://www.freepbx.org/support/documentation/module-documentation</a></p>
-
-<p><a href="http://www.freepbx.org">FreePBX®</a> is a Registered Trademark of <a href="http://www.sangoma.com">Sangoma Technologies</a>. For more details visit www.freepbx.org and www.sangoma.com.</p>
+<p>Issabel uses the free software IssabelPBX as a tool for administration of Asterisk&copy;.</p>
 
 </body>
 </html>

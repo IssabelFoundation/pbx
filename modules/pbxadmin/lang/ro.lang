@@ -29,7 +29,7 @@
 global $arrLangModule;
 $arrLangModule = array(
     "Option" => "Optiuni",
-    "Unembedded freePBX" => "Centrala Telefonica",
+    "Unembedded IssabelPBX" => "Centrala Telefonica",
     "Basic" => "Baza",
     "Extensions" => "Extensii",
     "Feature Codes" => "Coduri Speciale",
