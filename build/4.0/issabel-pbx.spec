@@ -9,16 +9,15 @@ Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
 BuildRoot: %{_tmppath}/%{name}-%{version}-root
 BuildArch: noarch
-Requires(pre): issabel-framework >= 4.0.0-14
+Requires(pre): issabel-framework >= 4.0.0-1
 Requires(pre): issabel-my_extension >= 2.0.4-5
 Requires(pre): issabel-system >= 2.3.0-10
 Requires(pre): vsftpd
 Requires(pre): asterisk >= 1.8
 Requires: festival >= 1.95
-#Requires(pre): freePBX >= 2.11.0-1
+Requires(pre): issabelPBX >= 2.11.0-1
 
-Conflicts: elastix-endpointconfig2 <= 0.0.7
-Requires: issabel-endpointconfig2 >= 2.4.0-0
+Requires: issabel-endpointconfig2 >= 4.0.0-1
 
 # commands: mv chown
 Requires: coreutils
@@ -41,7 +40,6 @@ Requires: chkconfig
 Requires: /sbin/pidof
 
 Obsoletes: elastix-pbx
-Provides: elastix-pbx
 
 %description
 Issabel PBX Module
