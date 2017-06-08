@@ -267,6 +267,8 @@ fi
 # Remove old endpoints_batch menu item
 elastix-menuremove endpoints_batch
 
+chown asterisk.asterisk /var/www/html -R
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
