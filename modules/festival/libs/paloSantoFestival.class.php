@@ -53,7 +53,7 @@ class paloSantoFestival{
     function activateFestival()
     {
         $output = $retval = NULL;
-        exec('/usr/bin/elastix-helper festival --enable 2>&1', $output, $retval);
+        exec('/usr/bin/issabel-helper festival --enable 2>&1', $output, $retval);
         if ($retval != 0) {
             $this->errMsg = implode(' ', $output);
             return -1;
@@ -70,7 +70,7 @@ class paloSantoFestival{
     function deactivateFestival()
     {
         $output = $retval = NULL;
-        exec('/usr/bin/elastix-helper festival --disable', $output, $retval);
+        exec('/usr/bin/issabel-helper festival --disable', $output, $retval);
         return ($retval == 0);        
     }
 

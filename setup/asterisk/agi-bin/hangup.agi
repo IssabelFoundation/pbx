@@ -30,21 +30,21 @@
 
 /*********************************************************************************
   This agi script will be executed every time a call is finished (hangup).
-  It will check for any executable script at /usr/local/elastix/addons_scripts
+  It will check for any executable script at /usr/local/issabel/addons_scripts
   the folder addons_scripts does not exist by default it must be created by the
   package or development that need it.
   
   The executable script will receive all the parameters of the call (asterisk),
   for example:
 
-  /usr/local/elastix/addons_scripts/name_script  --uniqueid '1371156228.45' 
+  /usr/local/issabel/addons_scripts/name_script  --uniqueid '1371156228.45' 
   --answer '2013-06-13 15:43:48' --src '301' --dst '1234' --billsec '3'
   --dstchannel '' --disposition 'ANSWERED' --accountcode '' 
   --channel 'SIP/301-0000002d' --dial_trunk ''
 
   Then the script can handle the parameters and do the tasks it has to do.
 
-  Here is an example about an script in /usr/local/elastix/addons_scripts
+  Here is an example about an script in /usr/local/issabel/addons_scripts
   it must have executable permissions and root must be the owner and the group
   it belongs.
 
@@ -94,7 +94,7 @@
 *********************************************************************************/
 
 
-define("ADDONS_SCRIPTS_DIR","/usr/local/elastix/addons_scripts");
+define("ADDONS_SCRIPTS_DIR","/usr/local/issabel/addons_scripts");
 
 require_once "phpagi.php";
 
@@ -136,7 +136,7 @@ if(is_dir(ADDONS_SCRIPTS_DIR)){
 				/*
 				  Now we proceed to call to the script with all the parameters as the following example:
 
-				  /usr/local/elastix/addons_scripts/name_script  --uniqueid '1371156228.45' --answer '2013-06-13 15:43:48' --src '301' --dst '1234' --billsec '3' --dstchannel '' --disposition 'ANSWERED' --accountcode '' --channel 'SIP/301-0000002d' --dial_trunk ''
+				  /usr/local/issabel/addons_scripts/name_script  --uniqueid '1371156228.45' --answer '2013-06-13 15:43:48' --src '301' --dst '1234' --billsec '3' --dstchannel '' --disposition 'ANSWERED' --accountcode '' --channel 'SIP/301-0000002d' --dial_trunk ''
 
 				*/
 

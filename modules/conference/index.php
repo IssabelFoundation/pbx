@@ -29,7 +29,7 @@
 
 function _moduleContent(&$smarty, $module_name)
 {
-    //include elastix framework
+    //include issabel framework
     include_once "libs/paloSantoGrid.class.php";
     include_once "libs/paloSantoValidar.class.php";
     include_once "libs/paloSantoConfig.class.php";
@@ -213,8 +213,8 @@ function report_conference($smarty, $module_name, $local_templates_dir, $pDB, $a
         // la lista de datos para las columnas adicionales
         $listaWebConf = array();
         if (!is_null($pConfWeb)) {
-            $pACL = new paloACL($arrConf['elastix_dsn']['acl']);
-            $listaWC = $pConfWeb->listarConferencias($pACL->isUserAdministratorGroup($_SESSION['elastix_user']));
+            $pACL = new paloACL($arrConf['issabel_dsn']['acl']);
+            $listaWC = $pConfWeb->listarConferencias($pACL->isUserAdministratorGroup($_SESSION['issabel_user']));
             foreach ($listaWC as $tuplaConf) {
                 if (!is_null($tuplaConf['id_cbmysql_conference']))
                     $listaWebConf[$tuplaConf['id_cbmysql_conference']] = $tuplaConf;

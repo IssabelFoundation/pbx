@@ -185,7 +185,7 @@ class core_Voicemail
         global $arrConf;
 
         if (is_null($this->_pACL)) {
-            $pDB_acl = $this->_getDB($arrConf['elastix_dsn']['acl']);
+            $pDB_acl = $this->_getDB($arrConf['issabel_dsn']['acl']);
             $this->_pACL = new paloACL($pDB_acl);
         }
         return $this->_pACL;

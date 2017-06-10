@@ -252,7 +252,7 @@ TEMP;
     // Undo previous leftover garbage
     if (file_exists('/tmp/trunk_dump.sql')) unlink('/tmp/trunk_dump.sql');
 
-    $filename = tempnam('/tmp', 'elastix-pbx-installer-');
+    $filename = tempnam('/tmp', 'issabel-pbx-installer-');
     $dbname = "$DataBaseRoot/trunk-pbx.db";
 
     // Undo previous leftover garbage

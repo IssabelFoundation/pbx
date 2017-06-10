@@ -29,7 +29,7 @@
   $Id: index.php,v 1.3 2008/04/14 09:22:21 afigueroa Exp $
   $Id: index.php,v 2.0 2010/02/03 09:00:00 onavarre Exp $
   $Id: index.php,v 2.1 2010-03-22 05:03:48 Eduardo Cueva ecueva@palosanto.com Exp $ */
-//include elastix framework
+//include issabel framework
 
 // exten => s,n,Set(CDR(userfield)=audio:${CALLFILENAME}.${MIXMON_FORMAT})   extensions_additional
 require_once "libs/paloSantoACL.class.php";
@@ -55,9 +55,9 @@ function _moduleContent(&$smarty, $module_name)
     //conexion resource
     $arrConf['dsn_conn_database'] = generarDSNSistema('asteriskuser', 'asteriskcdrdb');
     $pDB = new paloDB($arrConf['dsn_conn_database']);
-    $pDBACL = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDBACL = new paloDB($arrConf['issabel_dsn']['acl']);
     $pACL = new paloACL($pDBACL);
-    $user = isset($_SESSION['elastix_user'])?$_SESSION['elastix_user']:"";
+    $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
     if ($extension == '') $extension = NULL;
 
@@ -407,7 +407,7 @@ function display_record($smarty, $module_name, $local_templates_dir, &$pDB, $pAC
         'id'               =>  $file,
         'namefile'         =>  $namefile,
         'rawmode'          =>  'yes',
-        'elastixSession'   =>  session_id(),
+        'issabelSession'   =>  session_id(),
     ));
     $sContenido=<<<contenido
 <!DOCTYPE html>
@@ -495,7 +495,7 @@ function hasModulePrivilege($user, $module, $privilege)
 {
     global $arrConf;
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
     $pACL = new paloACL($pDB);
 
     if (method_exists($pACL, 'hasModulePrivilege'))

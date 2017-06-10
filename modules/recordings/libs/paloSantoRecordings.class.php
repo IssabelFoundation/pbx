@@ -40,9 +40,9 @@ class paloSantoRecordings {
 
     function Obtain_Extension_Current_User($arrConf)
     {
-        $pDB_acl = new paloDB($arrConf['elastix_dsn']['acl']);
+        $pDB_acl = new paloDB($arrConf['issabel_dsn']['acl']);
         $pACL = new paloACL($pDB_acl);
-        $username = $_SESSION["elastix_user"];
+        $username = $_SESSION["issabel_user"];
         $extension = $pACL->getUserExtension($username);
         if(is_null($extension))
             return false;
@@ -51,9 +51,9 @@ class paloSantoRecordings {
 
     function Obtain_Protocol_Current_User($arrConf)
     {
-        $pDB_acl = new paloDB($arrConf['elastix_dsn']['acl']);
+        $pDB_acl = new paloDB($arrConf['issabel_dsn']['acl']);
         $pACL = new paloACL($pDB_acl);
-        $username = $_SESSION["elastix_user"];
+        $username = $_SESSION["issabel_user"];
         $extension = $pACL->getUserExtension($username);
 
         if($extension)

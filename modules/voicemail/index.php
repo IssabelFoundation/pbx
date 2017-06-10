@@ -51,7 +51,7 @@ function _moduleContent(&$smarty, $module_name)
     $local_templates_dir="$base_dir/modules/$module_name/".$templates_dir.'/'.$arrConf['theme'];
 
     //segun el usuario que esta logoneado consulto si tiene asignada extension para buscar los voicemails
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
     if (!empty($pDB->errMsg)) {
         return "ERROR DE DB: $pDB->errMsg <br>";
     }
@@ -59,7 +59,7 @@ function _moduleContent(&$smarty, $module_name)
     if (!empty($pACL->errMsg)) {
         return "ERROR DE ACL: $pACL->errMsg <br>";
     }
-    $user = isset($_SESSION['elastix_user'])?$_SESSION['elastix_user']:"";
+    $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
     if ($extension == '') $extension = NULL;
 
@@ -387,7 +387,7 @@ function display_record($smarty, $module_name, $local_templates_dir, $user, $ext
         'ext'            =>  $ext,
         'name'           =>  $file,
         'rawmode'        =>  'yes',
-        'elastixSession' =>  session_id(),
+        'issabelSession' =>  session_id(),
     ));
     $sContenido=<<<contenido
 <!DOCTYPE html>
@@ -518,7 +518,7 @@ function hasModulePrivilege($user, $module, $privilege)
 {
     global $arrConf;
 
-    $pDB = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDB = new paloDB($arrConf['issabel_dsn']['acl']);
     $pACL = new paloACL($pDB);
 
     if (method_exists($pACL, 'hasModulePrivilege'))

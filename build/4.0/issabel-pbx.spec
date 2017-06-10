@@ -75,8 +75,8 @@ mkdir -p $RPM_BUILD_ROOT/var/log/festival/
 
 # The following folder should contain all the data that is required by the installer,
 # that cannot be handled by RPM.
-mkdir -p      $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-mkdir -p      $RPM_BUILD_ROOT/usr/share/elastix/privileged/
+mkdir -p      $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+mkdir -p      $RPM_BUILD_ROOT/usr/share/issabel/privileged/
 
 # crons config
 mv setup/etc/cron.daily/asterisk_cleanup      $RPM_BUILD_ROOT/etc/cron.daily/
@@ -95,22 +95,22 @@ mv setup/asterisk/mohmp3/*                    $RPM_BUILD_ROOT/var/lib/asterisk/m
 rmdir setup/asterisk/*
 rmdir setup/asterisk
 
-# Moviendo archivos festival y sip_notify_custom_elastix.conf
-chmod +x setup/etc/asterisk/sip_notify_custom_elastix.conf
+# Moviendo archivos festival y sip_notify_custom_issabel.conf
+chmod +x setup/etc/asterisk/sip_notify_custom_issabel.conf
 chmod +x setup/etc/init.d/festival
-mv setup/etc/asterisk/sip_notify_custom_elastix.conf      $RPM_BUILD_ROOT/etc/asterisk/
+mv setup/etc/asterisk/sip_notify_custom_issabel.conf      $RPM_BUILD_ROOT/etc/asterisk/
 mv setup/etc/init.d/festival                              $RPM_BUILD_ROOT/etc/init.d/
-mv setup/usr/share/elastix/privileged/*                   $RPM_BUILD_ROOT/usr/share/elastix/privileged/
+mv setup/usr/share/issabel/privileged/*                   $RPM_BUILD_ROOT/usr/share/issabel/privileged/
 mv setup/etc/httpd/                                       $RPM_BUILD_ROOT/etc/
 rmdir setup/etc/init.d
 rmdir setup/etc/asterisk
-rmdir setup/usr/share/elastix/privileged
+rmdir setup/usr/share/issabel/privileged
 
-rmdir setup/usr/share/elastix setup/usr/share setup/usr
+rmdir setup/usr/share/issabel setup/usr/share setup/usr
 
 chmod +x setup/migrationFilesMonitor*php
-mv setup/     $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-mv menu.xml   $RPM_BUILD_ROOT/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
+mv setup/     $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+mv menu.xml   $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
 
 
 %pre
@@ -127,16 +127,16 @@ if [ -e /etc/vsftpd.user_list ] ; then
     cp /etc/vsftpd.user_list /tmp/
 fi
 
-mkdir -p /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/
-touch /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/preversion_%{modname}.info
+mkdir -p /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/
+touch /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/preversion_%{modname}.info
 if [ $1 -eq 2 ]; then
-    rpm -q --queryformat='%{VERSION}-%{RELEASE}' %{name} > /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/preversion_%{modname}.info
+    rpm -q --queryformat='%{VERSION}-%{RELEASE}' %{name} > /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/preversion_%{modname}.info
 fi
 
 %post
 ######### Para ejecucion del migrationFilesMonitor.php ##############
 
-#/usr/share/elastix/migration_version_monitor.info
+#/usr/share/issabel/migration_version_monitor.info
 #obtener la primera linea que contiene la version
 
 vers=`sed -n '1p' "/tmp/migration_version_monitor.info"`
@@ -145,8 +145,8 @@ if [ "$vers" = "1.6.2" ]; then
   if [ $rels -le 13 ]; then # si el release es menor o igual a 13 entonces ejecuto el script
 
     echo "Executing process migration audio files Monitor"
-    chmod +x /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor.php
-    php /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor.php
+    chmod +x /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor.php
+    php /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor.php
   fi
 fi
 rm -rf /tmp/migration_version_monitor.info
@@ -163,10 +163,10 @@ if [ -f "/etc/asterisk/extensions_override_freepbx.conf" ]; then
         cat /etc/asterisk/extensions_override_freepbx.conf >> /tmp/ext_over_freepbx.conf
         cat /tmp/ext_over_freepbx.conf > /etc/asterisk/extensions_override_freepbx.conf
 	rm -rf /tmp/ext_over_freepbx.conf
-        echo "macros elastix was written."
+        echo "macros issabel written."
     fi
 else
-    echo "File extensions_override_freepbx.conf in asterisk not exits, copying include macros elastix..."
+    echo "File extensions_override_freepbx.conf in asterisk not exits, copying include macros for Issabel..."
     touch /etc/asterisk/extensions_override_freepbx.conf
     echo "#include extensions_override_issabel.conf" > /etc/asterisk/extensions_override_freepbx.conf
 fi
@@ -175,31 +175,31 @@ fi
 if [ -f "/etc/asterisk/extensions_override_issabel.conf" ]; then
     if grep -q 'audio:' /etc/asterisk/extensions_override_issabel.conf ; then
         echo "/etc/asterisk/extensions_override_issabel.conf contains CDR(userfield)=audio: , migrating database..."
-        /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor2.php
+        /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/migrationFilesMonitor2.php
     fi
 fi
 
-# verifico si se incluye a sip_notify_custom_elastix.conf
+# verifico si se incluye a sip_notify_custom_issabel.conf
 if [ -f "/etc/asterisk/sip_notify_custom.conf" ]; then
-    echo "/etc/asterisk/sip_notify_custom.conf exists, verifying the inclusion of sip_notify_custom_elastix.conf"
-    grep "#include sip_notify_custom_elastix.conf" /etc/asterisk/sip_notify_custom.conf &> /dev/null
+    echo "/etc/asterisk/sip_notify_custom.conf exists, verifying the inclusion of sip_notify_custom_issabel.conf"
+    grep "#include sip_notify_custom_issabel.conf" /etc/asterisk/sip_notify_custom.conf &> /dev/null
     if [ $? -eq 1 ]; then
-	echo "including sip_notify_custom_elastix.conf..."
-	echo "#include sip_notify_custom_elastix.conf" > /tmp/custom_elastix.conf
-	cat /etc/asterisk/sip_notify_custom.conf >> /tmp/custom_elastix.conf
-	cat /tmp/custom_elastix.conf > /etc/asterisk/sip_notify_custom.conf
-	rm -rf /tmp/custom_elastix.conf
+	echo "including sip_notify_custom_issabel.conf..."
+	echo "#include sip_notify_custom_issabel.conf" > /tmp/custom_issabel.conf
+	cat /etc/asterisk/sip_notify_custom.conf >> /tmp/custom_issabel.conf
+	cat /tmp/custom_issabel.conf > /etc/asterisk/sip_notify_custom.conf
+	rm -rf /tmp/custom_issabel.conf
     else
-	echo "sip_notify_custom_elastix.conf is already included"
+	echo "sip_notify_custom_issabel.conf is already included"
     fi
 else
     echo "creating file /etc/asterisk/sip_notify_custom.conf"
     touch /etc/asterisk/sip_notify_custom.conf
-    echo "#include sip_notify_custom_elastix.conf" > /etc/asterisk/sip_notify_custom.conf
+    echo "#include sip_notify_custom_issabel.conf" > /etc/asterisk/sip_notify_custom.conf
 fi
 
 varwriter=1
-mv /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf /etc/asterisk/
+mv /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf /etc/asterisk/
 chown -R asterisk.asterisk /etc/asterisk
 
 if [ $varwriter -eq 1  ]; then
@@ -210,9 +210,9 @@ if [ $varwriter -eq 1  ]; then
     fi
 fi
 
-pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
+pathModule="/usr/share/issabel/module_installer/%{name}-%{version}-%{release}"
 # Run installer script to fix up ACLs and add module to Elastix menus.
-elastix-menumerge /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/menu.xml
+issabel-menumerge /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/menu.xml
 
 pathSQLiteDB="/var/www/db"
 mkdir -p $pathSQLiteDB
@@ -221,10 +221,10 @@ rm -f $pathModule/preversion_%{modname}.info
 
 if [ $1 -eq 1 ]; then #install
   # The installer database
-  elastix-dbprocess "install" "/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/db"
+  issabel-dbprocess "install" "/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/db"
 elif [ $1 -eq 2 ]; then #update
   # The installer database
-   elastix-dbprocess "update"  "$pathModule/setup/db" "$preversion"
+   issabel-dbprocess "update"  "$pathModule/setup/db" "$preversion"
 fi
 
 #verificando si existe el menu en pbx
@@ -250,7 +250,7 @@ fi
 
 # The installer script expects to be in /tmp/new_module
 mkdir -p /tmp/new_module/%{modname}
-cp -r /usr/share/elastix/module_installer/%{name}-%{version}-%{release}/* /tmp/new_module/%{modname}/
+cp -r /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/* /tmp/new_module/%{modname}/
 chown -R asterisk.asterisk /tmp/new_module/%{modname}
 
 php /tmp/new_module/%{modname}/setup/installer.php
@@ -265,7 +265,7 @@ if [ -e /tmp/vsftpd.user_list ] ; then
 fi
 
 # Remove old endpoints_batch menu item
-elastix-menuremove endpoints_batch
+issabel-menuremove endpoints_batch
 
 chown asterisk.asterisk /var/www/html -R
 
@@ -274,30 +274,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %preun
 if [ $1 -eq 0 ] ; then # Validation for desinstall this rpm; delete
-pathModule="/usr/share/elastix/module_installer/%{name}-%{version}-%{release}"
+pathModule="/usr/share/issabel/module_installer/%{name}-%{version}-%{release}"
   echo "Delete System menus"
-  elastix-menuremove "pbxconfig"
+  issabel-menuremove "pbxconfig"
 
   echo "Dump and delete %{name} databases"
-  elastix-dbprocess "delete" "$pathModule/setup/db"
+  issabel-dbprocess "delete" "$pathModule/setup/db"
 fi
 
 %files
 %defattr(-, asterisk, asterisk)
-/etc/asterisk/sip_notify_custom_elastix.conf
+/etc/asterisk/sip_notify_custom_issabel.conf
 /var/lib/asterisk/*
 /var/lib/asterisk/agi-bin
 /var/log/festival
-/usr/share/elastix/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf
+/usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf
 %defattr(-, root, root)
 %{_localstatedir}/www/html/*
-/usr/share/elastix/module_installer/*
+/usr/share/issabel/module_installer/*
 %defattr(644, root, root)
 %config(noreplace) /etc/httpd/conf.d/*
 %defattr(755, root, root)
 /etc/init.d/festival
 /bin/asterisk.reload
-/usr/share/elastix/privileged/*
+/usr/share/issabel/privileged/*
 /var/lib/asterisk/agi-bin/*
 /etc/cron.daily/asterisk_cleanup
 

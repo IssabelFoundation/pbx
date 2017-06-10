@@ -30,5 +30,5 @@ global $arrConfModule;
 global $arrConf;
 $arrConfModule['module_name'] = 'control_panel';
 $arrConfModule['templates_dir'] = 'themes';
-$arrConfModule['dsn_conn_database'] = "sqlite3:///$arrConf[elastix_dbdir]/control_panel_design.db";
+$arrConfModule['dsn_conn_database'] = "sqlite3:///$arrConf[issabel_dbdir]/control_panel_design.db";
 ?>

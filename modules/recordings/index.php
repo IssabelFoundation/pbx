@@ -29,7 +29,7 @@
 
 function _moduleContent(&$smarty, $module_name)
 {
-    //include elastix framework
+    //include issabel framework
     include_once "libs/paloSantoGrid.class.php";
     include_once "libs/paloSantoForm.class.php";
     include_once "libs/paloSantoConfig.class.php";
@@ -59,7 +59,7 @@ function _moduleContent(&$smarty, $module_name)
     $dsn_agi_manager['host'] = $arrConfig['AMPDBHOST']['valor'];
     $dsn_agi_manager['user'] = 'admin';
 
-    $pDBACL = new paloDB($arrConf['elastix_dsn']['acl']);
+    $pDBACL = new paloDB($arrConf['issabel_dsn']['acl']);
     $accion = getAction();
 
     $content = "";
@@ -233,7 +233,7 @@ function new_recording($smarty, $module_name, $local_templates_dir, $dsn_agi_man
 function form_Recordings($smarty, $module_name, $local_templates_dir, $pDBACL)
 {
     $pACL = new paloACL($pDBACL);
-    $user = isset($_SESSION['elastix_user'])?$_SESSION['elastix_user']:"";
+    $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
     $extension = $pACL->getUserExtension($user);
     if(is_null($extension) || $extension==""){
 	$smarty->assign("DISABLED","DISABLED");
