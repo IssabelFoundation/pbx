@@ -7,7 +7,7 @@
 #   con privilegios de usuario normal (no root)
 #
 #   chkconfig: 2345 91 19
-#   description: Elastix Update Helper
+#   description: Issabel Update Helper
 #
 
 # Biblioteca de funciones de scripts

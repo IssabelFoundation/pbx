@@ -59,7 +59,7 @@ mkdir -p $RPM_BUILD_ROOT/etc/cron.daily
 # ** /bin path ** #
 mkdir -p $RPM_BUILD_ROOT/bin
 
-# Files provided by all Elastix modules
+# Files provided by all Issabel modules
 mkdir -p    $RPM_BUILD_ROOT/var/www/html/
 mv modules/ $RPM_BUILD_ROOT/var/www/html/
 
