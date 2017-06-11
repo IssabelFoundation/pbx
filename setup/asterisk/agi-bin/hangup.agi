@@ -8,11 +8,6 @@
   +----------------------------------------------------------------------+
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
-  | Cdla. Nueva Kennedy Calle E 222 y 9na. Este                          |
-  | Telfs. 2283-268, 2294-440, 2284-356                                  |
-  | Guayaquil - Ecuador                                                  |
-  | http://www.palosanto.com                                             |
-  +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
   | (GPL) Version 2 (the "License"); you may not use this file except in |
   | compliance with the License. You may obtain a copy of the License at |
