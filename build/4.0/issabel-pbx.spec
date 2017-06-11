@@ -116,7 +116,7 @@ mv menu.xml   $RPM_BUILD_ROOT/usr/share/issabel/module_installer/%{name}-%{versi
 %pre
 #Para migrar monitor
 touch /tmp/migration_version_monitor.info
-rpm -q --queryformat='%{VERSION}\n%{RELEASE}' elastix > /tmp/migration_version_monitor.info
+rpm -q --queryformat='%{VERSION}\n%{RELEASE}' issabel > /tmp/migration_version_monitor.info
 
 # TODO: TAREA DE POST-INSTALACIÓN
 #useradd -d /var/ftp -M -s /sbin/nologin ftpuser
