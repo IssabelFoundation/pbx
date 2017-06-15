@@ -154,21 +154,21 @@ rm -rf /tmp/migration_version_monitor.info
 
 varwriter=0
 
-if [ -f "/etc/asterisk/extensions_override_freepbx.conf" ]; then
-    echo "File extensions_override_freepbx.conf in asterisk exits, verifying macro record-enable and hangupcall exists..."
-    grep "#include extensions_override_issabel.conf" /etc/asterisk/extensions_override_freepbx.conf &>/dev/null
+if [ -f "/etc/asterisk/extensions_override_issabelpbx.conf" ]; then
+    echo "File extensions_override_issabelpbx.conf in asterisk exits, verifying macro record-enable and hangupcall exists..."
+    grep "#include extensions_override_issabel.conf" /etc/asterisk/extensions_override_issabelpbx.conf &>/dev/null
     res=$?
     if [ $res -eq 1 ]; then #macro record-enable not exists
-	echo "#include extensions_override_issabel.conf" > /tmp/ext_over_freepbx.conf
-        cat /etc/asterisk/extensions_override_freepbx.conf >> /tmp/ext_over_freepbx.conf
-        cat /tmp/ext_over_freepbx.conf > /etc/asterisk/extensions_override_freepbx.conf
-	rm -rf /tmp/ext_over_freepbx.conf
+	echo "#include extensions_override_issabel.conf" > /tmp/ext_over_issabelpbx.conf
+        cat /etc/asterisk/extensions_override_issabelpbx.conf >> /tmp/ext_over_issabelpbx.conf
+        cat /tmp/ext_over_issabelpbx.conf > /etc/asterisk/extensions_override_issabelpbx.conf
+	rm -rf /tmp/ext_over_issabelpbx.conf
         echo "macros issabel written."
     fi
 else
-    echo "File extensions_override_freepbx.conf in asterisk not exits, copying include macros for Issabel..."
-    touch /etc/asterisk/extensions_override_freepbx.conf
-    echo "#include extensions_override_issabel.conf" > /etc/asterisk/extensions_override_freepbx.conf
+    echo "File extensions_override_issabelpbx.conf in asterisk not exits, copying include macros for Issabel..."
+    touch /etc/asterisk/extensions_override_issabelpbx.conf
+    echo "#include extensions_override_issabel.conf" > /etc/asterisk/extensions_override_issabelpbx.conf
 fi
 
 # se verifica si extensions_override_issabel.conf usa audio: sin migrar
