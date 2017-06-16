@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Asterisk files
 mkdir -p $RPM_BUILD_ROOT/var/lib/asterisk/agi-bin
-mkdir -p $RPM_BUILD_ROOT/var/lib/asterisk/mohmp3
+mkdir -p $RPM_BUILD_ROOT/var/lib/asterisk/moh
 
 mkdir -p $RPM_BUILD_ROOT/etc/cron.daily
 
@@ -88,10 +88,10 @@ mv setup/bin/asterisk.reload                  $RPM_BUILD_ROOT/bin/
 chmod 755 $RPM_BUILD_ROOT/bin/asterisk.reload
 rmdir setup/bin
 
-# ** files asterisk for agi-bin and mohmp3 ** #
+# ** files asterisk for agi-bin and moh ** #
 mv setup/asterisk/agi-bin/*                   $RPM_BUILD_ROOT/var/lib/asterisk/agi-bin/
 chmod 755 $RPM_BUILD_ROOT/var/lib/asterisk/agi-bin/*
-mv setup/asterisk/mohmp3/*                    $RPM_BUILD_ROOT/var/lib/asterisk/mohmp3/
+mv setup/asterisk/moh/*                    $RPM_BUILD_ROOT/var/lib/asterisk/moh/
 rmdir setup/asterisk/*
 rmdir setup/asterisk
 
