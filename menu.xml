@@ -104,11 +104,5 @@
         <group id="3" name="extension" desc="extension user"></group>
       </permissions>
     </menuitem>
-    <menuitem menuid="fop"                    desc="Flash Operator Panel"    parent="pbxconfig" module="no"  link="admin/modules/fw_fop/index.php?menu=fop" order="9">
-        <permissions>
-            <group id="1" name="administrator" desc="total access"></group>
-            <group id="2" name="Operator" desc="Operator"></group>
-        </permissions>
-    </menuitem>
   </menulist>
 </module>
