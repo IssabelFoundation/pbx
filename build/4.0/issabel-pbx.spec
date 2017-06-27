@@ -17,7 +17,7 @@ Requires(pre): asterisk >= 1.8
 Requires: festival >= 1.95
 Requires(pre): issabelPBX >= 2.11.0-1
 
-Requires: issabel-endpointconfig2 >= 4.0.0-1
+#Requires: issabel-endpointconfig2 >= 4.0.0-1
 
 # commands: mv chown
 Requires: coreutils
