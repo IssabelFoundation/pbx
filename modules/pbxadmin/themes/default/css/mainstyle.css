@@ -31,7 +31,7 @@ body {
 }
 #header {
     position: relative;
-    z-index: 1000;
+    z-index: 999;
     min-width: 800px;
     width: 100%;
     max-width: 1920px;
