@@ -9,6 +9,7 @@
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=featurecodeadmin"  >{$Feature_Codes}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=routing"  >{$Outbound_Routes}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=trunks"  >{$Trunks}</a></li>
+            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=customcontexts"  >{$CoS}</a></li>
             <li>{$Inbound_Call_Control}</li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=did"  >{$Inbound_Routes}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=dahdichandids"  >{$DAHDI_Channel_DIDs}</a></li>

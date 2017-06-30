@@ -557,6 +557,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Ring_Groups", _tr('Ring Groups'));
             $smarty->assign("Time_Conditions", _tr('Time Conditions'));
             $smarty->assign("Internal_Options_Configuration", _tr('Internal Options & Configuration'));
+            $smarty->assign("CoS", _tr('Class of Service'));
             $smarty->assign("Conferences", _tr('Conferences'));
             $smarty->assign("Misc_Applications", _tr('Misc Applications'));
             $smarty->assign("Music_on_Hold", _tr('Music on Hold'));
