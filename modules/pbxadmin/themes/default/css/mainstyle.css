@@ -31,7 +31,7 @@ body {
 }
 #header {
     position: relative;
-    z-index: 999;
+    z-index: 1000;
     min-width: 800px;
     width: 100%;
     max-width: 1920px;
@@ -56,7 +56,7 @@ a:visited {
 	color:#072966;
 }*/
 a:hover {
-	color:#ff9933;
+	color:#4d0099;
 }
 h1, h2, h3, h4, h5, h6 {
 	color: gray;
@@ -78,7 +78,7 @@ input[type=email]:invalid {
 	border: 2px solid red;
 }
 .attention {
-	background:#ff9933;
+	background:#666699;
 	/*background:red;*/
 	color:white;
 	font-weight:bold;
@@ -144,11 +144,11 @@ div.attention {
 }
 #nav ul li {
 	/*background: #eee;*/
-	background: #9B9B9B;
+	background: #666699;
 	padding: 0px 0px 0px 4px;
 	border-top: 2px solid white;
 	border-right: 2px solid white;
-	/*border-radius: 8px;*/
+	border-radius: 3px;
 	/*color: #999;*/ /* header items */
 	font-size: 12px;
 	color: white;
@@ -157,25 +157,25 @@ div.attention {
 	padding-left:10px;
 	display: block;
 	text-decoration:none;
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
-	color: #095a9a;
-	background: #eee;
+	color: #373e4a;
+	background: #f0f0f5;
 	border-left: 2px ;
 	border-right: 2px ;
 	/*border-radius: 8px;*/
 }
 #nav ul li a:hover {
-	color: #ff8a00;
-	background: #D6D4D6
+	color: #1a0033;
+	background: #c2c2d6
 }
 #nav ul li a.current{
-	color: #ff8a00;
-	background: #D6D4D6
+	color: #4d0099;
+	background: #c2c2d6
 }
 #nav li.current, #nav li.current a { /* active item */
 	background: white;
-	color: #ff8a00;
+	color: #4d0099;
 }
 
 /***** footer *****/
