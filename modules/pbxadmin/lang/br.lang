@@ -1,0 +1,59 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: br.lang, v 1.0 Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Option" => "Opções",
+"Unembedded IssabelPBX®" => "Desincorporar IssabelPBX®",
+"Basic" => "Basico",
+"Extensions" => "Ramais",
+"Feature Codes" => "Códigos de Facilidades",
+"General Settings" => "Configurações Gerais",
+"Outbound Routes" => "Rotas de Saída",
+"Trunks" => "Troncos",
+"Inbound Call Control" => "Controle de Chamadas de Entrada",
+"Inbound Routes" => "Rotas de Entrada",
+"Announcements" => "Anuncios",
+"Follow Me" => "Siga-Me",
+"IVR" => "URA",
+"Misc Destinations" => "Destinos Personalizados",
+"Queues" => "Filas",
+"Ring Groups" => "Grupos de Chamada",
+"Time Conditions" => "Condições de Tempo",
+"Internal Options & Configuration" => "Opções e Configurações Internas",
+"Conferences" => "Conferencias",
+"Misc Applications" => "Aplicações Personalizadas",
+"Music on Hold" => "Musicas em Espera",
+"PIN Sets" => "Setar PIN",
+"Paging and Intercom" => "Paging and Intercom",
+"Parking Lot" => "Parking Lot",
+"System Recordings" => "Gravações do Sistema",
+"Remote Access" => "Acesso Remoto",
+"Callback" => "Callback",
+"DISA" => "DISA",
+"Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"." => "Aviso: a atualização do IssabelPBX através da sua interface da Web fará com que ele instale versões que talvez ainda não tenham sido devidamente integradas com a Issabel. Para evitar conflitos com a Issabel, sempre é recomendável procurar / instalar atualizações somente através do comando linux \ "yum update issabelPBX \".",
+"PBX Configuration" => "Configuração PBX"
+);
+?>

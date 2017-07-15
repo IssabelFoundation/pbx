@@ -536,6 +536,12 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
         if($withList){
 
+            if(is_dir("/var/www/html/admin/modules/motif")) {
+                $smarty->assign("has_google_voice",1);
+            } else {
+                $smarty->assign("has_google_voice",0);
+            }
+
             $smarty->assign("isissabelpx", 0);
             if(is_file("/etc/issabelpbx.conf")) {
                 $smarty->assign("isissabelpbx", 1);
@@ -547,6 +553,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Feature_Codes", _tr('Feature Codes'));
             $smarty->assign("Outbound_Routes", _tr('Outbound Routes'));
             $smarty->assign("Trunks", _tr('Trunks'));
+            $smarty->assign("Google_Voice", _tr('Google Voice'));
             $smarty->assign("Inbound_Call_Control", _tr('Inbound Call Control'));
             $smarty->assign("Inbound_Routes", _tr('Inbound Routes'));
             $smarty->assign("Announcements", _tr('Announcements'));
