@@ -16,3 +16,4 @@
 	<td align="right"><input class="button" type="submit" name="show" value="{$SHOW}" /></td>
     </tr>
 </table>
+<a href="javascript:seleccionar_checkbox(1)">Marcar todos</a> | <a href="javascript:seleccionar_checkbox(0)">Desmarcar Todos</a>
