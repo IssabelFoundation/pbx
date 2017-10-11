@@ -13,7 +13,7 @@ Requires(pre): issabel-framework >= 4.0.0-1
 Requires(pre): issabel-my_extension >= 2.0.4-5
 Requires(pre): issabel-system >= 2.3.0-10
 Requires(pre): vsftpd
-Requires(pre): asterisk >= 1.8
+#Requires(pre): asterisk >= 1.8
 Requires: festival >= 1.95
 Requires(pre): issabelPBX >= 2.11.0-1
 
