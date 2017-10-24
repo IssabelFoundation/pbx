@@ -23,6 +23,7 @@ Codificación: UTF-8
 | Email: bmacias@palosanto.com                                         |
 +----------------------------------------------------------------------+
 $Id: br.lang,v 1.0 2017/07/19 19:45:00 Ibinetwork Informática - rafael@ibinetwork.com.br $ */
+
 global $arrLangModule;
 $arrLangModule=array(
 "Monitoring" => "Gravações do Sistema",
