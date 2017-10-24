@@ -1,6 +1,7 @@
 <?php
 function getContent(&$smarty, $elx_module_name, $withList)
 {
+    global $fc_save;
     require_once "libs/misc.lib.php";
     $lang=get_language();
     $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);
