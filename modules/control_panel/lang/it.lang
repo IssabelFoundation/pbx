@@ -18,6 +18,9 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Francesco Maria Taurino                                |
+  | Email: francesco.taurino@gmail.com                                   |
   +----------------------------------------------------------------------+
   $Id: en.lang,v 1.1 2009-06-08 03:06:39 Oscar Navarrete onavarrete@palosanto.com Exp $ */
 global $arrLangModule;
