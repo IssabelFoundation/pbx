@@ -3,7 +3,7 @@
 Summary: Issabel PBX Module
 Name:    issabel-%{modname}
 Version: 4.0.0
-Release: 3
+Release: 4
 License: GPL
 Group:   Applications/System
 Source0: %{modname}_%{version}-%{release}.tgz
