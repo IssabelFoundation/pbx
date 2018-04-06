@@ -33,7 +33,6 @@ $arrLangModule=array(
 "General Settings" => "Configurações Gerais",
 "Outbound Routes" => "Rotas de Saída",
 "Trunks" => "Troncos",
- "Asterisk_SIP_Settings" => "Configurações SIP do Asterisk",
 "Inbound Call Control" => "Controle de Chamadas de Entrada",
 "Inbound Routes" => "Rotas de Entrada",
 "Announcements" => "Anuncios",
@@ -57,5 +56,11 @@ $arrLangModule=array(
 "Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"." => "Aviso: a atualização do IssabelPBX através da sua interface Web fará com que ele instale versões que talvez ainda não tenham sido devidamente integradas com o Issabel. Para evitar conflitos com o Issabel, sempre é recomendável procurar / instalar atualizações somente através do comando linux \"yum update issabelPBX \".",
 "PBX Configuration" => "Configuração PBX",
 "Class of Service" => "Controle de Chamadas de Saída",
+"Advanced" => "Advanced",
+"Asterisk_SIP_Settings" => "Asterisk SIP Settings",
+"Asterisk_IAX_Settings" => "Asterisk IAX Settings",
+"Route_Congestion_Messages" => "Route Congestion Messages",
+"Voicemail_Admin" => "Voicemail Admin",
+"Asterisk_Info" => "Asterisk Info"
 );
 ?>
