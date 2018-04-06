@@ -45,7 +45,7 @@
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=sipsettings"  >{$Asterisk_SIP_Settings}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=iaxsettings"  >{$Asterisk_IAX_Settings}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=outroutemsg"  >{$Route_Congestion_Messages}</a></li>
-            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=outroutemsg"  >{$Voicemail_Admin}</a></li>
+            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=voicemail"  >{$Voicemail_Admin}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=asteriskinfo"  >{$Asterisk_Info}</a></li>
             <li>{$Option}</li>
             <li style="float:left;border-right:0px"><a href="/admin/" target="_blank">{$Unembedded_IssabelPBX}</a></li>
