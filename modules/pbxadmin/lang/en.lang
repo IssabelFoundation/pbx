@@ -28,6 +28,7 @@ $arrLangModule=array(
 "Option" => "Option",
 "Unembedded IssabelPBX®" => "Unembedded IssabelPBX®",
 "Basic" => "Basic",
+"Advanced" => "Advanced",
 "Extensions" => "Extensions",
 "Feature Codes" => "Feature Codes",
 "General Settings" => "General Settings",
