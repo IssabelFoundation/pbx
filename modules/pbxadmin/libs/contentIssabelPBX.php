@@ -555,8 +555,6 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Outbound_Routes", _tr('Outbound Routes'));
             $smarty->assign("Trunks", _tr('Trunks'));            
 	    $smarty->assign("Google_Voice", _tr('Google Voice'));
-	    $smarty->assign("Advanced", _tr('Advanced'));
-            $smarty->assign("Asterisk_SIP_Settings", _tr('Asterisk SIP Settings'));
             $smarty->assign("Inbound_Call_Control", _tr('Inbound Call Control'));
             $smarty->assign("Inbound_Routes", _tr('Inbound Routes'));
             $smarty->assign("Announcements", _tr('Announcements'));
@@ -590,7 +588,12 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
             $smarty->assign("INFO", _tr("Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"."));
             $smarty->assign("htmlFPBX", $return_HTML);
-            return $smarty->fetch("$local_templates_dir/main.tpl");
+	    $smarty->assign("Advanced", _tr('Advanced'));
+            $smarty->assign("Asterisk_SIP_Settings", _tr('Asterisk SIP Settings'));
+	    $smarty->assign("Asterisk_IAX_Settings", _tr('Asterisk IAX Settings'));
+	    $smarty->assign("Route_Congestion_Messages", _tr('Route Congestion Messages'));	
+            $smarty->assign("Asterisk_Info", _tr('Asterisk Info'));
+	    return $smarty->fetch("$local_templates_dir/main.tpl");
         }
     }
 }
