@@ -53,5 +53,11 @@ $arrLangModule = array(
     "System Recordings" => "Записи в Системе",
     "Remote Access" => "Удалённый Доступ",
     "Callback" => "Обратный Вызов"
+    "Advanced" => "Advanced",
+    "Asterisk_SIP_Settings" => "Asterisk SIP Settings",
+    "Asterisk_IAX_Settings" => "Asterisk IAX Settings",
+    "Route_Congestion_Messages" => "Route Congestion Messages",
+    "Voicemail_Admin" => "Voicemail Admin",
+    "Asterisk_Info" => "Asterisk Info",
 );
 ?>
