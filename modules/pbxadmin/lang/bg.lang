@@ -31,6 +31,7 @@ $arrLangModule = array(
     "Outbound Routes" => "Изходящи Маршрути",
     "Trunks" => "Външни Линии",
     "Inbound Call Control" => "Входящи Обаждания",
+    "Asterisk_SIP_Settings" => "Настройки на Asterisk SIP",
     "Inbound Routes" => "Входящи Маршрути",
     "Announcements" => "Съобщения",
     "Follow Me" => "Следвай Ме",
