@@ -33,6 +33,7 @@ $arrLangModule=array(
 "General Settings" => "General Settings",
 "Outbound Routes" => "Outbound Routes",
 "Trunks" => "Trunks",
+"Asterisk_SIP_Settings" => "Asterisk SIP Settings",
 "Inbound Call Control" => "Inbound Call Control",
 "Inbound Routes" => "Inbound Routes",
 "Announcements" => "Announcements",
