@@ -61,6 +61,6 @@ $arrLangModule=array(
 "Asterisk_IAX_Settings" => "Asterisk IAX Settings",
 "Route_Congestion_Messages" => "Route Congestion Messages",
 "Voicemail_Admin" => "Voicemail Admin",
-"Asterisk_Info" => "Asterisk Info"
+"Asterisk_Info" => "Asterisk Info",
 );
 ?>
