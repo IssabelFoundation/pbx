@@ -590,6 +590,8 @@ function getContent(&$smarty, $elx_module_name, $withList)
 	    $smarty->assign("Asterisk_IAX_Settings", _tr('Asterisk IAX Settings'));
 	    $smarty->assign("Route_Congestion_Messages", _tr('Route Congestion Messages'));	
             $smarty->assign("Voicemail_Admin", _tr('Voicemail Admin'));
+            $smarty->assign("Custom_Destinations", _tr('Custom Destinations'));
+            $smarty->assign("Custom_Extensions", _tr('Custom Extensions'));
 	    $smarty->assign("Asterisk_Info", _tr('Asterisk Info'));	
             $smarty->assign("INFO", _tr("Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"."));
             $smarty->assign("htmlFPBX", $return_HTML);
