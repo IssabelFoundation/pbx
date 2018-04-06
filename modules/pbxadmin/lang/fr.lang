@@ -47,5 +47,11 @@ $arrLangModule = array(
     "Remote Access" => "Accès distant",
     "Callback" => "Rappels",
     "PBX Configuration" => "Configuration PBX",
+    "Advanced" => "Advanced",
+    "Asterisk_SIP_Settings" => "Asterisk SIP Settings",
+    "Asterisk_IAX_Settings" => "Asterisk IAX Settings",
+    "Route_Congestion_Messages" => "Route Congestion Messages",
+    "Voicemail_Admin" => "Voicemail Admin",
+    "Asterisk_Info" => "Asterisk Info",
 );
 ?>
