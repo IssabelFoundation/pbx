@@ -554,7 +554,8 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Feature_Codes", _tr('Feature Codes'));
             $smarty->assign("Outbound_Routes", _tr('Outbound Routes'));
             $smarty->assign("Trunks", _tr('Trunks'));
-            $smarty->assign("Google_Voice", _tr('Google Voice'));
+            $smarty->assign("Asterisk_SIP_Settings", _tr('Asterisk SIP Settings'));
+	    $smarty->assign("Google_Voice", _tr('Google Voice'));
             $smarty->assign("Inbound_Call_Control", _tr('Inbound Call Control'));
             $smarty->assign("Inbound_Routes", _tr('Inbound Routes'));
             $smarty->assign("Announcements", _tr('Announcements'));
