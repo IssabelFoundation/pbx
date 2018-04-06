@@ -41,13 +41,14 @@
             <li>{$Remote_Access}</li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=callback"  >{$Callback}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=disa"  >{$DISA}</a></li>
-            <li>{$Option}</li>
-            <li style="float:left;border-right:0px"><a href="/admin/" target="_blank">{$Unembedded_IssabelPBX}</a></li>
             <li class="category category-header">{$Advanced}</li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=sipsettings"  >{$Asterisk_SIP_Settings}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=iaxsettings"  >{$Asterisk_IAX_Settings}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=outroutemsg"  >{$Route_Congestion_Messages}</a></li>
+            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=outroutemsg"  >{$Voicemail_Admin}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=asteriskinfo"  >{$Asterisk_Info}</a></li>
+            <li>{$Option}</li>
+            <li style="float:left;border-right:0px"><a href="/admin/" target="_blank">{$Unembedded_IssabelPBX}</a></li>
             <div style="height:0px">
                 <a href="#" class="info"><span style='margin-left:0.2cm; margin-top:-1.8cm; width:303px'>{$INFO}</span></a>
             </div>
