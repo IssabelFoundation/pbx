@@ -13,6 +13,7 @@
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=motif"  >{$Google_Voice}</a></li>
             {/if}
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=customcontexts"  >{$CoS}</a></li>
+            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=sipsettings"  >{$Asterisk_SIP_Settings}</a></li>
             <li>{$Inbound_Call_Control}</li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=did"  >{$Inbound_Routes}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=dahdichandids"  >{$DAHDI_Channel_DIDs}</a></li>
