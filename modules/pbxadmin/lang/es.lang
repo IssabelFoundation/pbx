@@ -30,6 +30,7 @@ $arrLangModule = array(
     "General Settings" => "Configuración General",
     "Outbound Routes" => "Rutas Salientes",
     "Trunks" => "Troncales",
+    "Asterisk_SIP_Settings" => "Configuración SIP de Asterisk",
     "Inbound Call Control" => "Control de Llamadas entrantes",
     "Inbound Routes" => "Rutas Entrantes",
     "Announcements" => "Anuncios",
