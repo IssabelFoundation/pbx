@@ -1,0 +1,78 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Francesco Maria Taurino                                |
+  | Email: francesco.taurino@gmail.com                                   |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Extensions Batch" => "Interni a gruppo",
+"Batch of Extensions" => "Gruppo di interni",
+"Are you really sure you want to delete all the extensions in this server?" => "Sei veramente sicuro di voler cancellare tutti gli interni su questo server?",
+"Invalid file extension.- It must be csv" => "Estensione del file NON valida. Deve essere csv",
+"Possible file upload attack. Filename" => "Possibile attacco con upload del file. Filename",
+"Error" => "Errore",
+"Secret weak. Line" => "Password debole. Line",
+"Error updating Tech" => "Errore aggiornamento Tech",
+"Error updating Users" => "Errore aggiornamento Utenti",
+"Error updating Devices" => "Errore aggiornamento Dispositivi",
+"Error updating Voicemail" => "Errore aggiornamento Voicemail",
+"Error processing CallWaiting" => "Errore di processo per CallWaiting",
+"Total extension updated" => "Totale interni aggiornati",
+"Error, extension" => "Errore, interno",
+"repeat in lines" => "ripeti in linee",
+"with" => "con",
+"The file is incorrect or empty" => "File non corretto o vuoto",
+"Incomplete Columns" => "Colonne incomplete",
+"Verify the header" => "Verifica intestazione",
+"At minimum there must be the columns" => "Devono esserci almeno le colonne",
+"Can't exist a extension empty. Line" => "Non può esistere un interno vuoto. Line",
+"Can't exist a display name empty. Line" => "Non può esistere un nome da visualizzare vuoto. Line",
+"Please read the lines in the footer"=>"Per favore leggi le linee nel footer",
+"Header File Extensions Batch" => "La prima linea deve contenere il nome (o titole) delle colonne, e il file deve avere almeno quattro colonne: Nome da visualizzare, Interno, Password, Tech. Per altre informazioni sui parametri supportati, per favore leggi l'aiuto online integrato.",
+"About Update Extensions Batch" => "Se carichi un file con gli interi già creati, questi interni verranno aggiornati",
+"There aren't extensions" => "Non ci sono interni",
+"Download Extensions" => "Scarica gli interni attuali in formato CSV",
+"Error processing Database Family" => "Errore durante processamento Database Family",
+"Delete All Extensions" => "Cancella tutti gli interni",
+"All extensions deletes" => "Tutti gli interni cancellati",
+"Error to delete extensions" => "Errore durante la cancellazione degli interni",
+"Unable to reload the changes" => "Non riesco a ricaricare i cambiamenti",
+"Could not delete the database" => "Non posso cancellare il database",
+"Could not delete the ASTERISK database" => "Non posso cancellare il database ASTERISK",
+"Unable delete AMPUSER in database astDB" => "Non riesco a cancellare AMPUSER nel database astDB",
+"Unable delete DEVICE in database astDB" => "Non riesco a cancellare DEVICE nel database astDB",
+"Unable delete CW in database astDB" => "Non riesco a cancellare CW nel database astDB",
+"Unable delete CF in database astDB" => "Non riesco a cancellare CF nel database astDB",
+"Unable delete CFB in database astDB" => "Non riesco a cancellare CFB nel database astDB",
+"Unable delete CFU in database astDB" => "Non riesco a cancellare CFU nel database astDB",
+"File" => "File da caricare (*.csv)",
+"Message"=>"Messaggio",
+"There aren't extensions" => "Non ci sono interni",
+"Save" => "Carica file CSV",
+"Error to insert or update Direct DID" => "Errore inserimento o aggiornamento Direct DID",
+"Can't exist a technology empty. Line" => "Non può esistere una tecnologia vuota. Line",
+"has a wrong tech in line" => "ha la tecnologia errata alla linea",
+"Tech must be sip or iax" => "Tech deve essere sip o iax",
+"The secret must be minimum" => "La password deve contenere almeno 6 caratteri alfanumerici, incluse maiuscole e minuscole."
+);
+?>
