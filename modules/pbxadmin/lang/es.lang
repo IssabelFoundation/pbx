@@ -46,6 +46,7 @@ $arrLangModule = array(
     "Queues" => "Colas",
     "Ring Groups" => "Grupos de Timbrado",
     "Time Conditions" => "Condiciones de Tiempo",
+    "Set CallerID" => "Establecer CallerID",
     "Internal Options & Configuration" => "Opciones Internas & Configuración",
     "Conferences" => "Conferencias",
     "Misc Applications" => "Otras Aplicaciones",
