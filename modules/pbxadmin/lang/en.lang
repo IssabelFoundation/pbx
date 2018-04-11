@@ -35,6 +35,7 @@ $arrLangModule=array(
 "Trunks" => "Trunks",
 "Inbound Call Control" => "Inbound Call Control",
 "Inbound Routes" => "Inbound Routes",
+"Set CallerID" => "Set CallerID",
 "Announcements" => "Announcements",
 "Follow Me" => "Follow Me",
 "IVR" => "IVR",
