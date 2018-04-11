@@ -27,6 +27,7 @@
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=ringgroups"  >{$Ring_Groups}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=timeconditions"  >{$Time_Conditions}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=timegroups"  >{$Time_Groups}</a></li>
+            <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=setcid"  >{$Set_CallerID}</a></li>
             <li>{$Internal_Options_Configuration}</li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=conferences"  >{$Conferences}</a></li>
             <li><a href="/?menu=pbxconfig&amp;type=setup&amp;display=languages"  >{$Languages}</a></li>
