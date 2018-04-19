@@ -54,5 +54,6 @@ $arrLangModule=array(
 "You are not authorized to listen this file" => "Você não está autorizado a ouvir essa gravação",
 "You are not authorized to delete any records" => "Você não está autorizado a excluir qualquer gravação",
 'Recording missing' => 'Gravação perdida',
+"Deleted" => "Apagada",
 );
 ?>
