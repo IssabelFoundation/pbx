@@ -17,22 +17,22 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
     //set variables
     $vars = array(
-        'action'		 => null,
+        'action'         => null,
         'confirm_email'          => '',
-        'confirm_password'	 => '',
-        'display'		 => '',
+        'confirm_password'     => '',
+        'display'         => '',
         'extdisplay'             => null,
         'email_address'          => '',
         'fw_popover'             => '',
         'fw_popover_process'     => '',
-        'logout'		 => false,
-        'password'		 => '',
-        'quietmode'		 => '',
+        'logout'         => false,
+        'password'         => '',
+        'quietmode'         => '',
         'restrictmods'           => false,
         'skip'                   => 0,
         'skip_astman'            => false,
         'type'                   => '',
-        'username'		 => '',
+        'username'         => '',
         );
 
     if (!isset($_REQUEST['display'])) {
@@ -63,7 +63,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
                         break;
 
                 case 'skip_astman':
-                        $bootstrap_settings['skip_astman']	= $skip_astman;
+                        $bootstrap_settings['skip_astman']    = $skip_astman;
                         break;
         }
     }
@@ -155,8 +155,8 @@ function getContent(&$smarty, $elx_module_name, $withList)
     if (!in_array($display, array('noauth', 'badrefer'))
             && isset($_REQUEST['handler'])
     ) {
-            $module = isset($_REQUEST['module'])	? $_REQUEST['module']	: '';
-            $file 	= isset($_REQUEST['file'])		? $_REQUEST['file']		: '';
+            $module = isset($_REQUEST['module'])    ? $_REQUEST['module']    : '';
+            $file     = isset($_REQUEST['file'])        ? $_REQUEST['file']        : '';
             fileRequestHandler($_REQUEST['handler'], $module, $file);
             exit();
     }
@@ -205,9 +205,9 @@ function getContent(&$smarty, $elx_module_name, $withList)
 
                                     //skip this module if we dont have proper access
                                     //test: if we require authentication for this module
-                                    //			and either the user isnt authenticated
-                                    //			or the user is authenticated and dose require
-                                    //				section specifc permissions but doesnt have them
+                                    //            and either the user isnt authenticated
+                                    //            or the user is authenticated and dose require
+                                    //                section specifc permissions but doesnt have them
                                     if ($needs_auth
                                             && (!$admin_auth || ($needs_perms && !$has_perms))
                                     ) {
@@ -252,7 +252,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
     }
 
     if ($cur_menuitem === null && !in_array($display, array('noauth', 'badrefer','noaccess',''))) {
-	$display = 'noaccess';
+    $display = 'noaccess';
     }
 
     // new gui hooks
@@ -470,23 +470,22 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $return_CONFIG_HTML);
     }
 
-
     if ($quietmode) {
-            // send the output buffer, should be sending just the page contents
-            ob_end_flush();
+        // send the output buffer, should be sending just the page contents
+        ob_end_flush();
     } elseif ($fw_popover || $fw_popover_process) {
-	$admin_template = $template = array();
-	//get the page contents from the buffer
-	$content = ob_get_contents();
-	ob_end_clean();
-	$return_HTML = '';
+        $admin_template = $template = array();
+        //get the page contents from the buffer
+        $content = ob_get_contents();
+        ob_end_clean();
+        $return_HTML = '';
 
-	$use_popover_css = ($fw_popover || $fw_popover_process);
+        $use_popover_css = ($fw_popover || $fw_popover_process);
         $return_HTML .= load_view("$local_templates_dir/header.php", null);
 
         //if we have a module loaded, load its css
         if (isset($module_name)) {
-                $return_HTML .= framework_include_css_issabelpbx();
+            $return_HTML .= framework_include_css_issabelpbx();
         }
 
         // If processing posback (fw_popover_process) and there are errors then we
@@ -494,29 +493,28 @@ function getContent(&$smarty, $elx_module_name, $withList)
         //
         $show_normal = $fw_popover_process ? fwmsg::errors() : true;
         if ($show_normal) {
-                // provide beta status
-                if (isset($fpbx_menu[$display]['beta']) && strtolower($fpbx_menu[$display]['beta']) == 'yes') {
-                        $return_HTML .= load_view($amp_conf['VIEW_BETA_NOTICE']);
-                }
-                $return_HTML .= $content.$return_CONFIG_HTML;
-                $popover_mode = 'display';
+            // provide beta status
+            if (isset($fpbx_menu[$display]['beta']) && strtolower($fpbx_menu[$display]['beta']) == 'yes') {
+                $return_HTML .= load_view($amp_conf['VIEW_BETA_NOTICE']);
+            }
+            $return_HTML .= $content.$return_CONFIG_HTML;
+            $popover_mode = 'display';
         } else {
-                $popover_mode = 'process';
+            $popover_mode = 'process';
         }
 
-
         $js_content     = load_view("$local_templates_dir/popover_js.php", null);
-        $extmap	        = framework_get_extmap(true);
+        $extmap            = framework_get_extmap(true);
         $reload_needed  = false;
         $remove_rnav    = true;
         $return_HTML   .= load_view("$local_templates_dir/footer.php", null);
         return $return_HTML;
 
     } else {
-        $_SESSION['module_name']	= $module_name;
-        $_SESSION['module_page']	= $module_page;
+        $_SESSION['module_name']    = $module_name;
+        $_SESSION['module_page']    = $module_page;
 
-        $page_content		= ob_get_contents();
+        $page_content        = ob_get_contents();
         ob_end_clean();
 
         //if we have a module loaded, load its css
@@ -531,8 +529,8 @@ function getContent(&$smarty, $elx_module_name, $withList)
         $return_HTML .= $page_content.$return_CONFIG_HTML;
 
         //send footer
-        $extmap	        = framework_get_extmap(true);
-        $reload_needed	= check_reload_needed();
+        $extmap            = framework_get_extmap(true);
+        $reload_needed    = check_reload_needed();
         $return_HTML .= load_view("$local_templates_dir/footer.php", null);
 
         if($withList){
@@ -554,7 +552,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Feature_Codes", _tr('Feature Codes'));
             $smarty->assign("Outbound_Routes", _tr('Outbound Routes'));
             $smarty->assign("Trunks", _tr('Trunks'));            
-	    $smarty->assign("Google_Voice", _tr('Google Voice'));
+            $smarty->assign("Google_Voice", _tr('Google Voice'));
             $smarty->assign("Inbound_Call_Control", _tr('Inbound Call Control'));
             $smarty->assign("Inbound_Routes", _tr('Inbound Routes'));
             $smarty->assign("Announcements", _tr('Announcements'));
@@ -564,7 +562,7 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Queues", _tr('Queues'));
             $smarty->assign("Ring_Groups", _tr('Ring Groups'));
             $smarty->assign("Time_Conditions", _tr('Time Conditions'));
-	    $smarty->assign("Set_CallerID", _tr('Set CallerID'));	
+            $smarty->assign("Set_CallerID", _tr('Set CallerID'));    
             $smarty->assign("Internal_Options_Configuration", _tr('Internal Options & Configuration'));
             $smarty->assign("CoS", _tr('Class of Service'));
             $smarty->assign("Conferences", _tr('Conferences'));
@@ -586,191 +584,192 @@ function getContent(&$smarty, $elx_module_name, $withList)
             $smarty->assign("Time_Groups", _tr('Time Groups'));
             $smarty->assign("Languages", _tr('Languages'));
             $smarty->assign("VoiceMail_Blasting", _tr('VoiceMail Blasting'));
-	    $smarty->assign("Advanced", _tr('Advanced'));
+            $smarty->assign("Advanced", _tr('Advanced'));
             $smarty->assign("Asterisk_SIP_Settings", _tr('Asterisk SIP Settings'));
-	    $smarty->assign("Asterisk_IAX_Settings", _tr('Asterisk IAX Settings'));
-	    $smarty->assign("Route_Congestion_Messages", _tr('Route Congestion Messages'));	
+            $smarty->assign("Asterisk_IAX_Settings", _tr('Asterisk IAX Settings'));
+            $smarty->assign("Route_Congestion_Messages", _tr('Route Congestion Messages'));    
             $smarty->assign("Voicemail_Admin", _tr('Voicemail Admin'));
             $smarty->assign("Custom_Destinations", _tr('Custom Destinations'));
             $smarty->assign("Custom_Extensions", _tr('Custom Extensions'));
-	    $smarty->assign("Asterisk_Info", _tr('Asterisk Info'));	
+            $smarty->assign("Asterisk_Info", _tr('Asterisk Info'));    
+            $smarty->assign("Write_Queuelog", _tr('Write Queue Log'));    
             $smarty->assign("INFO", _tr("Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"."));
             $smarty->assign("htmlFPBX", $return_HTML);
-	    return $smarty->fetch("$local_templates_dir/main.tpl");
+        return $smarty->fetch("$local_templates_dir/main.tpl");
         }
     }
 }
 
 function framework_include_css_issabelpbx() {
-	global $active_modules, $module_name, $module_page, $amp_conf;
+    global $active_modules, $module_name, $module_page, $amp_conf;
 
-	$version			= get_framework_version();
-	$version_tag		= '?load_version=' . urlencode($version);
-	if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
-	  $this_time_append	= '.' . time();
-	  $version_tag 		.= $this_time_append;
-	} else {
-		$this_time_append = '';
-	}
+    $version            = get_framework_version();
+    $version_tag        = '?load_version=' . urlencode($version);
+    if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
+      $this_time_append    = '.' . time();
+      $version_tag         .= $this_time_append;
+    } else {
+        $this_time_append = '';
+    }
 
-	$html = '';
-	$view_module_version	= isset($active_modules[$module_name]['version'])
-							? $active_modules[$module_name]['version']
-							: $version_tag;
-	$mod_version_tag		= '&load_version=' . urlencode($view_module_version);
-	if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
-		$mod_version_tag	.= $this_time_append;
-	}
+    $html = '';
+    $view_module_version    = isset($active_modules[$module_name]['version'])
+                            ? $active_modules[$module_name]['version']
+                            : $version_tag;
+    $mod_version_tag        = '&load_version=' . urlencode($view_module_version);
+    if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
+        $mod_version_tag    .= $this_time_append;
+    }
 
-	// DEPECRATED but still supported for a while, the assets directory is the new preferred mode
-	if (is_file('admin/modules/' . $module_name . '/' . $module_name . '.css')) {
-		$html .= '<link href="' . $_SERVER['PHP_SELF']
-				. '?handler=file&amp;module=' . $module_name
-				. '&amp;file=' . $module_name . '.css' . $mod_version_tag
-				. '" rel="stylesheet" type="text/css" />';
-	}
-	if (isset($module_page)
-		&& ($module_page != $module_name)
-		&& is_file('admin/modules/' . $module_name . '/' . $module_page . '.css')
-	) {
-			$html .= '<link href="' . $_SERVER['PHP_SELF']
-					. '?handler=file&amp;module=' . $module_name
-					. '&amp;file=' . $module_page . '.css' . $mod_version_tag
-					. '" rel="stylesheet" type="text/css" />';
-	}
+    // DEPECRATED but still supported for a while, the assets directory is the new preferred mode
+    if (is_file('admin/modules/' . $module_name . '/' . $module_name . '.css')) {
+        $html .= '<link href="' . $_SERVER['PHP_SELF']
+                . '?handler=file&amp;module=' . $module_name
+                . '&amp;file=' . $module_name . '.css' . $mod_version_tag
+                . '" rel="stylesheet" type="text/css" />';
+    }
+    if (isset($module_page)
+        && ($module_page != $module_name)
+        && is_file('admin/modules/' . $module_name . '/' . $module_page . '.css')
+    ) {
+            $html .= '<link href="' . $_SERVER['PHP_SELF']
+                    . '?handler=file&amp;module=' . $module_name
+                    . '&amp;file=' . $module_page . '.css' . $mod_version_tag
+                    . '" rel="stylesheet" type="text/css" />';
+    }
 
 
-	// Check assets/css and then assets/css/page_name for any css files which will have been symlinked to
-	// assets/module_name/css/*
-	$css_dir = 'admin/modules/' . $module_name . '/assets/css';
-	if (is_dir($css_dir)) {
-		$d = opendir($css_dir);
-		$file_list = array();
-		while ($file = readdir($d)) {
-			$file_list[] = $file;
-		}
-		sort($file_list);
-		foreach ($file_list as $file) {
-			if (substr($file,-4) == '.css' && is_file($css_dir . '/' . $file)) {
-			  $html .= '<link href="admin/assets/' . $module_name . '/css/' . $file
-						. '" rel="stylesheet" type="text/css" />';
-			}
-		}
-		unset($file_list);
-		$css_subdir = $css_dir . '/' . $module_page;
-		if ($module_page != '' && is_dir($css_subdir)) {
-			$sd = opendir($css_subdir);
+    // Check assets/css and then assets/css/page_name for any css files which will have been symlinked to
+    // assets/module_name/css/*
+    $css_dir = 'admin/modules/' . $module_name . '/assets/css';
+    if (is_dir($css_dir)) {
+        $d = opendir($css_dir);
+        $file_list = array();
+        while ($file = readdir($d)) {
+            $file_list[] = $file;
+        }
+        sort($file_list);
+        foreach ($file_list as $file) {
+            if (substr($file,-4) == '.css' && is_file($css_dir . '/' . $file)) {
+              $html .= '<link href="admin/assets/' . $module_name . '/css/' . $file
+                        . '" rel="stylesheet" type="text/css" />';
+            }
+        }
+        unset($file_list);
+        $css_subdir = $css_dir . '/' . $module_page;
+        if ($module_page != '' && is_dir($css_subdir)) {
+            $sd = opendir($css_subdir);
 
-			$file_list = array();
-			while ($p_file = readdir($sd)) {
-				$file_list[] = $p_file;
-			}
-			sort($file_list);
-			foreach ($file_list as $p_file) {
-				if (substr($p_file,-4) == '.css' && is_file($css_subdir . '/' . $p_file)) {
-			    $html .= '<link href="admin/assets/$module_name/css/' . $module_page . '/' . $p_file
-						. '" rel="stylesheet" type="text/css" />';
-				}
-			}
-		}
-	}
+            $file_list = array();
+            while ($p_file = readdir($sd)) {
+                $file_list[] = $p_file;
+            }
+            sort($file_list);
+            foreach ($file_list as $p_file) {
+                if (substr($p_file,-4) == '.css' && is_file($css_subdir . '/' . $p_file)) {
+                $html .= '<link href="admin/assets/$module_name/css/' . $module_page . '/' . $p_file
+                        . '" rel="stylesheet" type="text/css" />';
+                }
+            }
+        }
+    }
 
-	return $html;
+    return $html;
 }
 
 function framework_include_js_issabelpbx($module_name, $module_page) {
-	global $amp_conf, $active_modules;
-	$version			= get_framework_version();
-	$version_tag		= '?load_version=' . urlencode($version);
-	if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
-	  $this_time_append	= '.' . time();
-	  $version_tag 		.= $this_time_append;
-	} else {
-		$this_time_append = '';
-	}
+    global $amp_conf, $active_modules;
+    $version            = get_framework_version();
+    $version_tag        = '?load_version=' . urlencode($version);
+    if ($amp_conf['FORCE_JS_CSS_IMG_DOWNLOAD']) {
+      $this_time_append    = '.' . time();
+      $version_tag         .= $this_time_append;
+    } else {
+        $this_time_append = '';
+    }
 
-	$html = '';
+    $html = '';
 
-	if (is_file('admin/modules/' . $module_name . '/' . $module_name . '.js')) {
-		$html .= '<script type="text/javascript" src="'
-				. $_SERVER['PHP_SELF'] . '?handler=file&amp;module='
-				. $module_name . '&amp;file=' . $module_name . '.js'
-				. $mod_version_tag . '"></script>';
-	}
-	if (isset($module_page)
-		&& ($module_page != $module_name)
-		&& is_file('admin/modules/' . $module_name . '/' . $module_page . '.js')
-	) {
-		$html .= '<script type="text/javascript" src="'
-				. $_SERVER['PHP_SELF'] . '?handler=file&amp;module='
-				. $module_name . '&amp;file=' . $module_page . '.js'
-				. $mod_version_tag . '"></script>';
-	}
+    if (is_file('admin/modules/' . $module_name . '/' . $module_name . '.js')) {
+        $html .= '<script type="text/javascript" src="'
+                . $_SERVER['PHP_SELF'] . '?handler=file&amp;module='
+                . $module_name . '&amp;file=' . $module_name . '.js'
+                . $mod_version_tag . '"></script>';
+    }
+    if (isset($module_page)
+        && ($module_page != $module_name)
+        && is_file('admin/modules/' . $module_name . '/' . $module_page . '.js')
+    ) {
+        $html .= '<script type="text/javascript" src="'
+                . $_SERVER['PHP_SELF'] . '?handler=file&amp;module='
+                . $module_name . '&amp;file=' . $module_page . '.js'
+                . $mod_version_tag . '"></script>';
+    }
 
-	// Check assets/js and then assets/js/page_name for any js files which will have been symlinked to
-	// assets/module_name/js/*
-	//
-	$js_dir = 'admin/modules/' . $module_name . '/assets/js';
-	if (is_dir($js_dir)) {
-		$file_list = scandir($js_dir);
-		foreach ($file_list as $file) {
-			if (substr($file,-3) == '.js' && is_file("$js_dir/$file")) {
-				$html .= '<script type="text/javascript"'
-						. ' src="admin/assets/' . $module_name . '/js/' . $file . '"></script>';
-			}
-		}
-		unset($file_list);
-		$js_subdir ="$js_dir/$module_page";
-		if ($module_page != '' && is_dir($js_subdir)) {
-			$file_list = scandir($js_subdir);
-			foreach ($file_list as $p_file) {
-				if (substr($p_file,-3) == '.js' && is_file("$js_subdir/$p_file")) {
-				  $html .= '<script type="text/javascript" '
-							. ' src="admin/assets/' . $module_name . '/js/'
-							. $module_page . '/' . $p_file
-							. '"></script>';
-				}
-			}
-		}
+    // Check assets/js and then assets/js/page_name for any js files which will have been symlinked to
+    // assets/module_name/js/*
+    //
+    $js_dir = 'admin/modules/' . $module_name . '/assets/js';
+    if (is_dir($js_dir)) {
+        $file_list = scandir($js_dir);
+        foreach ($file_list as $file) {
+            if (substr($file,-3) == '.js' && is_file("$js_dir/$file")) {
+                $html .= '<script type="text/javascript"'
+                        . ' src="admin/assets/' . $module_name . '/js/' . $file . '"></script>';
+            }
+        }
+        unset($file_list);
+        $js_subdir ="$js_dir/$module_page";
+        if ($module_page != '' && is_dir($js_subdir)) {
+            $file_list = scandir($js_subdir);
+            foreach ($file_list as $p_file) {
+                if (substr($p_file,-3) == '.js' && is_file("$js_subdir/$p_file")) {
+                  $html .= '<script type="text/javascript" '
+                            . ' src="admin/assets/' . $module_name . '/js/'
+                            . $module_page . '/' . $p_file
+                            . '"></script>';
+                }
+            }
+        }
   }
 
-	// DEPCRETATED but still supported:
-	// Note - include all the module js files first, then the page specific files,
-	//in case a page specific file requires a module level file
-	$js_dir = "admin/modules/$module_name/js";
-	if (is_dir($js_dir)) {
-		$file_list = scandir($js_dir);
-		foreach ($file_list as $file) {
-			if (substr($file,-3) == '.js' && is_file("$js_dir/$file")) {
-				$html .= '<script type="text/javascript"'
-				. ' src="' . $_SERVER['PHP_SELF'] . '?handler=file&module='
-				. $module_name . '&file='
-				. $js_dir . '/' . $file . $mod_version_tag
-				. '"></script>';
-			}
-		}
-		unset($file_list);
-		$js_subdir ="$js_dir/$module_page";
-		if ($module_page != '' && is_dir($js_subdir)) {
-			$sd = opendir($js_subdir);
+    // DEPCRETATED but still supported:
+    // Note - include all the module js files first, then the page specific files,
+    //in case a page specific file requires a module level file
+    $js_dir = "admin/modules/$module_name/js";
+    if (is_dir($js_dir)) {
+        $file_list = scandir($js_dir);
+        foreach ($file_list as $file) {
+            if (substr($file,-3) == '.js' && is_file("$js_dir/$file")) {
+                $html .= '<script type="text/javascript"'
+                . ' src="' . $_SERVER['PHP_SELF'] . '?handler=file&module='
+                . $module_name . '&file='
+                . $js_dir . '/' . $file . $mod_version_tag
+                . '"></script>';
+            }
+        }
+        unset($file_list);
+        $js_subdir ="$js_dir/$module_page";
+        if ($module_page != '' && is_dir($js_subdir)) {
+            $sd = opendir($js_subdir);
 
-			$file_list = array();
-			while ($p_file = readdir($sd)) {
-				$file_list[] = $p_file;
-			}
-			sort($file_list);
-			foreach ($file_list as $p_file) {
-				if (substr($p_file,-3) == '.js' && is_file("$js_subdir/$p_file")) {
-					$html .= '<script type="text/javascript" src="'
-							. $_SERVER['PHP_SELF'] . '?handler=file&module='
-							. $module_name . '&file='
-							. $js_subdir . '/' . $p_file . $mod_version_tag
-							. '"></script>';
-				}
-			}
-		}
-	}
+            $file_list = array();
+            while ($p_file = readdir($sd)) {
+                $file_list[] = $p_file;
+            }
+            sort($file_list);
+            foreach ($file_list as $p_file) {
+                if (substr($p_file,-3) == '.js' && is_file("$js_subdir/$p_file")) {
+                    $html .= '<script type="text/javascript" src="'
+                            . $_SERVER['PHP_SELF'] . '?handler=file&module='
+                            . $module_name . '&file='
+                            . $js_subdir . '/' . $p_file . $mod_version_tag
+                            . '"></script>';
+                }
+            }
+        }
+    }
 
-	return $html;
+    return $html;
 }
 ?>

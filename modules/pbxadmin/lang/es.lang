@@ -38,6 +38,7 @@ $arrLangModule = array(
     "Custom Extensions" => "Extensiones Personalizadas",
     "Custom Destinations" => "Destinos Personalizados",
     "Asterisk Info" => "Información de Asterisk",
+    "Write Queue Log" => "Escribir en Queue Log",
     "Inbound Call Control" => "Control de Llamadas entrantes",
     "Inbound Routes" => "Rutas Entrantes",
     "Announcements" => "Anuncios",
