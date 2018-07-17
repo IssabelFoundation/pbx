@@ -572,6 +572,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
             $categories  = array();
             $categories['Basic']                = array('extensions', 'featurecodeadmin', 'routing', 'trunks');
             $categories['Inbound Call Control'] = array('did', 'dahdichandids');
+            $categories['Advanced']             = array('advancedsettings');
 
             foreach($categories as $key=>$val) {
                 foreach($val as $opt) {
