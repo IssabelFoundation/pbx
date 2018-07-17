@@ -1,19 +1,19 @@
 <?php
-function getContent(&$smarty, $elx_module_name, $withList)
+function getContent(&$smarty, $iss_module_name, $withList)
 {
     global $fc_save;
     require_once "libs/misc.lib.php";
     $lang=get_language();
     $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);
 
-    load_language_module($elx_module_name);
+    load_language_module($iss_module_name);
 
-    $arrLangFreePBX = array("en" => "en_US", "bg" => "bg_BG", "cn" => "zh_CN", "de" => "de_DE", "es" => "es_ES",
+    $arrLangIssabelPBX = array("en" => "en_US", "bg" => "bg_BG", "cn" => "zh_CN", "de" => "de_DE", "es" => "es_ES",
                             "fr" => "fr_FR", "he" => "he_IL", "hu" => "hu_HU", "it" => "it_IT",
                             "pt" => "pt_PT", "ru" => "ru_RU", "sv" => "sv_SE", "br" => "pt_BR");
-    $langFreePBX = isset($arrLangFreePBX[$lang])?$arrLangFreePBX[$lang]:"en_US";
-    setcookie("lang",$langFreePBX);
-    $local_templates_dir = "$base_dir/modules/$elx_module_name/themes/default";
+    $langIssabelPBX = isset($arrLangIssabelPBX[$lang])?$arrLangIssabelPBX[$lang]:"en_US";
+    setcookie("lang",$langIssabelPBX);
+    $local_templates_dir = "$base_dir/modules/$iss_module_name/themes/default";
 
     //set variables
     $vars = array(
