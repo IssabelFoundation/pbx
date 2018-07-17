@@ -26,7 +26,6 @@ $Id: br.lang,v 1.0 2017/07/19 19:45:00 Ibinetwork Informática - rafael@ibinetwo
 global $arrLangModule;
 $arrLangModule=array(
 "Option" => "Opções",
-"Unembedded IssabelPBX®" => "Desincorporar IssabelPBX®",
 "Unembedded IssabelPBX" => "Desincorporar IssabelPBX",
 "Basic" => "Básico",
 "Extensions" => "Ramais",
