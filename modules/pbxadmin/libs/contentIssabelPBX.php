@@ -1,7 +1,10 @@
 <?php
+require_once "libs/paloSantoACL.class.php";
+
 function getContent(&$smarty, $iss_module_name, $withList)
 {
     global $fc_save;
+    global $arrConf;
     require_once "libs/misc.lib.php";
     $lang=get_language();
     $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);
@@ -17,23 +20,23 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
     //set variables
     $vars = array(
-        'action'         => null,
-        'confirm_email'          => '',
-        'confirm_password'     => '',
-        'display'         => '',
-        'extdisplay'             => null,
-        'email_address'          => '',
-        'fw_popover'             => '',
-        'fw_popover_process'     => '',
-        'logout'         => false,
-        'password'         => '',
-        'quietmode'         => '',
-        'restrictmods'           => false,
-        'skip'                   => 0,
-        'skip_astman'            => false,
-        'type'                   => '',
-        'username'         => '',
-        );
+        'action'             => null,
+        'confirm_email'      => '',
+        'confirm_password'   => '',
+        'display'            => '',
+        'extdisplay'         => null,
+        'email_address'      => '',
+        'fw_popover'         => '',
+        'fw_popover_process' => '',
+        'logout'             => false,
+        'password'           => '',
+        'quietmode'          => '',
+        'restrictmods'       => false,
+        'skip'               => 0,
+        'skip_astman'        => false,
+        'type'               => '',
+        'username'           => '',
+    );
 
     if (!isset($_REQUEST['display'])) {
         $_REQUEST['display'] = 'extensions';
@@ -43,28 +46,28 @@ function getContent(&$smarty, $iss_module_name, $withList)
     }
 
     foreach ($vars as $k => $v) {
-        //were use config_vars instead of, say, vars, so as not to polute
+        // were use config_vars instead of, say, vars, so as not to polute
         // page.<some_module>.php (which usually uses $var or $vars)
         $config_vars[$k] = $$k = isset($_REQUEST[$k]) ? $_REQUEST[$k] : $v;
 
         //special handeling
         switch ($k) {
                 case 'extdisplay':
-            $extdisplay = (isset($extdisplay) && $extdisplay !== false)
-                        ? htmlspecialchars($extdisplay, ENT_QUOTES)
-                        : false;
-                        $_REQUEST['extdisplay'] = $extdisplay;
-                        break;
+                    $extdisplay = (isset($extdisplay) && $extdisplay !== false)
+                    ? htmlspecialchars($extdisplay, ENT_QUOTES)
+                    : false;
+                    $_REQUEST['extdisplay'] = $extdisplay;
+                    break;
 
                 case 'restrictmods':
-            $restrict_mods = $restrictmods
-                ? array_flip(explode('/', $restrictmods))
-                : false;
-                        break;
+                    $restrict_mods = $restrictmods
+                    ? array_flip(explode('/', $restrictmods))
+                    : false;
+                    break;
 
                 case 'skip_astman':
-                        $bootstrap_settings['skip_astman']    = $skip_astman;
-                        break;
+                    $bootstrap_settings['skip_astman']    = $skip_astman;
+                    break;
         }
     }
 
@@ -102,19 +105,19 @@ function getContent(&$smarty, $iss_module_name, $withList)
     // __FILE__ path here.
 
     if (isset($_REQUEST['handler'])) {
-            $restrict_mods = true;
-            // I think reload is the only handler that requires astman, so skip it
-            //for others
-            switch ($_REQUEST['handler']) {
-                    case 'api':
-                            $restrict_mods = false;
-                            break;
-                    case 'reload';
-                            break;
-                    default:
-                            $bootstrap_settings['skip_astman'] = true;
-                            break;
-            }
+        $restrict_mods = true;
+        // I think reload is the only handler that requires astman, so skip it
+        //for others
+        switch ($_REQUEST['handler']) {
+            case 'api':
+                $restrict_mods = false;
+                break;
+            case 'reload';
+                break;
+            default:
+                $bootstrap_settings['skip_astman'] = true;
+                break;
+        }
     }
 
     $bootstrap_settings['issabelpbx_auth'] = false;
@@ -137,33 +140,34 @@ function getContent(&$smarty, $iss_module_name, $withList)
     This may protect from cross site request forgeries unless disabled.
     */
     if (!isset($no_auth) && $action != '' && $amp_conf['CHECKREFERER']) {
-            if (isset($_SERVER['HTTP_REFERER'])) {
-                    $referer = parse_url($_SERVER['HTTP_REFERER']);
-                    $refererok = (trim($referer['host']) == trim($_SERVER['SERVER_NAME']))
-                            ? true : false;
-            } else {
-                    $refererok = false;
-            }
-            if (!$refererok) {
-                    $display = 'badrefer';
-            }
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            $referer   = parse_url($_SERVER['HTTP_REFERER']);
+            $refererok = (trim($referer['host']) == trim($_SERVER['SERVER_NAME'])) ? true : false;
+        } else {
+            $refererok = false;
+        }
+        if (!$refererok) {
+            $display = 'badrefer';
+        }
     }
     if (isset($no_auth) && empty($display)) {
-            $display = 'noauth';
+        $display = 'noauth';
     }
     // handle special requests
     if (!in_array($display, array('noauth', 'badrefer'))
             && isset($_REQUEST['handler'])
     ) {
-            $module = isset($_REQUEST['module'])    ? $_REQUEST['module']    : '';
-            $file     = isset($_REQUEST['file'])        ? $_REQUEST['file']        : '';
-            fileRequestHandler($_REQUEST['handler'], $module, $file);
-            exit();
+        $module = isset($_REQUEST['module'])    ? $_REQUEST['module']    : '';
+        $file   = isset($_REQUEST['file'])      ? $_REQUEST['file']      : '';
+        fileRequestHandler($_REQUEST['handler'], $module, $file);
+        exit();
     }
 
     if (!$quietmode) {
-            module_run_notification_checks();
+        module_run_notification_checks();
     }
+
+    $allmodules = module_getinfo(false,false,true); // refresh module list to get updated embedcategory and show new installed modules automatically 
 
     //draw up menu
     $fpbx_menu = array();
@@ -171,88 +175,88 @@ function getContent(&$smarty, $iss_module_name, $withList)
     // pointer to current item in $fpbx_menu, if applicable
     $cur_menuitem = null;
 
-  //  var_dump($_SESSION);
+    //  var_dump($_SESSION);
     // add module sections to $fpbx_menu
     if(is_array($active_modules)){
-            foreach($active_modules as $key => $module) {
+        foreach($active_modules as $key => $module) {
 
-                    //create an array of module sections to display
-                    // stored as [items][$type][$category][$name] = $displayvalue
-                    if (isset($module['items']) && is_array($module['items'])) {
-                            // loop through the types
-                            foreach($module['items'] as $itemKey => $item) {
+            //create an array of module sections to display
+            // stored as [items][$type][$category][$name] = $displayvalue
+            if (isset($module['items']) && is_array($module['items'])) {
+                // loop through the types
+                foreach($module['items'] as $itemKey => $item) {
 
-                                    // check access, unless module.xml defines all have access
-                                    //TODO: move this to bootstrap and make it work
-                                    //module is restricted to admin with excplicit permission
-                                    $needs_perms = !isset($item['access'])
-                                                    || strtolower($item['access']) != 'all'
-                                            ? true : false;
+                    // check access, unless module.xml defines all have access
+                    //TODO: move this to bootstrap and make it work
+                    //module is restricted to admin with excplicit permission
+                    $needs_perms = !isset($item['access'])
+                        || strtolower($item['access']) != 'all'
+                        ? true : false;
 
-                                    //check if were logged in
-                                    $admin_auth = isset($_SESSION["AMP_user"])
-                                            && is_object($_SESSION["AMP_user"]);
+                    //check if were logged in
+                    $admin_auth = isset($_SESSION["AMP_user"])
+                        && is_object($_SESSION["AMP_user"]);
 
-                                    //per admin access rules
-                                    $has_perms = $admin_auth
-                                            && $_SESSION["AMP_user"]->checkSection($itemKey);
+                    //per admin access rules
+                    $has_perms = $admin_auth
+                        && $_SESSION["AMP_user"]->checkSection($itemKey);
 
-                                    //requies authentication
-                                    $needs_auth = isset($item['requires_auth'])
-                                            && strtolower($item['requires_auth']) == 'false'
-                                                    ? false
-                                                    : true;
+                    //requies authentication
+                    $needs_auth = isset($item['requires_auth'])
+                        && strtolower($item['requires_auth']) == 'false'
+                        ? false
+                        : true;
 
-                                    //skip this module if we dont have proper access
-                                    //test: if we require authentication for this module
-                                    //            and either the user isnt authenticated
-                                    //            or the user is authenticated and dose require
-                                    //                section specifc permissions but doesnt have them
-                                    if ($needs_auth
-                                            && (!$admin_auth || ($needs_perms && !$has_perms))
-                                    ) {
-                                            //clear display if they were trying to gain unautherized
-                                            //access to $itemKey. If there logged in, but dont have
-                                            //permissions to view this specicc page - show them a message
-                                            //otherwise, show them the login page
-                                            if($display == $itemKey){
-                                                    if ($admin_auth) {
-                                                            $display = 'noaccess';
-                                                    } else {
-                                                            $display = 'noauth';
-                                                    }
-                                            }
-                                            continue;
-                                    }
-
-                                    if (!isset($item['display'])) {
-                                            $item['display'] = $itemKey;
-                                    }
-
-                                    // reference to the actual module
-                                    $item['module'] =& $active_modules[$key];
-
-                                    // item is an assoc array, with at least
-                                    //array(module=> name=>, category=>, type=>, display=>)
-                                    $fpbx_menu[$itemKey] = $item;
-
-                                    // allow a module to replace our main index page
-                                    if (($item['display'] == 'index') && ($display == '')) {
-                                            $display = 'index';
-                                    }
-
-                                    // check current item
-                                    if ($display == $item['display']) {
-                                            // found current menuitem, make a reference to it
-                                            $cur_menuitem =& $fpbx_menu[$itemKey];
-                                    }
+                    //skip this module if we dont have proper access
+                    //test: if we require authentication for this module
+                    //            and either the user isnt authenticated
+                    //            or the user is authenticated and dose require
+                    //                section specifc permissions but doesnt have them
+                    if ($needs_auth
+                            && (!$admin_auth || ($needs_perms && !$has_perms))
+                       ) {
+                        //clear display if they were trying to gain unautherized
+                        //access to $itemKey. If there logged in, but dont have
+                        //permissions to view this specicc page - show them a message
+                        //otherwise, show them the login page
+                        if($display == $itemKey){
+                            if ($admin_auth) {
+                                $display = 'noaccess';
+                            } else {
+                                $display = 'noauth';
                             }
+                        }
+                        continue;
                     }
+
+                    if (!isset($item['display'])) {
+                        $item['display'] = $itemKey;
+                    }
+
+                    // reference to the actual module
+                    $item['module'] =& $active_modules[$key];
+
+                    // item is an assoc array, with at least
+                    //array(module=> name=>, category=>, type=>, display=>)
+                    $fpbx_menu[$itemKey] = $item;
+
+                    // allow a module to replace our main index page
+                    if (($item['display'] == 'index') && ($display == '')) {
+                        $display = 'index';
+                    }
+
+                    // check current item
+                    if ($display == $item['display']) {
+                        // found current menuitem, make a reference to it
+                        $cur_menuitem =& $fpbx_menu[$itemKey];
+                    }
+                }
             }
+        }
     }
 
     if ($cur_menuitem === null && !in_array($display, array('noauth', 'badrefer','noaccess',''))) {
-    $display = 'noaccess';
+        $display = 'noaccess';
     }
 
     // new gui hooks
@@ -511,15 +515,15 @@ function getContent(&$smarty, $iss_module_name, $withList)
         return $return_HTML;
 
     } else {
-        $_SESSION['module_name']    = $module_name;
-        $_SESSION['module_page']    = $module_page;
+        $_SESSION['module_name'] = $module_name;
+        $_SESSION['module_page'] = $module_page;
 
-        $page_content        = ob_get_contents();
+        $page_content = ob_get_contents();
         ob_end_clean();
 
         //if we have a module loaded, load its css
         if (isset($module_name)) {
-                $return_HTML .= framework_include_css_issabelpbx();
+            $return_HTML .= framework_include_css_issabelpbx();
         }
 
         // send menu
@@ -529,9 +533,9 @@ function getContent(&$smarty, $iss_module_name, $withList)
         $return_HTML .= $page_content.$return_CONFIG_HTML;
 
         //send footer
-        $extmap            = framework_get_extmap(true);
-        $reload_needed    = check_reload_needed();
-        $return_HTML .= load_view("$local_templates_dir/footer.php", null);
+        $extmap         = framework_get_extmap(true);
+        $reload_needed  = check_reload_needed();
+        $return_HTML   .= load_view("$local_templates_dir/footer.php", null);
 
         if($withList){
 
@@ -545,57 +549,103 @@ function getContent(&$smarty, $iss_module_name, $withList)
             if(is_file("/etc/issabelpbx.conf")) {
                 $smarty->assign("isissabelpbx", 1);
             }
+
             $smarty->assign("Option", _tr('Option'));
             $smarty->assign("Unembedded_IssabelPBX", _tr('Unembedded IssabelPBX'));
-            $smarty->assign("Basic", _tr('Basic'));
-            $smarty->assign("Extensions", _tr('Extensions'));
-            $smarty->assign("Feature_Codes", _tr('Feature Codes'));
-            $smarty->assign("Outbound_Routes", _tr('Outbound Routes'));
-            $smarty->assign("Trunks", _tr('Trunks'));            
-            $smarty->assign("Google_Voice", _tr('Google Voice'));
-            $smarty->assign("Inbound_Call_Control", _tr('Inbound Call Control'));
-            $smarty->assign("Inbound_Routes", _tr('Inbound Routes'));
-            $smarty->assign("Announcements", _tr('Announcements'));
-            $smarty->assign("Follow_Me", _tr('Follow Me'));
-            $smarty->assign("IVR", _tr('IVR'));
-            $smarty->assign("Misc_Destinations", _tr('Misc Destinations'));
-            $smarty->assign("Queues", _tr('Queues'));
-            $smarty->assign("Ring_Groups", _tr('Ring Groups'));
-            $smarty->assign("Time_Conditions", _tr('Time Conditions'));
-            $smarty->assign("Set_CallerID", _tr('Set CallerID'));    
-            $smarty->assign("Internal_Options_Configuration", _tr('Internal Options & Configuration'));
-            $smarty->assign("CoS", _tr('Class of Service'));
-            $smarty->assign("Conferences", _tr('Conferences'));
-            $smarty->assign("Misc_Applications", _tr('Misc Applications'));
-            $smarty->assign("Music_on_Hold", _tr('Music on Hold'));
-            $smarty->assign("PIN_Sets", _tr('PIN Sets'));
-            $smarty->assign("Paging_Intercom", _tr('Paging and Intercom'));
-            $smarty->assign("Parking_Lot", _tr('Parking Lot'));
-            $smarty->assign("System_Recordings", _tr('System Recordings'));
-            $smarty->assign("Remote_Access", _tr('Remote Access'));
-            $smarty->assign("Callback", _tr('Callback'));
-            $smarty->assign("DISA", _tr('DISA'));
 
-            $smarty->assign("DAHDI_Channel_DIDs", _tr('DAHDI Channel DIDs'));
-            $smarty->assign("Blacklist", _tr('Blacklist'));
-            $smarty->assign("CallerID_Lookup_Sources", _tr('CallerID Lookup Sources'));
-            $smarty->assign("Call_Flow_Control", _tr('Call Flow Control'));
-            $smarty->assign("Queue_Priorities", _tr('Queue Priorities'));
-            $smarty->assign("Time_Groups", _tr('Time Groups'));
-            $smarty->assign("Languages", _tr('Languages'));
-            $smarty->assign("VoiceMail_Blasting", _tr('VoiceMail Blasting'));
-            $smarty->assign("Advanced", _tr('Advanced'));
-            $smarty->assign("Asterisk_SIP_Settings", _tr('Asterisk SIP Settings'));
-            $smarty->assign("Asterisk_IAX_Settings", _tr('Asterisk IAX Settings'));
-            $smarty->assign("Route_Congestion_Messages", _tr('Route Congestion Messages'));    
-            $smarty->assign("Voicemail_Admin", _tr('Voicemail Admin'));
-            $smarty->assign("Custom_Destinations", _tr('Custom Destinations'));
-            $smarty->assign("Custom_Extensions", _tr('Custom Extensions'));
-            $smarty->assign("Asterisk_Info", _tr('Asterisk Info'));    
-            $smarty->assign("Write_Queuelog", _tr('Write Queue Log'));    
             $smarty->assign("INFO", _tr("Warning: Updating IssabelPBX through its web interface will cause it to install versions that may have not yet been properly integrated with Issabel. To avoid conflicts, it is always recommended to search/install updates only through the linux command \"yum update issabelPBX\"."));
+
+            $dsnAsterisk = generarDSNSistema('asteriskuser', 'asterisk');
+            $pDB = new paloDB($dsnAsterisk);
+
+            $pDBsq = new paloDB($arrConf['issabel_dsn']['acl']);
+            if (!empty($pDBsq->errMsg)) {
+               return "ERROR DE DB: $pDBsq->errMsg <br>";
+            }
+            $pACL = new paloACL($pDBsq);
+            if (!empty($pACL->errMsg)) {
+                return "ERROR DE ACL: $pACL->errMsg <br>";
+            }
+            $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
+            // Default cateogories for IssabelPBX core modules
+            $itemcat     = array();
+            $categories  = array();
+            $categories['Basic']                = array('extensions', 'featurecodeadmin', 'routing', 'trunks');
+            $categories['Inbound Call Control'] = array('did', 'dahdichandids');
+
+            foreach($categories as $key=>$val) {
+                foreach($val as $opt) {
+                    $itemcat[$opt]=$key;
+                }
+            }
+        
+            // IssabelPBX modules to exclude from menu 
+            $exclude = array('users','devices','ampusers','wiki','advancedsettings');
+
+            // helper array for setting menu category order
+            $menuorder= array('Basic','Inbound Call Control','Internal Options & Configuration','Remote Access','Advanced');
+
+            $query = "SELECT `data` FROM `module_xml` WHERE `id` = 'mod_serialized'";
+            $module_serialized = $pDB->getFirstRowQuery($query, false, array());
+            $unserialized = unserialize($module_serialized[0]);
+
+            $allprivs    = array();
+            $id_resource = $pACL->getIdResource('pbxadmin');
+            $id_group    = $pACL->getIdGroup('administrator');
+            if($id_group === false) { $id_group=1; } 
+            $privs       = $pACL->getModulePrivileges('pbxadmin');
+
+            foreach($privs as $idx=>$priv) {
+                $allprivs[]=$priv['privilege'];
+            }
+
+            // populate menu from IssabelPBX module tables
+            foreach($unserialized as $modulekey=>$moduledata) {
+                if(isset($moduledata['embedcategory'])) {
+                    foreach($moduledata['menuitems'] as $urlkey=>$name) {
+                        if(!in_array($urlkey,$exclude)) {
+
+                            // if module does not eixsts as privilege, insert it and grant administrator access
+                            if (!in_array($urlkey,$allprivs)) {
+                                $pACL->createModulePrivilege($id_resource, $urlkey, $name);
+                                $id_privilege  = $pACL->getIdModulePrivilege($id_resource,$urlkey);
+                                $bExito        = $pACL->grantModulePrivilege2Group($id_privilege, $id_group);
+                            }
+
+                            if (!$pACL->hasModulePrivilege($user, 'pbxadmin', $urlkey)) {
+                                continue;
+                            }
+
+                            if(isset($itemcat[$urlkey])) { $cate=$itemcat[$urlkey]; } else { $cate=$moduledata['embedcategory']; }
+                            $cate = trim(preg_replace('/\s\s+/', ' ', $cate)); // xml with & char is inserted with new lines between &, remove them
+                            if(!in_array($cate,$menuorder)) {
+                                $menuorder[]=$cate;
+                            }
+                            $idx = array_search($cate,$menuorder);
+                            $menu[$idx][$cate][]=array('urlkey'=>$urlkey,'name'=>_tr($name),'category'=>$cate);
+                        }
+                    }
+                }
+            }
+            ksort($menu);
+
+            // sort menu items inside each category
+            $menu_sorted=array();
+            foreach($menu as $idx=>$datita) {
+                foreach($datita as $cate=>$items) {
+                     usort($items, function($a, $b) {
+                    if ($a['name'] == $b['name']) { return 0; }
+                        return ($a['name'] < $b['name']) ? -1 : 1;
+                    });
+                    $menu_sorted[_tr($cate)]=$items;
+                }
+            }
+
+            $smarty->assign('leftmenu',$menu_sorted);
+
             $smarty->assign("htmlFPBX", $return_HTML);
-        return $smarty->fetch("$local_templates_dir/main.tpl");
+
+            return $smarty->fetch("$local_templates_dir/main.tpl");
         }
     }
 }
@@ -772,4 +822,5 @@ function framework_include_js_issabelpbx($module_name, $module_page) {
 
     return $html;
 }
+
 ?>
