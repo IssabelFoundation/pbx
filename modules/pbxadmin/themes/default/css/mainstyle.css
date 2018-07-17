@@ -31,7 +31,7 @@ body {
 }
 #header {
     position: relative;
-    z-index: 1000;
+    z-index: 1;
     min-width: 800px;
     width: 100%;
     max-width: 1920px;
@@ -585,7 +585,7 @@ div.modulebuttons {
 input[type="submit"]{ height: 25px;}
 
 /*rnav*/
-.rnav .ui-widget-content {background: none; padding: 2px;}
+.rnav .ui-widget-content {background: none; padding: 2px; margin-left: 15px;}
 .rnav .ui-widget-content a {color: #072966;}
 .rnav .ui-widget-content li.ui-state-focus {
     font-weight: normal;
@@ -651,4 +651,12 @@ a.info:link, a.info:hover {
 	line-height:15px;
 	border-radius: 5px;
 
+}
+
+.ui-dialog {
+top: 15px !important;
+margin-left: auto;
+margin-right: auto;
+left: 0;
+right: 0;
 }
