@@ -313,10 +313,19 @@ function formatCallRecordingTuple($value)
             $rectype = _tr("Incoming");
             break;
     }
+
+    // Prefer cnum to src if they differ, to show original extension instead of external cidnum
+    $src       = isset($value['src']) ? $value['src'] : '';
+    $cnum      = isset($value['cnum']) ? $value['cnum'] : '';
+    $final_src = $src;
+    if($cnum != $src) {
+        $final_src = $cnum;
+    }
+
     return array(
         date('d M Y',strtotime($value['calldate'])),
         date('H:i:s',strtotime($value['calldate'])),
-        isset($value['src']) ? $value['src'] : '',
+        $final_src,
         isset($value['dst']) ? $value['dst'] : '',
         SecToHHMMSS($value['duration']),
         $rectype,
