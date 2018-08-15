@@ -660,3 +660,7 @@ margin-right: auto;
 left: 0;
 right: 0;
 }
+
+/* Issabel PBX wrapper, we do not have top menu, override top padding/margin */
+#page_body { margin-top:0 !important; padding-top:0 !important;  }
+
