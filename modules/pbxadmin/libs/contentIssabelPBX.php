@@ -617,7 +617,15 @@ function getContent(&$smarty, $iss_module_name, $withList)
                                 continue;
                             }
 
-                            if(isset($itemcat[$urlkey])) { $cate=$itemcat[$urlkey]; } else { $cate=$moduledata['embedcategory']; }
+                            if(isset($itemcat[$urlkey])) { 
+                                $cate=$itemcat[$urlkey]; 
+                            } else { 
+                                if(preg_match('/settings$/',$urlkey) || preg_match('/admin$/',$urlkey)) {
+                                    $cate='Settings';
+                                } else {
+                                    $cate=$moduledata['embedcategory']; 
+                                }
+                            }
                             $cate = trim(preg_replace('/\s\s+/', ' ', $cate)); // xml with & char is inserted with new lines between &, remove them
                             if(!in_array($cate,$menuorder)) {
                                 $menuorder[]=$cate;
