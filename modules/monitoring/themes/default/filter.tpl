@@ -11,7 +11,8 @@
                 <option value="outgoing" {$SELECTED_2} >{$OUTGOING}</option>
                 <option value="queue" {$SELECTED_3} >{$QUEUE}</option>
 		<option value="group" {$SELECTED_4} >{$GROUP}</option>
-           </select>
+ 		<option value="all" {$SELECTED_5} >{$ALL}</option>
+	</select>
     </td>
 	<td align="right"><input class="button" type="submit" name="show" value="{$SHOW}" /></td>
     </tr>
