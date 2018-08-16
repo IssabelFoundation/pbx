@@ -48,5 +48,6 @@ $arrLangModule=array(
 "You are not authorized to listen this file" => "You are not authorized to listen this file",
 "You are not authorized to delete any records" => "You are not authorized to delete any record",
 'Recording missing' => 'Recording missing',
+"All" => "All",
 );
 ?>
