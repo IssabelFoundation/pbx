@@ -132,9 +132,13 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
               $smarty->assign("SELECTED_4", "Selected");
               $nameFilterUserfield = _tr("Group");
               break;
-        default:
+         case "Incoming": //hgmnetwork.com 16-08-2018 añadido para tipo entrantes
               $smarty->assign("SELECTED_1", "Selected");
               $nameFilterUserfield = _tr("Incoming");
+              break;
+        default://hgmnetwork.com 16-08-2018 añadido opcion 5 para mostrar todas
+              $smarty->assign("SELECTED_5", "Selected");
+              $nameFilterUserfield = _tr("All");
               break;
     }
     $date_ini = getParameter("date_start");
@@ -269,6 +273,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     $smarty->assign("QUEUE", _tr("Queue"));
     $smarty->assign("GROUP", _tr("Group"));
     $smarty->assign("SHOW", _tr("Show"));
+    $smarty->assign("ALL", _tr("All"));//hgmnetwork.com 16-08-2018 añadido para mostrar todas en busqueda por tipo
     $_POST["filter_field"]           = $filter_field;
     $_POST["filter_value"]           = $filter;
     $_POST["filter_value_recordingfile"] = $filter_recordingfile;
