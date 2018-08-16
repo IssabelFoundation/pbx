@@ -132,12 +132,13 @@ SQL_COND_EXTENSION;
 
             $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
         }
-
+//hgmnetwork.com 16-08-2018 se añade la opcion de 'incoming' en el tipo de busqueda ya que no estaba y no mostraba nada
         // Tipo de grabación según nombre de archivo
         $prefixByType = array(
             'outgoing'  =>  array('O', 'o'),
             'group'     =>  array('g', 'r'),
             'queue'     =>  array('q'),
+            'incoming' => array('exten'),
         );
         if (isset($param['recordingfile']) && isset($prefixByType[$param['recordingfile']])) {
             $fieldSQL = array();
