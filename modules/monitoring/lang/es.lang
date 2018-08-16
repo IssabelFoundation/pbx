@@ -20,6 +20,7 @@
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
   $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+  //hgmnetwork.com 16-08-2018 añadida opcion all para busqueda por tipos
 global $arrLangModule;
 $arrLangModule = array(
     "Monitoring" => "Reporte de monitoreo",
@@ -50,5 +51,6 @@ $arrLangModule = array(
     "Start Date" => "Fecha inicial",
     "End Date" => "Fecha final",
     'Recording missing' => 'No se encuentra la grabación',
+    "All" => "Todas",
 );
 ?>
