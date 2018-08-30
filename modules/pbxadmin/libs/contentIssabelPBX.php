@@ -170,13 +170,13 @@ function getContent(&$smarty, $iss_module_name, $withList)
     $allmodules = module_getinfo(false,false,true); // refresh module list to get updated embedcategory and show new installed modules automatically 
 
     //draw up menu
-    $fpbx_menu = array();
+    $ipbx_menu = array();
 
-    // pointer to current item in $fpbx_menu, if applicable
+    // pointer to current item in $ipbx_menu, if applicable
     $cur_menuitem = null;
 
     //  var_dump($_SESSION);
-    // add module sections to $fpbx_menu
+    // add module sections to $ipbx_menu
     if(is_array($active_modules)){
         foreach($active_modules as $key => $module) {
 
@@ -238,7 +238,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
                     // item is an assoc array, with at least
                     //array(module=> name=>, category=>, type=>, display=>)
-                    $fpbx_menu[$itemKey] = $item;
+                    $ipbx_menu[$itemKey] = $item;
 
                     // allow a module to replace our main index page
                     if (($item['display'] == 'index') && ($display == '')) {
@@ -248,7 +248,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
                     // check current item
                     if ($display == $item['display']) {
                         // found current menuitem, make a reference to it
-                        $cur_menuitem =& $fpbx_menu[$itemKey];
+                        $cur_menuitem =& $ipbx_menu[$itemKey];
                     }
                 }
             }
@@ -282,13 +282,13 @@ function getContent(&$smarty, $iss_module_name, $withList)
     }
 
     // extensions vs device/users ... this is a bad design, but hey, it works
-    if (!$quietmode && isset($fpbx_menu["extensions"])) {
+    if (!$quietmode && isset($ipbx_menu["extensions"])) {
             if (isset($amp_conf["AMPEXTENSIONS"])
                     && ($amp_conf["AMPEXTENSIONS"] == "deviceanduser")) {
-                    unset($fpbx_menu["extensions"]);
+                    unset($ipbx_menu["extensions"]);
             } else {
-                    unset($fpbx_menu["devices"]);
-                    unset($fpbx_menu["users"]);
+                    unset($ipbx_menu["devices"]);
+                    unset($ipbx_menu["users"]);
             }
     }
 
@@ -498,7 +498,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
         $show_normal = $fw_popover_process ? fwmsg::errors() : true;
         if ($show_normal) {
             // provide beta status
-            if (isset($fpbx_menu[$display]['beta']) && strtolower($fpbx_menu[$display]['beta']) == 'yes') {
+            if (isset($ipbx_menu[$display]['beta']) && strtolower($ipbx_menu[$display]['beta']) == 'yes') {
                 $return_HTML .= load_view($amp_conf['VIEW_BETA_NOTICE']);
             }
             $return_HTML .= $content.$return_CONFIG_HTML;
