@@ -73,6 +73,8 @@ $arrLangModule = array(
     "Write in Queue Log" => "Escribir en Queue Log",
     "Voicemail Blasting" => "Correo de Voz Masivo",
     "Dialplan Injection" => "Inyección de Dialplan",
-    "Dynamic Routes" => "Rutas Dinámicas"
+    "Dynamic Routes" => "Rutas Dinámicas",
+    "Asterisk Manager Settings" => "Configuraciones AMI",
+    "Asterisk Logfile Settings" => "Configuraciones Logger"
 );
 ?>
