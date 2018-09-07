@@ -73,6 +73,6 @@ $arrLangModule = array(
     "Write in Queue Log" => "Escribir en Queue Log",
     "Voicemail Blasting" => "Correo de Voz Masivo",
     "Dialplan Injection" => "Inyección de Dialplan",
-    "Dynamic Routes" => "Rutas dinámicas"
+    "Dynamic Routes" => "Rutas Dinámicas"
 );
 ?>
