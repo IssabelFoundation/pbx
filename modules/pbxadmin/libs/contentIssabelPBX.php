@@ -650,6 +650,11 @@ function getContent(&$smarty, $iss_module_name, $withList)
                 }
             }
 
+            // if we do not have custom privilege for module, disable output
+            if (!$pACL->hasModulePrivilege($user, 'pbxadmin', $display)) {
+                $return_HTML='';
+            }
+
             $smarty->assign('leftmenu',$menu_sorted);
 
             $smarty->assign("htmlFPBX", $return_HTML);
