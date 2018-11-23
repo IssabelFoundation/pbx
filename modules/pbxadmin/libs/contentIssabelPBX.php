@@ -558,6 +558,22 @@ function getContent(&$smarty, $iss_module_name, $withList)
             $dsnAsterisk = generarDSNSistema('asteriskuser', 'asterisk');
             $pDB = new paloDB($dsnAsterisk);
 
+            // run wizard if no extensions are found
+            if($module_page=='extensions' && !isset($_REQUEST['Submit'])) {
+
+                $query = "SELECT count(*) FROM `users`";
+                $row = $pDB->getFirstRowQuery($query, false, array());
+                if($row[0]<1) {
+                    if(is_file("/var/www/html/wizard/index.php")) {
+                        $return_HTML.="<script>";
+                        $return_HTML.="\$(document).ready( function() { \n";
+                        $return_HTML.="ShowModalPopUP('"._tr('Initial Configuration Wizard')."','900',800,'<iframe src=\"/wizard/index.php\" frameborder=\"0\" style=\"overflow:hidden;height:100%;width:100%\" height=\"100%\" width=\"100%\" ></iframe>');\n";
+                        $return_HTML.="$('.neo-modal-issabel-popup-content').css('left','0');$('.neo-modal-issabel-popup-content').css('right','0');$('.neo-modal-issabel-popup-content').css('bottom','0');\n";
+                        $return_HTML.="});</script>";
+                    }
+                }
+            }
+
             $pDBsq = new paloDB($arrConf['issabel_dsn']['acl']);
             if (!empty($pDBsq->errMsg)) {
                return "ERROR DE DB: $pDBsq->errMsg <br>";
