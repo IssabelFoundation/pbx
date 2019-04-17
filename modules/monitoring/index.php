@@ -305,10 +305,16 @@ function formatCallRecordingTuple($value)
         case 'g':  // FreePBX 2.8.1
         case 'r':  // FreePBX 2.11+
             $rectype = _tr("Group");
-            break;
+//primero quitamos el sip/ y luego desde el - en adelante asi queda solo la extension para mostrarla hgmnetwork.com 15-04-2019
+$extension_atendio=preg_replace("/(SIP|IAX2)\//","",$value['dstchannel']);
+$extension_atendio="(Ext: ".preg_replace("/-.{1,}/","",$extension_atendio).")";
+        break;
         case "q":
             $rectype = _tr("Queue");
-            break;
+//primero quitamos el sip/ y luego desde el - en adelante asi queda solo la extension para mostrarla hgmnetwork.com 15-04-2019
+$extension_atendio=preg_replace("/(SIP|IAX2)\//","",$value['dstchannel']);
+$extension_atendio="(Ext: ".preg_replace("/-.{1,}/","",$extension_atendio).")";
+        break;
         default :
             $rectype = _tr("Incoming");
             break;
@@ -326,7 +332,7 @@ function formatCallRecordingTuple($value)
         date('d M Y',strtotime($value['calldate'])),
         date('H:i:s',strtotime($value['calldate'])),
         $final_src,
-        isset($value['dst']) ? $value['dst'] : '',
+        isset($value['dst']) ? $value['dst'] .$extension_atendio : '',
         SecToHHMMSS($value['duration']),
         $rectype,
         $namefile,
