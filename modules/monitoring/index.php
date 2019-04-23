@@ -269,6 +269,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     $smarty->assign("QUEUE", _tr("Queue"));
     $smarty->assign("GROUP", _tr("Group"));
     $smarty->assign("SHOW", _tr("Show"));
+    $smarty->assign("ALL", _tr("All"));    
     $_POST["filter_field"]           = $filter_field;
     $_POST["filter_value"]           = $filter;
     $_POST["filter_value_recordingfile"] = $filter_recordingfile;
@@ -305,9 +306,13 @@ function formatCallRecordingTuple($value)
         case 'g':  // FreePBX 2.8.1
         case 'r':  // FreePBX 2.11+
             $rectype = _tr("Group");
+        $extension_atendio=preg_replace("/SIP\//","",$value['dstchannel']);
+        $extension_atendio="(Ext: ".preg_replace("/-.{1,}/","",$extension_atendio).")";
             break;
         case "q":
             $rectype = _tr("Queue");
+        $extension_atendio=preg_replace("/SIP\//","",$value['dstchannel']);
+        $extension_atendio="(Ext: ".preg_replace("/-.{1,}/","",$extension_atendio).")";
             break;
         default :
             $rectype = _tr("Incoming");
@@ -317,7 +322,7 @@ function formatCallRecordingTuple($value)
         date('d M Y',strtotime($value['calldate'])),
         date('H:i:s',strtotime($value['calldate'])),
         isset($value['src']) ? $value['src'] : '',
-        isset($value['dst']) ? $value['dst'] : '',
+        isset($value['dst']) ? $value['dst'].$extension_atendio : '',
         SecToHHMMSS($value['duration']),
         $rectype,
         $namefile,
@@ -337,7 +342,20 @@ function downloadFile($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
 
     $pMonitoring = new paloSantoMonitoring($pDB);
     if (!hasModulePrivilege($user, $module_name, 'downloadany')) {
-        if (!$pMonitoring->recordBelongsToUser($record, $extension)) {
+      //hgmnetwork.com obtenemos cada extension por separado mirando por el ; por defecto si es solo 1 pues seria la 0
+    $array_extensiones=explode(";",$extension);
+    //hacemos un bucle de tantos como extensiones tenga
+    $total_array_extensiones=count($array_extensiones);//nos indica cuantas extensiones se muestran
+    for ($a=0;$a<$total_array_extensiones;$a++){
+    //echo " miramos si la extension $array_extensiones[$a] esta autorizada al fichero , nos devuelve".$pMonitoring->recordBelongsToUser($record, $array_extensiones[$a])."<br>";
+    //$pMonitoring->recordBelongsToUser($record, $array_extensiones[$a]) nos devuelve 1 si la extension esta permitida y nulo si no
+      if ($pMonitoring->recordBelongsToUser($record, $array_extensiones[$a])==1){
+      //nos ha devuelto 1 por lo que ok a la descarga, interrumpimos el for para nada sigue
+      $permitir_descarga="si";
+      break;
+      };
+    };
+        if ($permitir_descarga !="si"){
             Header('HTTP/1.1 403 Forbidden');
             die("<b>403 "._tr("You are not authorized to download this file")." </b>");
         }
@@ -385,7 +403,20 @@ function display_record($smarty, $module_name, $local_templates_dir, &$pDB, $pAC
     $pMonitoring = new paloSantoMonitoring($pDB);
 
     if (!hasModulePrivilege($user, $module_name, 'downloadany')) {
-        if(!$pMonitoring->recordBelongsToUser($file, $extension)){
+    //hgmnetwork.com obtenemos cada extension por separado mirando por el ; por defecto si es solo 1 pues seria la 0
+    $array_extensiones=explode(";",$extension);
+    //hacemos un bucle de tantos como extensiones tenga
+    $total_array_extensiones=count($array_extensiones);//nos indica cuantas extensiones se muestran
+    for ($a=0;$a<$total_array_extensiones;$a++){
+    //echo " miramos si la extension $array_extensiones[$a] esta autorizada al fichero , nos devuelve".$pMonitoring->recordBelongsToUser($file, $array_extensiones[$a])."<br>";
+    //$pMonitoring->recordBelongsToUser($file, $array_extensiones[$a]) nos devuelve 1 si la extension esta permitida y nulo si no
+      if ($pMonitoring->recordBelongsToUser($file, $array_extensiones[$a])==1){
+      //nos ha devuelto 1 por lo que ok a la descarga, interrumpimos el for para nada sigue
+      $permitir_reproducir="si";
+      break;
+      };
+    };
+        if ($permitir_reproducir !="si"){
             return _tr("You are not authorized to listen this file");
         }
     }
