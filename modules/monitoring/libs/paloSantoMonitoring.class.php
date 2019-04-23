@@ -75,8 +75,7 @@ class paloSantoMonitoring
         $sRegFecha = '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/';
         if (isset($param['date_start'])) {
             if (preg_match($sRegFecha, $param['date_start'])) {
-                $condSQL[] = 'calldate >= ?';
-                $paramSQL[] = $param['date_start'];
+                $fecha_inicio= $param['date_start'];
             } else {
                 $this->errMsg = '(internal) Invalid start date, must be yyyy-mm-dd hh:mm:ss';
                 return NULL;
@@ -84,26 +83,11 @@ class paloSantoMonitoring
         }
         if (isset($param['date_end'])) {
             if (preg_match($sRegFecha, $param['date_end'])) {
-                $condSQL[] = 'calldate <= ?';
-                $paramSQL[] = $param['date_end'];
+                $fecha_fin=$param['date_end'];
             } else {
                 $this->errMsg = '(internal) Invalid end date, must be yyyy-mm-dd hh:mm:ss';
                 return NULL;
             }
-        }
-
-        // Extensión de fuente o destino, copiada de paloSantoCDR.class.php
-        if (isset($param['extension'])) {
-            $condSQL[] = <<<SQL_COND_EXTENSION
-(
-       src = ?
-    OR dst = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) = ?
-)
-SQL_COND_EXTENSION;
-            array_push($paramSQL, $param['extension'], $param['extension'],
-                $param['extension'], $param['extension']);
         }
 
         foreach (array('src', 'dst') as $sCampo) if (isset($param[$sCampo])) {
@@ -117,8 +101,7 @@ SQL_COND_EXTENSION;
             if (!function_exists('_construirWhereMonitoring_troncal2like2')) {
                 function _construirWhereMonitoring_troncal2like2($s) { return '%'.$s.'%'; }
             }
-            $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
-            $fieldSQL = array_fill(0, count($listaPat), "$sCampo LIKE ?");
+            $fieldSQL = array_fill(0, count($listaPat), "$sCampo LIKE \"%$listaPat[0]%\"");
 
             /* Caso especial: si se especifica field_pattern=src|dst, también
              * debe buscarse si el canal fuente o destino contiene el patrón
@@ -126,11 +109,13 @@ SQL_COND_EXTENSION;
             if ($sCampo == 'src' || $sCampo == 'dst') {
                 if ($sCampo == 'src') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1)";
                 if ($sCampo == 'dst') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1)";
-                $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
-                $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE ?"));
+                $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE \"%$listaPat[0]%\""));
             }
 
-            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
+             //sql_busqueda para usuarios
+            $sql_busqueda= " (".implode(' OR ', $fieldSQL).") AND " ;
+            //sql_busqueda para admin todas las extensiones
+            $sql_busqueda_admin= " AND (".implode(' OR ', $fieldSQL).") " ;
         }
 
         // Tipo de grabación según nombre de archivo
@@ -138,21 +123,51 @@ SQL_COND_EXTENSION;
             'outgoing'  =>  array('O', 'o'),
             'group'     =>  array('g', 'r'),
             'queue'     =>  array('q'),
+            'incoming' => array('exten'),
         );
         if (isset($param['recordingfile']) && isset($prefixByType[$param['recordingfile']])) {
             $fieldSQL = array();
             foreach ($prefixByType[$param['recordingfile']] as $p) {
-                $fieldSQL[] = 'recordingfile LIKE ?';
-                $paramSQL[] = $p.'%';
-                $fieldSQL[] = 'recordingfile LIKE ?';
-                $paramSQL[] = DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%';
+                $fieldSQL[] = 'recordingfile LIKE "'.$p.'%"';
+                $fieldSQL[] = 'recordingfile LIKE "'. DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%"'
             }
 
-            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
-        }
+            //sql_busqueda para usuarios
+        $sql_busqueda="(".implode(' OR ', $fieldSQL).") AND ";
+        //sql_busqueda para admin todas las extensiones
+        $sql_busqueda_admin=" AND (".implode(' OR ', $fieldSQL).")";
 
+        }
+//hgmnetwork.com permitir varias extensiones al mismo usuario
+     
+    if (!isset($param['extension'])) {
+    //es admin ve todas las extensiones
+    $condSQL[] = 'recordingfile <> "" AND calldate >="'.$fecha_inicio.'" and calldate <="'.$fecha_fin.'" '.$sql_busqueda_admin;
+    };
+    
+              // Extensión de fuente o destino, copiada de paloSantoCDR.class.php
+            if (isset($param['extension'])) {
+     //hgmnetwork.com obtenemos cada extension por separado mirando por el ; por defecto si es solo 1 pues seria la 0
+     $array_extensiones=explode(";",$param['extension']);
+     //hacemos un bucle de tantos como extensiones tenga
+    $total_array_extensiones=count($array_extensiones);//nos indica cuantas extensiones se muestran
+    for ($a=0;$a<$total_array_extensiones;$a++){
+    $condSQL[] = <<<SQL_COND_EXTENSION
+    recordingfile <> "" AND calldate >= "$fecha_inicio" AND calldate <= "$fecha_fin" AND $sql_busqueda(
+    src = ?
+    OR dst = ?
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) = ?
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) = ?
+    )
+     SQL_COND_EXTENSION;
+    
+      array_push($paramSQL, $array_extensiones[$a],$array_extensiones[$a], $array_extensiones[$a], $array_extensiones[$a]);
+    
+       };
+     }
+      
         // Construir fragmento completo de sentencia SQL
-        $where = array(implode(' AND ', $condSQL), $paramSQL);
+        $where = array(implode(' OR ', $condSQL), $paramSQL);
         if ($where[0] != '') $where[0] = 'WHERE '.$where[0];
         return $where;
     }
