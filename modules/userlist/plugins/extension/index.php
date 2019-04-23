@@ -62,7 +62,10 @@ class paloUserPlugin_extension extends paloSantoUserPluginBase
                     "INPUT_TYPE"             => "SELECT",
                     "INPUT_EXTRA_PARAM"      => $arrData,
                     "VALIDATION_TYPE"        => "text",
-                    "VALIDATION_EXTRA_PARAM" => ""
+                    "VALIDATION_EXTRA_PARAM" => "",
+                    "MULTIPLE"               => true,
+                    "SIZE"                   => "8",
+                    "EDITABLE"               => "yes",
                 ),
             );
         } else {
@@ -83,7 +86,8 @@ class paloUserPlugin_extension extends paloSantoUserPluginBase
     function loadFormEditValues($username, $id_user)
     {
         if (!isset($_POST['extension'])) {
-            $_POST['extension'] = $this->_pACL->getUserExtension($username);
+        $extension_array=explode(";",$this->_pACL->getUserExtension($username));
+         $_POST['extension'] = $extension_array;
         }
     }
 
