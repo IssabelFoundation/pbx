@@ -53,7 +53,7 @@ class paloSantoMonitoring
             }
         }
     }
-
+  
     private function _construirWhereMonitoring($param)
     {
         $condSQL = array();
@@ -69,13 +69,15 @@ class paloSantoMonitoring
         $param = array_filter($param, '_construirWhereMonitoring_notempty');
 
         // La columna recordingfile debe estar no-vacía
-        $condSQL[] = 'recordingfile <> ""';
+//        $condSQL[] = 'recordingfile <> ""';
 
         // Fecha y hora de inicio y final del rango
         $sRegFecha = '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/';
         if (isset($param['date_start'])) {
             if (preg_match($sRegFecha, $param['date_start'])) {
-                $fecha_inicio= $param['date_start'];
+//                $condSQL[] = 'calldate >= ?';
+//                $paramSQL[] = $param['date_start'];
+$fecha_inicio= $param['date_start'];
             } else {
                 $this->errMsg = '(internal) Invalid start date, must be yyyy-mm-dd hh:mm:ss';
                 return NULL;
@@ -83,12 +85,18 @@ class paloSantoMonitoring
         }
         if (isset($param['date_end'])) {
             if (preg_match($sRegFecha, $param['date_end'])) {
-                $fecha_fin=$param['date_end'];
+//                $condSQL[] = 'calldate <= ?';
+//                $paramSQL[] = $param['date_end'];
+$fecha_fin=$param['date_end'];
             } else {
                 $this->errMsg = '(internal) Invalid end date, must be yyyy-mm-dd hh:mm:ss';
                 return NULL;
             }
         }
+//modificado por hgmnetwork.com 13-08-2018 para mostrar las grabaciones de las extensiones indicadas sin que sea solo 1, pueden ser varias separadas por ;
+//$param['extension']="5002";
+//echo " campo busqueda es :".print_r($param)."<br>";
+
 
         foreach (array('src', 'dst') as $sCampo) if (isset($param[$sCampo])) {
             $listaPat = array_filter(
@@ -97,10 +105,11 @@ class paloSantoMonitoring
                         ? $param[$sCampo]
                         : explode(',', trim($param[$sCampo]))),
                 '_construirWhereMonitoring_notempty');
-
+//echo " <hr> listaPat es ".$listaPat[0]."<hr>";
             if (!function_exists('_construirWhereMonitoring_troncal2like2')) {
                 function _construirWhereMonitoring_troncal2like2($s) { return '%'.$s.'%'; }
             }
+  //          $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
             $fieldSQL = array_fill(0, count($listaPat), "$sCampo LIKE \"%$listaPat[0]%\"");
 
             /* Caso especial: si se especifica field_pattern=src|dst, también
@@ -109,14 +118,17 @@ class paloSantoMonitoring
             if ($sCampo == 'src' || $sCampo == 'dst') {
                 if ($sCampo == 'src') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1)";
                 if ($sCampo == 'dst') $chanexpr = "SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1)";
+ //               $paramSQL = array_merge($paramSQL, array_map('_construirWhereMonitoring_troncal2like2', $listaPat));
                 $fieldSQL = array_merge($fieldSQL, array_fill(0, count($listaPat), "$chanexpr LIKE \"%$listaPat[0]%\""));
             }
 
-             //sql_busqueda para usuarios
-            $sql_busqueda= " (".implode(' OR ', $fieldSQL).") AND " ;
-            //sql_busqueda para admin todas las extensiones
-            $sql_busqueda_admin= " AND (".implode(' OR ', $fieldSQL).") " ;
-        }
+//            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
+//sql_busqueda para usuarios
+$sql_busqueda= " (".implode(' OR ', $fieldSQL).") AND " ;
+//sql_busqueda para admin todas las extensiones
+$sql_busqueda_admin= " AND (".implode(' OR ', $fieldSQL).") " ;
+       };
+
 
         // Tipo de grabación según nombre de archivo
         $prefixByType = array(
@@ -125,51 +137,82 @@ class paloSantoMonitoring
             'queue'     =>  array('q'),
             'incoming' => array('exten'),
         );
-        if (isset($param['recordingfile']) && isset($prefixByType[$param['recordingfile']])) {
+
+//echo " tipo de busqueda es ".$param['recordingfile']."<br>";
+  if (isset($param['recordingfile']) && isset($prefixByType[$param['recordingfile']])) {
             $fieldSQL = array();
             foreach ($prefixByType[$param['recordingfile']] as $p) {
                 $fieldSQL[] = 'recordingfile LIKE "'.$p.'%"';
-                $fieldSQL[] = 'recordingfile LIKE "'. DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%"'
+               // $paramSQL[] = $p.'%';
+                $fieldSQL[] = 'recordingfile LIKE "'. DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%"';
+               // $paramSQL[] = DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%';
             }
 
-            //sql_busqueda para usuarios
-        $sql_busqueda="(".implode(' OR ', $fieldSQL).") AND ";
-        //sql_busqueda para admin todas las extensiones
-        $sql_busqueda_admin=" AND (".implode(' OR ', $fieldSQL).")";
-
+//            $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
+//sql_busqueda para usuarios
+$sql_busqueda="(".implode(' OR ', $fieldSQL).") AND ";
+//sql_busqueda para admin todas las extensiones
+$sql_busqueda_admin=" AND (".implode(' OR ', $fieldSQL).")";
         }
-//hgmnetwork.com permitir varias extensiones al mismo usuario
-     
-    if (!isset($param['extension'])) {
-    //es admin ve todas las extensiones
-    $condSQL[] = 'recordingfile <> "" AND calldate >="'.$fecha_inicio.'" and calldate <="'.$fecha_fin.'" '.$sql_busqueda_admin;
-    };
-    
-              // Extensión de fuente o destino, copiada de paloSantoCDR.class.php
-            if (isset($param['extension'])) {
-     //hgmnetwork.com obtenemos cada extension por separado mirando por el ; por defecto si es solo 1 pues seria la 0
-     $array_extensiones=explode(";",$param['extension']);
-     //hacemos un bucle de tantos como extensiones tenga
-    $total_array_extensiones=count($array_extensiones);//nos indica cuantas extensiones se muestran
-    for ($a=0;$a<$total_array_extensiones;$a++){
-    $condSQL[] = <<<SQL_COND_EXTENSION
-    recordingfile <> "" AND calldate >= "$fecha_inicio" AND calldate <= "$fecha_fin" AND $sql_busqueda(
-    src = ?
+
+
+
+ if (!isset($param['extension'])) {
+//es admin ve todas las extensiones
+//echo " se muestran todas las extensiones";
+ $condSQL[] = 'recordingfile <> "" AND calldate >="'.$fecha_inicio.'" and calldate <="'.$fecha_fin.'" '.$sql_busqueda_admin;
+};
+
+
+//echo "extension en libs es (".$param['extension'].") y sql busqueda es $sql_busqueda y sql_busqueda_admin es $sql_busqueda_admin<br>";
+        // Extensión de fuente o destino, copiada de paloSantoCDR.class.php
+        if (isset($param['extension'])) {
+
+//hgmnetwork.com obtenemos cada extension por separado mirando por el ; por defecto si es solo 1 pues seria la 0
+$array_extensiones=explode(";",$param['extension']);
+//echo "<hr>array_Extension es ahora (".print_r($array_extensiones).")<hr>";
+//echo " array_extension 0 es ".$array_extensiones[0]."<br>";
+//echo " array_extension 1 es ".$array_extensiones[1]."<br>";
+
+//hacemos un bucle de tantos como extensiones tenga
+$total_array_extensiones=count($array_extensiones);//nos indica cuantas extensiones se muestran
+for ($a=0;$a<$total_array_extensiones;$a++){
+            $condSQL[] = <<<SQL_COND_EXTENSION
+recordingfile <> "" AND calldate >= "$fecha_inicio" AND calldate <= "$fecha_fin" AND $sql_busqueda(
+       src = ?
     OR dst = ?
     OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) = ?
     OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) = ?
-    )
-     SQL_COND_EXTENSION;
-    
-      array_push($paramSQL, $array_extensiones[$a],$array_extensiones[$a], $array_extensiones[$a], $array_extensiones[$a]);
-    
-       };
-     }
-      
+)
+SQL_COND_EXTENSION;
+
+//            array_push($paramSQL, $param['extension'], $param['extension'],
+//                $param['extension'], $param['extension']);
+            array_push($paramSQL, $array_extensiones[$a],$array_extensiones[$a],
+                $array_extensiones[$a], $array_extensiones[$a]);
+
+};
+        }
+
+/*
+//        foreach (array('src', 'dst') as $sCampo) if (isset($param[$sCampo])) {
+*/
+        // Tipo de grabación según nombre de archivo
+
         // Construir fragmento completo de sentencia SQL
-        $where = array(implode(' OR ', $condSQL), $paramSQL);
+//el primero siempre debe ser and luego si hay mas seria or
+
+//echo "<hr> el condSQL es: $condSQL[3]<hr>";
+$where = array(implode(' OR ', $condSQL), $paramSQL);
+
+
+
+
         if ($where[0] != '') $where[0] = 'WHERE '.$where[0];
+//modificado por hgmnetwork.com para obtener el sql de diferentes extensiones por ; 13-08-2018
+//echo "<hr> el sql es ".print_r($where)."<hr>";
         return $where;
+
     }
 
     function getNumMonitoring($param)
@@ -182,7 +225,7 @@ class paloSantoMonitoring
         if (!is_array($r)){
             $this->errMsg = $this->_DB->errMsg;
             return NULL;
-        }
+              }
         return $r[0];
     }
 
@@ -197,11 +240,13 @@ class paloSantoMonitoring
             $query .= " LIMIT ? OFFSET ?";
             array_push($paramSQL, $limit, $offset);
         }
+echo " query es $query";
         $r = $this->_DB->fetchTable($query, TRUE, $paramSQL);
         if (!is_array($r)) {
             $this->errMsg = $this->_DB->errMsg;
             return NULL;
         }
+//echo "<hr> esto es en monitoring/libs : el query es $query <hr>r es ".print_r($r)."<hr>";
         return $r;
     }
 
@@ -235,7 +280,7 @@ class paloSantoMonitoring
             $this->errMsg = $this->_DB->errMsg;
             return NULL;
         }
-        if (count($result) <= 0) {
+    if (count($result) <= 0) {
             $this->errMsg = '(internal) CDR not found by specified id/namefile';
             return NULL;
         }
@@ -288,7 +333,7 @@ class paloSantoMonitoring
          * análisis sólo se hace si el recordingfile no tiene componentes
          * de directorio. */
         $datedir = '';
-        if (strpos($file, '/') === FALSE) {
+         if (strpos($file, '/') === FALSE) {
             /* FreePBX acostumbra construir el nombre de archivo con
              * componentes separados por guiones. Si uno de los
              * componentes representa una fecha, se compondrá de
@@ -332,8 +377,7 @@ class paloSantoMonitoring
         // ...me doy
         return NULL;
     }
-
-    function recordBelongsToUser($uniqueid, $extension)
+     function recordBelongsToUser($uniqueid, $extension)
     {
         $sql = <<<RECORD_BELONGS_TO_EXTENSION
 SELECT COUNT(*) FROM cdr
@@ -353,3 +397,8 @@ RECORD_BELONGS_TO_EXTENSION;
         return ($result[0] > 0);
     }
 }
+
+
+
+
+
