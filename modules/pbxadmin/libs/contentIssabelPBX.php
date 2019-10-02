@@ -647,7 +647,9 @@ function getContent(&$smarty, $iss_module_name, $withList)
                                 $menuorder[]=$cate;
                             }
                             $idx = array_search($cate,$menuorder);
-                            $menu[$idx][$cate][]=array('urlkey'=>$urlkey,'name'=>_tr($name),'category'=>$cate);
+                            if($moduledata['status']==2) {
+                                $menu[$idx][$cate][]=array('urlkey'=>$urlkey,'name'=>_tr($name),'category'=>$cate);
+                            }
                         }
                     }
                 }
