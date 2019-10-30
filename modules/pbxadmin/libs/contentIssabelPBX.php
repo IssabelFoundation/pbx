@@ -598,7 +598,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
             }
         
             // IssabelPBX modules to exclude from menu 
-            $exclude = array('users','devices','ampusers','wiki','advancedsettings');
+            $exclude = array('users','devices','ampusers','wiki','xadvancedsettings');
 
             // helper array for setting menu category order
             $menuorder= array('Basic','Inbound Call Control','Internal Options & Configuration','Remote Access','Advanced');
