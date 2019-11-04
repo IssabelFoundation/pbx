@@ -12,9 +12,25 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
     load_language_module($iss_module_name);
 
+    $api_modules=array();
+
+    $it = new RecursiveDirectoryIterator("admin/modules/");
+    foreach(new RecursiveIteratorIterator($it) as $file) {
+        if(preg_match("/guimodule\.php$/ui",$file)) {
+            include_once $file;
+        }
+    }
+
+    foreach($api_modules as $key=>$endpoint) {
+        if(!file_exists('/var/www/html/newgui/'.$endpoint.'.html')) {
+           unset($api_modules[$key]);
+        }
+    }
+
     $arrLangIssabelPBX = array("en" => "en_US", "bg" => "bg_BG", "cn" => "zh_CN", "de" => "de_DE", "es" => "es_ES",
                             "fr" => "fr_FR", "he" => "he_IL", "hu" => "hu_HU", "it" => "it_IT",
                             "pt" => "pt_PT", "ru" => "ru_RU", "sv" => "sv_SE", "br" => "pt_BR");
+
     $langIssabelPBX = isset($arrLangIssabelPBX[$lang])?$arrLangIssabelPBX[$lang]:"en_US";
     setcookie("lang",$langIssabelPBX);
     $local_templates_dir = "$base_dir/modules/$iss_module_name/themes/default";
@@ -449,14 +465,24 @@ function getContent(&$smarty, $iss_module_name, $withList)
                     } else if (file_exists($dirname."/".$module_file)) {
                             // load language info if available
                             modgettext::textdomain($module_name);
-                            include($dirname."/".$module_file);
+                            if(array_key_exists($module_file,$api_modules)) {
+                                $endpoint = $api_modules[$module_file];
+                                renderPpbxAPIFrame($endpoint);
+                            } else {
+                                include($dirname."/".$module_file);
+                            }
                     } else {
                             $return_HTML .= "404 Not found (" . $module_file  . ')';
                     }
 
                     // global component
                     if ( isset($currentcomponent) ) {
+                        $endpoint = $api_modules[$module_file];
+                        if(file_exists("/var/www/html/pbxapi/controllers/".$endpoint.".php")) {
+                            //$return_CONFIG_HTML = "NEW GUI ".$currentcomponent->_compname;
+                        } else {
                             $return_CONFIG_HTML =  $currentcomponent->generateconfigpage();
+                        }
                     }
 
                     break;
@@ -598,7 +624,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
             }
         
             // IssabelPBX modules to exclude from menu 
-            $exclude = array('users','devices','ampusers','wiki','xadvancedsettings');
+            $exclude = array('users','devices','ampusers','wiki');
 
             // helper array for setting menu category order
             $menuorder= array('Basic','Inbound Call Control','Internal Options & Configuration','Remote Access','Advanced');
@@ -856,4 +882,41 @@ function framework_include_js_issabelpbx($module_name, $module_page) {
     return $html;
 }
 
+function renderPpbxAPIFrame($endpoint) {
+    echo "<iframe src='/newgui/$endpoint.html'frameborder=0 style='width:100%; height:100px;' id='iFrame1' ></iframe>";
+    echo "<script>";
+    echo "
+
+    \$('#page_body').css('width','100%');
+    \$('#page_body').css('padding','0');
+
+
+    function setIframeHeight(iframe,element) {
+        if (iframe) {
+            var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+            if (iframeWin.document.body) {
+                if(element=='grid') {
+                    alto = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+                } else {
+                    alto = iframeWin.document.documentElement.offsetHeight || iframeWin.document.body.offsetHeight;
+                }
+                if(alto<600) { alto=window.innerHeight-100; }
+                $(iframe).css('height',alto+'px');
+            }
+        }
+    };
+
+    $(window).on('message', function(e) {
+        var data = e.originalEvent.data;  // Should work.
+        if(data.hasOwnProperty('action')) {
+        if(data.action=='resizeme') {
+           setIframeHeight($('#iFrame1')[0],data.element);
+        }
+        }
+    });
+
+
+</script>";
+
+}
 ?>
