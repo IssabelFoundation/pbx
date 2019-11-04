@@ -23,7 +23,7 @@
 global $arrLangModule;
 $arrLangModule = array(
     "Option" => "Opción",
-    "Unembedded IssabelPBX" => "IssabelPBX Sin embeber",
+    "Unembedded IssabelPBX" => "IssabelPBX sin Embeber",
     "Basic" => "Básico",
     "Extensions" => "Extensiones",
     "Feature Codes" => "Códigos de funcionalidad",
