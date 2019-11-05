@@ -10,7 +10,7 @@ $out .= '<noscript><div class="attention">'
 $out  = '';
 $out .= '<div id="header">';
 $out .= '<a id="button_reload" href="#" data-button-icon-primary="ui-icon-gear">'
-		. _("Apply Config") .'</a>';
+		. $applyconfig .'</a>';
 $out .= '</div>';
 $out .= '<div id="page_body">';
 

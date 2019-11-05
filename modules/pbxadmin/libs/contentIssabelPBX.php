@@ -5,6 +5,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
 {
     global $fc_save;
     global $arrConf;
+    global $arrLang;
     global $tabindex;
     require_once "libs/misc.lib.php";
     $lang=get_language();
@@ -554,7 +555,9 @@ function getContent(&$smarty, $iss_module_name, $withList)
         }
 
         // send menu
-        $return_HTML .= load_view("$local_templates_dir/menu.php", null);
+        $apply = isset($arrLang['Apply changes'])?$arrLang['Apply changes']:'Apply changes';
+        $vars = array("applyconfig"=>$apply);
+        $return_HTML .= load_view("$local_templates_dir/menu.php", $vars);
 
         //send actual page content
         $return_HTML .= $page_content.$return_CONFIG_HTML;
