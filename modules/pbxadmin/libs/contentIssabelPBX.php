@@ -7,11 +7,19 @@ function getContent(&$smarty, $iss_module_name, $withList)
     global $arrConf;
     global $arrLang;
     global $tabindex;
+
+    // for page.modules.php (module admin)
+    global $display;
+    global $type;
+    global $online;
+
     require_once "libs/misc.lib.php";
     $lang=get_language();
     $base_dir=dirname($_SERVER['SCRIPT_FILENAME']);
 
     load_language_module($iss_module_name);
+
+    $dieafterquiet=false;
 
     $api_modules=array();
 
@@ -348,7 +356,25 @@ function getContent(&$smarty, $iss_module_name, $withList)
                     //
                     $module_name = 'modules';
                     $module_page = $cur_menuitem['display'];
-                    include 'page.modules.php';
+
+                    $possibilites = array(
+                            'userdisplay',
+                            'extdisplay',
+                            'id',
+                            'itemid',
+                            'selection'
+                    );
+                    $itemid = '';
+                    foreach($possibilites as $possibility) {
+                        if (isset($_REQUEST[$possibility]) && $_REQUEST[$possibility] != '' ) {
+                            $itemid = htmlspecialchars($_REQUEST[$possibility], ENT_QUOTES);
+                            $_REQUEST[$possibility] = $itemid;
+                        }
+                    }
+                    if($itemid=='process') { $quietmode=true; $dieafterquiet=true;}
+                    $display='modules'; 
+                    $type='setup';
+                    include $dirname.'/page.modules.php';
                     break;
             case 'noaccess':
                     show_view($amp_conf['VIEW_NOACCESS'], array('amp_conf' => &$amp_conf));
@@ -505,6 +531,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
     if ($quietmode) {
         // send the output buffer, should be sending just the page contents
         ob_end_flush();
+        if($dieafterquiet==true) { die(); }
     } elseif ($fw_popover || $fw_popover_process) {
         $admin_template = $template = array();
         //get the page contents from the buffer
@@ -644,6 +671,13 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
             foreach($privs as $idx=>$priv) {
                 $allprivs[]=$priv['privilege'];
+            }
+
+            // if module admin does not eixsts as privilege, insert it and grant administrator access
+            if (!in_array('modules',$allprivs)) {
+                $pACL->createModulePrivilege($id_resource, 'modules', $name);
+                $id_privilege  = $pACL->getIdModulePrivilege($id_resource,'modules');
+                $bExito        = $pACL->grantModulePrivilege2Group($id_privilege, $id_group);
             }
 
             // populate menu from IssabelPBX module tables
