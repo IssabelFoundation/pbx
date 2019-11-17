@@ -75,6 +75,7 @@ $arrLangModule = array(
     "Dialplan Injection" => "Inyección de Dialplan",
     "Dynamic Routes" => "Rutas Dinámicas",
     "Asterisk Manager Settings" => "Configuraciones AMI",
-    "Asterisk Logfile Settings" => "Configuraciones Logger"
+    "Asterisk Logfile Settings" => "Configuraciones Logger",
+    "Asterisk PJSIP Settings" => "Configuraciones PJSIP"
 );
 ?>
