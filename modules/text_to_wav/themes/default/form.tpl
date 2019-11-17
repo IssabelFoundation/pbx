@@ -21,6 +21,12 @@
                 <td align="left">{$format.INPUT}</td>
                 <td align="left"></td>
             </tr>
+            <tr class="letra12">
+                <td align="left"><b>{$language.LABEL}:</b></td>
+                <td align="left">{$language.INPUT}</td>
+                <td align="left"></td>
+            </tr>
+ 
         </table>
 	{else}
 	<table class="tabForm" style="font-size: 16px;" width="100%" >

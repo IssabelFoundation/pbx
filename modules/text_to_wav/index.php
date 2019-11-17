@@ -84,11 +84,12 @@ function generateWav($smarty, $module_name, $local_templates_dir)
         $smarty->assign("PATH",$path);
 
         $format = getParameter('format');
+        $language = getParameter('language');
         $message = stripslashes(trim(getParameter('message')));
         $message = substr($message, 0, 1024);
 
         $oTextToWap = new paloSantoTexttoWav();
-        $execute = $oTextToWap->outputTextWave($format, $message);
+        $execute = $oTextToWap->outputTextWave($format, $message, $language);
         if ($execute) {
         	/* Cortar la salida en este lugar. Evita lidiar con rawmode sólo
              * para caso de éxito */
@@ -113,6 +114,7 @@ function form_TexttoWav($smarty, $module_name, $local_templates_dir)
     $smarty->assign("GENERATE", _tr("Generate"));
     $smarty->assign("icon", "modules/$module_name/images/pbx_tools_text_to_wav.png");
     $arrData['format'] = (getParameter("format"))?getParameter("format"):"wav";
+    $arrData['language'] = (getParameter("language"))?getParameter("language"):"en-US";
 
     $htmlForm = $oForm->fetchForm("$local_templates_dir/form.tpl", _tr("Text to Wav"), $arrData);
     $contenidoModulo = "<form  method='POST' style='margin-bottom:0;' action='?menu=$module_name'>".$htmlForm."</form>";
@@ -124,6 +126,7 @@ function form_TexttoWav($smarty, $module_name, $local_templates_dir)
 function createFieldForm()
 {
      $arrOptions = array('wav' => "wav", 'gsm' => "gsm");
+     $arrOptionsLang = array( 'en-US'=>'en-US', 'es-ES'=>'es-ES', 'fr-FR'=>'fr-FR', 'it-IT'=>'it-IT','de-DE'=>'de-DE','en-GB'=>'en-GB'  );
 
     $arrFields = array(
             "message"          => array(   "LABEL"                  => _tr("Message"),
@@ -140,6 +143,14 @@ function createFieldForm()
                                             "REQUIRED"               => "yes",
                                             "INPUT_TYPE"             => "RADIO",
                                             "INPUT_EXTRA_PARAM"      => $arrOptions,
+                                            "VALIDATION_TYPE"        => "text",
+                                            "VALIDATION_EXTRA_PARAM" => ""
+                                ),
+            "language"          => array (  
+                                            "LABEL"    => _tr("Language"),
+                                            "REQUIRED"               => "yes",
+                                            "INPUT_TYPE"             => "SELECT",
+                                            "INPUT_EXTRA_PARAM"      => $arrOptionsLang,
                                             "VALIDATION_TYPE"        => "text",
                                             "VALIDATION_EXTRA_PARAM" => ""
                                 ),

@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: default.conf.php,v 1.1 2008-09-23 11:09:23 aflores@palosanto.com Exp $ */
-
+  $Id: paloSantoTexttoWav.class.php, Sun 17 Nov 2019 11:01:13 AM EST, nicolas@issabel.com
+*/
 class paloSantoTexttoWav {
     var $errMsg;
 
@@ -29,7 +29,7 @@ class paloSantoTexttoWav {
     {
     }
 
-    function outputTextWave($format, $message)
+    function outputTextWave($format, $message, $voice='en-US')
     {
         $pipespec = array(
             0 => array('pipe', 'r'),
@@ -37,16 +37,22 @@ class paloSantoTexttoWav {
             2 => array('file', '/tmp/stderr.txt', 'a'),
         );
         $pipes = NULL;
-        $sComando = '/usr/bin/text2wave -F 8000 -scale 4.0 -otype riff';
+        //$sComando = '/usr/bin/text2wave -F 8000 -scale 4.0 -otype riff';
+        $filename = uniqid(rand(), true) . '.wav';
+        $command = '/usr/bin/pico2wave -l '.$voice.' -w /tmp/'.$filename.' "'.$message.'"';
+        $ret = system($command);
+    
         switch ($format) {
         case 'gsm':
             Header('Content-Type: audio/x-gsm');
-            $sComando .= ' | /usr/bin/sox -t wav - -r 8000 -t gsm -';
+            //$sComando .= ' | /usr/bin/sox -t wav - -r 8000 -t gsm -';
+            $sComando = '/usr/bin/sox -t wav /tmp/'.$filename.' -r 8000 -t gsm -';
             break;
         case 'wav':
         default:
             $format = 'wav';
             Header('Content-Type: audio/x-wav');
+            $sComando = '/usr/bin/sox -t wav /tmp/'.$filename.' -r 8000 -t wav -';
             break;
         }
         Header('Content-Disposition: attachment; filename=tts.'.$format);
@@ -61,6 +67,7 @@ class paloSantoTexttoWav {
         fpassthru($pipes[1]);
         fclose($pipes[1]);
         proc_close($proc);
+        unlink("/tmp/$filename");
 
         return TRUE;
     }
