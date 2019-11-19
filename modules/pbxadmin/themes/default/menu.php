@@ -1,4 +1,6 @@
 <?php
+if(!isset($out)) { $out=''; }
+
 $out .= '<div id="page">';//open page
 
 //add script warning
