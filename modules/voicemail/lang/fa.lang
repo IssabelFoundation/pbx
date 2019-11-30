@@ -1,10 +1,11 @@
-<?php
+﻿<?php
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2019 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -18,34 +19,45 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  | Translate by: Haamed Kouhfallah                                      |
+  | Email: k.haamed@gmail.com                                            |
   +----------------------------------------------------------------------+
-  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+  $Id: fa.lang,v 1.1 2019-11-30 04:08:50 Haamed Kouhfallah k.haamed@gmail.com Exp $
+*/
 global $arrLangModule;
-$arrLangModule = array(
-    "Pager Email Address" => "آدرس ايميل پيجر",
-    "Confirm Password" => "تاييد رمز عبور",
-    "Email Attachment" => "پيوست ايميل",
-    "Play CID" => "پخش شماره تماس",
-    "Play Envelope" => "پخش پيام",
-    "Delete Vmail" => "حذف پيام صوتي",
-    "Required Field" => "فيلدهاي مورد نياز",
-    "Filter" => "فيلتر",
-    "Configuration" => "پيكر بندي",
-    "Start Date" => "تاريخ شروع",
-    "End Date" => "تاريخ پايان",
-    "Voicemail List" => "ليست صندوق صوتي",
-    "Are you sure you wish to delete voicemails?" => "آيا مطمئن به حذف صندوق صوتي هستيد؟",
-    "Date" => "تاريخ",
-    "Time" => "زمان",
-    "Message" => "پيام",
-    "CallerID" => "شماره تماس گيرنده",
-    "Extension" => "داخلي",
-    "Duration" => "مدت زمان",
-    "Email" => "ايميل",
-    "Status" => "وضعيت",
-    "Enable" => "فعال",
-    "Disable" => "غير فعال",
-    "Yes" => "بله",
-    "No" => "خير",
+$arrLangModule=array(
+"Pager Email Address" => "آدرس ايميل پيجر",
+"Confirm Password"=>"تاييد رمز عبور",
+"Email Attachment"=>"پيوست ايميل",
+"Play CID"=>"پخش شماره تماس",
+"Play Envelope"=>"پخش پيام",
+"Delete Vmail"=>"حذف پيام صوتي",
+"Required Field"=>"فيلدهاي مورد نياز",
+"Filter"=>"نمايش",
+"Configuration" => "پيكر بندي",
+"Start Date"=>"تاريخ شروع",
+"End Date"=>"تاريخ پايان",
+"Voicemail List" => "ليست صندوق صوتي",
+"Are you sure you wish to delete voicemails?" => "آيا مطمئن به حذف صندوق صوتي هستيد؟",
+"Date"=>"تاريخ",
+"Time"=>"زمان",
+"Message"=>"پيام",
+"CallerID" => "شماره تماس گيرنده",
+"Extension" => "داخلي",
+"Duration"=>"مدت زمان",
+"Email"=>"ايميل",
+"Status"=>"وضعيت",
+"Enable" => "فعال",
+"Disable" => "غير فعال",
+"Yes" => "بله",
+"No" => "خير",
+"no_file" => "فايلس پيدا نشد",
+"no_extension" => "اجازه دريافت اين فايل را نداريد",
+"Download" => "دريافت",
+"Listen" => "شنيدن",
+"no_extension_assigned" => "کد کاربری شما داخلی وابسته ندارد، می توانید از طریق لینک روبرو یک داخلی انتخاب نمایید. <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">اینجا</a>",
+"contact_admin" => "کد کاربری شما داخلی وابسته ندارد، لطفا با مدیر سیستم تماس بگیرید.",
+"Filter applied " => "فیلتر شده بر اساس: ",
+
 );
 ?>

@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2019 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -18,23 +19,29 @@
   | limitations under the License.                                       |
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  | Translate by: Haamed Kouhfallah                                      |
+  | Email: k.haamed@gmail.com                                            |
   +----------------------------------------------------------------------+
-  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+  $Id: fa.lang,v 1.1 2019-11-30 04:08:50 Haamed Kouhfallah k.haamed@gmail.com Exp $
+*/
 global $arrLangModule;
-$arrLangModule = array(
-    "Recordings" => "ضبط فایل صوتی",
-    "Record Name" => "نام فایل صوتی ضبط شده",
-    "Record" => "ضبط",
-    "Insert the Recording Name" => "نام فایل صوتی ضبط شده را وارد کنید",
-    "The recording couldn't be realized" => " فایل صوتی قابل تشخیص نیست",
-    "The recording was saved" => "فایل صوتی ذخیره شد",
-    "To continue: record a message then click on save" => "برای ادامه پیام صوتی را ضبط کرده و روی دگمه ذخیره کلیک کنید",
-    "Recording File" => "ضبط فایل صوتی",
-    "Destiny directory couldn't be created" => "خطا در ایجاد دایرکتوری مقصد",
-    "File Upload" => "ارسال فایل",
-    "ERROR" => "خطا",
-    "The call couldn't be realized" => "تماس شناسایی نشد",
-    "Error copying the file" => "خطا در کپی فایل",
-    "Message" => "پیام ",
+$arrLangModule=array(
+"Recordings" => "ضبط فایل صوتی",
+"Record Name" => "نام فایل صوتی ضبط شده",
+"Record" => "ضبط",
+"Insert the Recording Name" => "نام فایل صوتی ضبط شده را وارد کنید",
+"The recording couldn't be realized" => " فایل صوتی قابل تشخیص نیست",
+"The recording was saved" => "فایل صوتی ذخیره شد",
+"To continue: record a message then click on save" => "برای ادامه پیام صوتی را ضبط کرده و روی دگمه ذخیره کلیک کنید",
+"Recording File" => "ضبط فایل صوتی",
+"Destiny directory couldn't be created" => "خطا در ایجاد دایرکتوری مقصد",
+"File Upload" => "ارسال فایل",
+"ERROR" => "خطا",
+"You don't have extension number associated with user" => "کد کاربری شما داخلی وابسته ندارد، می توانید از طریق لینک روبرو یک داخلی انتخاب نمایید. <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">اینجا</a>",
+"The call couldn't be realized" => "تماس شناسایی نشد",
+"Error copying the file" => "خطا در کپی فایل",
+"Message" => "پیام ",
+"Possible file upload attack" => "Possible file upload attack",
+"contact_admin" => "شما داخلی وابسته ندارید، لطفا با مدیریت سیستم تماس بگیرید."
 );
 ?>
