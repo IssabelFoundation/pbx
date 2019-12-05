@@ -189,7 +189,8 @@ class paloControlPanelUtils
         // Originar la llamada ahora
         $r = $ami->Originate($dialchan,
             $target, 'from-internal', 1,
-            NULL, NULL, NULL, "$cidname <$source>");
+            NULL, NULL, NULL, "$cidname <$source>", NULL, NULL);
+
         $ami->disconnect();
         if ($r['Response'] != 'Success') {
             $this->errMsg = '(internal) failed to Originate call';

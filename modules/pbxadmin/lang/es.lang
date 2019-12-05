@@ -74,6 +74,7 @@ $arrLangModule = array(
     "Voicemail Blasting" => "Correo de Voz Masivo",
     "Dialplan Injection" => "Inyección de Dialplan",
     "Dynamic Routes" => "Rutas Dinámicas",
+    "Dynamic Features" => "Funcionalidades Dinámicas",
     "Asterisk Manager Settings" => "Configuraciones AMI",
     "Asterisk Logfile Settings" => "Configuraciones Logger",
     "Asterisk PJSIP Settings" => "Configuraciones PJSIP"

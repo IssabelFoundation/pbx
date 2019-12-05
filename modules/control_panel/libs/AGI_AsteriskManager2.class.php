@@ -175,23 +175,34 @@ class AGI_AsteriskManager2 extends AGI_AsteriskManager
                     $sClave = substr($s, 0, $a);
                     $sValor = substr($s, $a + 2);
                     // Si hay una respuesta Follows, es la primera línea
-                    if (!count($paquete)) {
-                        if ($sValor == 'Follows') {
-                            $paquete['data'] = '';
-                            while (!$bIncompleto && substr($s, 0, 6) != '--END ') {
-                                if (count($lineas) <= 0) {
-                                    $bIncompleto = TRUE;
-                                } else {
-                                    $s = array_shift($lineas);
-                                    $iLongPaquete += strlen($s);
-                                    if (substr($s, 0, 6) != '--END ') {
-                                        $paquete['data'] .= $s;
+
+                    if($sClave=='Message' && $sValor=="Command output follows") {
+                        $paquete['data'] = '';
+                        $paquete['Response']='Follows';
+                        foreach($lineas as $s) {
+                            $s = preg_replace("/^Output: /","",$s);
+                            $paquete['data'] .= $s;
+                        }
+                    } else {
+
+                        if (!count($paquete)) {
+                            if ($sValor == 'Follows') {
+                                $paquete['data'] = '';
+                                while (!$bIncompleto && substr($s, 0, 6) != '--END ') {
+                                    if (count($lineas) <= 0) {
+                                        $bIncompleto = TRUE;
+                                    } else {
+                                        $s = array_shift($lineas);
+                                        $iLongPaquete += strlen($s);
+                                        if (substr($s, 0, 6) != '--END ') {
+                                            $paquete['data'] .= $s;
+                                        }
                                     }
                                 }
                             }
                         }
+                        $paquete[$sClave] = $sValor;
                     }
-                    $paquete[$sClave] = $sValor;
                 } elseif ($s == "") {
                     // Se ha encontrado el final de un paquete
                     if (count($paquete)) $listaPaquetes[] = $paquete;
