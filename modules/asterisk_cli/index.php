@@ -32,6 +32,7 @@ function _moduleContent(&$smarty, $module_name)
     if (!empty($txtCommand)) {
     	$output = $retval = NULL;
         exec("/usr/sbin/asterisk -rnx ".escapeshellarg($txtCommand), $output, $retval);
+        writeLOG("audit.log", "ASTERISK CLI: ".escapeshellarg($txtCommand));
         $result = implode("\n", array_map('htmlspecialchars', $output));
     }
     if ($result == "") $result = "&nbsp;";
