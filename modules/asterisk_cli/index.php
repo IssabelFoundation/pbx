@@ -30,10 +30,17 @@ function _moduleContent(&$smarty, $module_name)
 
     $result = "";
     if (!empty($txtCommand)) {
-    	$output = $retval = NULL;
-        exec("/usr/sbin/asterisk -rnx ".escapeshellarg($txtCommand), $output, $retval);
-        writeLOG("audit.log", "ASTERISK CLI: ".escapeshellarg($txtCommand));
-        $result = implode("\n", array_map('htmlspecialchars', $output));
+        $output = $retval = NULL;
+        $ipaddr = $_SERVER['REMOTE_ADDR'];
+        $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : 'unknown';
+        if(preg_match("/(originate|system)/i",$txtCommand)) {
+            writeLOG("audit.log", sprintf('ASTCLI %s Command denied: %s from %s.',$user,escapeshellarg($txtCommand),$ipaddr));
+            $result = "Command denied";
+        } else {
+            exec("/usr/sbin/asterisk -rnx ".escapeshellarg($txtCommand), $output, $retval);
+            writeLOG("audit.log", sprintf('ASTCLI %s: %s from %s.',$user,escapeshellarg($txtCommand),$ipaddr));
+            $result = implode("\n", array_map('htmlspecialchars', $output));
+        }
     }
     if ($result == "") $result = "&nbsp;";
     $smarty->assign("RESPUESTA_SHELL", $result);
