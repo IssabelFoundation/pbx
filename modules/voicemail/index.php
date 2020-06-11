@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1.1.1 2007/07/06 21:31:56 gcarrillo Exp $ */
-
+  $Id: index.php, Thu 11 Jun 2020 12:20:46 PM EDT, nicolas@issabel.com
+*/
 require_once "libs/paloSantoConfig.class.php";
 require_once "libs/paloSantoACL.class.php";
 require_once "libs/paloSantoForm.class.php";
@@ -318,6 +318,7 @@ function save_config($smarty, $module_name, $local_templates_dir, $ext)
 
 function downloadFile($smarty, $module_name, $local_templates_dir, $user, $extension)
 {
+    ob_end_clean();
     $record = getParameter("name");
     $ext  = getParameter("ext");
 
