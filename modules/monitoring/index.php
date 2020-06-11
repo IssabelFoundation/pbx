@@ -2,9 +2,10 @@
   /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 4.0.0-18                                               |
+  | Issabel version 4.0.0-18                                             |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2020 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,10 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.3 2007/09/05 00:26:21 gcarrillo Exp $
-  $Id: index.php,v 1.3 2008/04/14 09:22:21 afigueroa Exp $
-  $Id: index.php,v 2.0 2010/02/03 09:00:00 onavarre Exp $
-  $Id: index.php,v 2.1 2010-03-22 05:03:48 Eduardo Cueva ecueva@palosanto.com Exp $ */
+  $Id: index.php, Thu 11 Jun 2020 11:41:36 AM EDT, nicolas@issabel.com
+*/
 //include issabel framework
 
 // exten => s,n,Set(CDR(userfield)=audio:${CALLFILENAME}.${MIXMON_FORMAT})   extensions_additional
@@ -336,6 +335,8 @@ function formatCallRecordingTuple($value)
 function downloadFile($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
     $arrConf, $user, $extension)
 {
+    ob_end_clean();
+
     $record = getParameter("id");
     $namefile = getParameter('namefile');
     if (is_null($record) || !preg_match('/^[[:digit:]]+\.[[:digit:]]+$/', $record)) {
