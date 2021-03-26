@@ -385,6 +385,11 @@ class AGI_AsteriskManager2 extends AGI_AsteriskManager
       return $ret;
     }
 
+    function PJSIPShowEndpoints($actionid = NULL)
+    {
+    	return $this->send_request('PJSIPShowEndpoints', $actionid ? array('ActionID' => $actionid) : array());
+    }
+
     function SIPPeers($actionid = NULL)
     {
     	return $this->send_request('SIPPeers', $actionid ? array('ActionID' => $actionid) : array());

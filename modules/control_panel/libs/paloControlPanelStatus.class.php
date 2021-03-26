@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2007/01/09 23:49:36 alex Exp $
+  $Id: paloControlPanelStatus.class.php, Fri 26 Mar 2021 10:16:07 AM EDT, nicolas@issabel.com
 */
 require_once 'libs/misc.lib.php';
 require_once 'libs/paloSantoDB.class.php';
@@ -380,6 +380,10 @@ class paloControlPanelStatus extends paloInterfaceSSE
         $r = $this->_ami->SIPPeers($this->_actionid);
         if ($r['Response'] == 'Success') $this->_enumsInProgress++;
         
+        // Actualiza información de extensions y troncales PJSIP
+        $r = $this->_ami->PJSIPShowEndpoints($this->_actionid);
+        if ($r['Response'] == 'Success') $this->_enumsInProgress++;
+
         // Actualiza información de extensions y troncales IAX2
         $r = $this->_ami->IAXpeerlist($this->_actionid);
         if ($r['Response'] == 'Success') $this->_enumsInProgress++;
@@ -426,6 +430,36 @@ class paloControlPanelStatus extends paloInterfaceSSE
         else return $ch;
     }
     
+    // Evento que contiene información sobre enumeración de PJSIP Endpoints
+    function msg_EndpointList($sEvent, $params, $sServer, $iPort) {
+        $this->_dumpevent($sEvent, $params);
+        if ($this->_enumsInProgress <= 0 || $params['ActionID'] != $this->_actionid) return;
+        /*
+            Event: EndpointList
+            ObjectType: endpoint
+            ObjectName: 212
+            Transport: transport-udp
+            Aor: 212
+            Auths: auth212
+            OutboundAuths:
+            Contacts: 212/sip:212@192.168.1.1:51749;ob,
+            DeviceState: Not in use
+            ActiveChannels:
+         */
+        $channel = 'PJSIP/'.$params['ObjectName'];
+        if (isset($this->_internalState['phones'][$channel])) {
+        	$objinfo =& $this->_internalState['phones'][$channel];
+            $objinfo['ip'] = NULL;
+            $objinfo['registered'] = (strpos($params['DeviceState'], 'use') === 0);
+            if ($objinfo['registered']) {
+            	$objinfo['ip'] = $params['IPaddress'];
+            }
+
+        } elseif (isset($this->_internalState['iptrunks'][$channel])) {
+
+        }
+    } 
+
     // Evento que contiene información sobre enumeración de SIPPeers, IAXpeerlist
     function msg_PeerEntry($sEvent, $params, $sServer, $iPort)
     {
@@ -450,6 +484,16 @@ class paloControlPanelStatus extends paloInterfaceSSE
                 $objinfo['ip'] = $params['IPaddress'];
             }
         }
+    }
+
+    // Evento que termina la enumeración de PJSIPShowEndpoints
+    function msg_EndpointListComplete($sEvent, $params, $sServer, $iPort)
+    {
+        $this->_dumpevent($sEvent, $params);
+
+    	if ($this->_enumsInProgress <= 0 || (isset($params['ActionID']) && $params['ActionID'] != $this->_actionid)) return;
+
+        $this->_enumsInProgress--;
     }
     
     // Evento que termina la enumeración de SIPPeers, IAXpeerlist
