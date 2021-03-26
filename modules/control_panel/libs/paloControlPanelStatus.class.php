@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloControlPanelStatus.class.php, Fri 26 Mar 2021 10:16:07 AM EDT, nicolas@issabel.com
+  $Id: paloControlPanelStatus.class.php, Fri 26 Mar 2021 10:50:07 AM EDT, nicolas@issabel.com
 */
 require_once 'libs/misc.lib.php';
 require_once 'libs/paloSantoDB.class.php';
@@ -442,7 +442,7 @@ class paloControlPanelStatus extends paloInterfaceSSE
             Aor: 212
             Auths: auth212
             OutboundAuths:
-            Contacts: 212/sip:212@192.168.1.1:51749;ob,
+            Contacts: 212/sip:212@192.10.10.10:21749;ob,
             DeviceState: Not in use
             ActiveChannels:
          */
@@ -450,9 +450,12 @@ class paloControlPanelStatus extends paloInterfaceSSE
         if (isset($this->_internalState['phones'][$channel])) {
         	$objinfo =& $this->_internalState['phones'][$channel];
             $objinfo['ip'] = NULL;
-            $objinfo['registered'] = (strpos($params['DeviceState'], 'use') === 0);
+            $objinfo['registered'] = (strpos($params['DeviceState'], 'use') > 0);
             if ($objinfo['registered']) {
-            	$objinfo['ip'] = $params['IPaddress'];
+                $partes = preg_split("/@/",$params['Contacts']);
+                $pertes = preg_split("/:/",$partes[1]);
+                $ip = $pertes[0];
+                $objinfo['ip'] = $ip;
             }
 
         } elseif (isset($this->_internalState['iptrunks'][$channel])) {
