@@ -19,7 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2008/01/30 15:55:57 a_villacis Exp $ */
+  $Id: paloSantoExtensionsBatch.class.php, Fri 26 Mar 2021 09:05:53 AM EDT, nicolas@issabel.com
+*/
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
 define('VOICEMAIL_CONFIG', '/etc/asterisk/voicemail.conf');
@@ -430,7 +431,7 @@ class paloSantoExtensionsBatch
             $this->errMsg = _tr("Secret weak. Line").": $numLinea";
             return FALSE;
         }
-        if (!in_array($extension['tech'], array('sip', 'iax', 'iax2'))) {
+        if (!in_array($extension['tech'], array('sip', 'iax', 'iax2', 'pjsip'))) {
             $this->errMsg = _tr("Error, extension")." ".$extension['extension'].
                 " "._tr("has a wrong tech in line")." $numLinea "._tr("Tech must be sip or iax");
             return FALSE;
@@ -549,7 +550,7 @@ class paloSantoExtensionsBatch
     {
     	/* Para la tecnología indicada, se borra la información de la misma
          * extensión que esté presente en la otra tecnología */
-        if ($extension['tech'] == 'sip') $sqlborrar = 'DELETE FROM iax WHERE id = ?';
+        if ($extension['tech'] == 'sip' || $extension['tech'] == 'pjsip') $sqlborrar = 'DELETE FROM iax WHERE id = ?';
         if ($extension['tech'] == 'iax2') $sqlborrar = 'DELETE FROM sip WHERE id = ?';
         if (!$this->_DB->genQuery($sqlborrar, array($extension['extension']))) {
             $this->errMsg = $this->_DB->errMsg;
@@ -558,6 +559,7 @@ class paloSantoExtensionsBatch
 
         // Sentencias a usar para probar y actualizar cada propiedad
         if ($extension['tech'] == 'sip') $tabla = 'sip';
+        if ($extension['tech'] == 'pjsip') $tabla = 'sip';
         if ($extension['tech'] == 'iax2') $tabla = 'iax';
         $sqlleer = "SELECT COUNT(*) AS n FROM $tabla WHERE id = ? AND keyword = ?";
         $sqlupdate = "UPDATE $tabla SET data = ? WHERE id = ? AND keyword = ?";
@@ -596,6 +598,26 @@ class paloSantoExtensionsBatch
                 // IssabelPBX 2.11: nuevos parámetros IAX2
                 'transfer'  =>  'yes',
             ));
+        } elseif ($extension['tech'] == 'pjsip') {
+
+            $prop = array_merge($prop, array(
+                'dial'              =>  'PJSIP/'.$extension['extension'],
+                'pickupgroup'       =>  isset($extension['pickupgroup']) ? $extension['pickupgroup'] : '',
+                'callgroup'         =>  isset($extension['callgroup']) ? $extension['callgroup'] : '',
+                'nat'               =>  'yes',
+                'rtp_symmetric'     =>  'yes',
+                'force_rport'       =>  'yes',
+                'rewrite_contact'   =>  'yes',
+                'dtmfmode'          =>  'rfc2833',
+                'qualifyfreq'       =>  '60',
+                'transport'         =>  'transport-udp',
+                'trust_id_inbound'  =>  'yes',
+                'use_avpf'          =>  'no',
+                'ice_support'       =>  'no',
+                'sendrpid'          =>  'no',
+                'max_contacts'      =>  1
+            ));
+
         } elseif ($extension['tech'] == 'sip') {
             $prop = array_merge($prop, array(
                 'dial'              =>  'SIP/'.$extension['extension'],
@@ -667,6 +689,7 @@ class paloSantoExtensionsBatch
 
     private function _updateDevices($extension)
     {
+    	if ($extension['tech'] == 'pjsip') $dial = 'PJSIP/'.$extension['extension'];
     	if ($extension['tech'] == 'sip') $dial = 'SIP/'.$extension['extension'];
         if ($extension['tech'] == 'iax2') $dial = 'IAX2/'.$extension['extension'];
 
