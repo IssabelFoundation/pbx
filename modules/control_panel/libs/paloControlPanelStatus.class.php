@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloControlPanelStatus.class.php, Fri 26 Mar 2021 10:50:07 AM EDT, nicolas@issabel.com
+  $Id: paloControlPanelStatus.class.php, Mon 05 Apr 2021 08:06:19 AM EDT, nicolas@issabel.com
 */
 require_once 'libs/misc.lib.php';
 require_once 'libs/paloSantoDB.class.php';
@@ -1292,6 +1292,16 @@ peerstatus: => Array
             }
             $this->_bModified = TRUE;
         }
+    }
+
+    function msg_QueueCallerJoin($sEvent, $params, $sServer, $iPort)
+    {
+        $this->msg_Join($sEvent, $params, $sServer, $iPort);
+    }
+ 
+    function msg_QueueCallerLeave($sEvent, $params, $sServer, $iPort)
+    {
+        $this->msg_Leave($sEvent, $params, $sServer, $iPort);
     }
 
     // Mensaje que se emite al entrar una llamada a una cola
