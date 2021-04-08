@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloControlPanelStatus.class.php, Mon 05 Apr 2021 08:06:19 AM EDT, nicolas@issabel.com
+  $Id: paloControlPanelStatus.class.php, Thu 08 Apr 2021 04:53:44 PM EDT, nicolas@issabel.com
 */
 require_once 'libs/misc.lib.php';
 require_once 'libs/paloSantoDB.class.php';
@@ -39,6 +39,7 @@ class paloControlPanelStatus extends paloInterfaceSSE
     private $_bModified = FALSE;
     private $_enumsInProgress = 0;
     private $_debug = FALSE;
+    private $_bridges = array();
 
     // Constructor - abrir conexión a base de datos y a AMI    
 	function __construct()
@@ -1014,7 +1015,7 @@ UniqueID: 1380209988.23
  */
     	$trunkinfo =& $this->_identifyTrunk($params['Channel']);
         if (is_null($trunkinfo)) return;
-        
+
         $activeinfo = array(
             'Channel'           =>  $params['Channel'],
             'CallerIDNum'       =>  $this->_filterUnknown($params, 'CallerIDNum'),
@@ -1064,11 +1065,27 @@ newexten: => Array
         if (is_null($trunkinfo)) return;
         if (isset($trunkinfo['active'][$params['Channel']])) {
             $chaninfo =& $trunkinfo['active'][$params['Channel']];
-            
-            /* Los campos a excepción de Extension se ignoran porque los cambios
-             * fluyen demasiado rápido y generan demasiados eventos. */
-            foreach (array('Extension', /*'Context', 'Priority', 'Application', 'AppData'*/) as $p)
-                if (isset($params[$p])) $chaninfo[$p] = $this->_filterUnknown($params, $p);
+
+            /* Con Asterisk16 se reciben eventos de Canal down con Exten configurado, con lo que se estropea
+               la vista de callerid o connectedlinenum porque se asume llamado saliente al header Exten,
+               por lo tanto ignoramos configurar Exten en el state Down  */
+            if(isset($params['ChannelStateDesc'])) {
+                if($params['ChannelStateDesc']<>'Down') {
+                    foreach (array('Extension', /*'Context', 'Priority', 'Application', 'AppData'*/) as $p) {
+                        if (isset($params[$p])) {
+                            $chaninfo[$p] = $this->_filterUnknown($params, $p);
+                        }
+                    }
+                }
+            } else {
+                /* Los campos a excepción de Extension se ignoran porque los cambios
+                 * fluyen demasiado rápido y generan demasiados eventos. */
+                foreach (array('Extension', /*'Context', 'Priority', 'Application', 'AppData'*/) as $p) {
+                    if (isset($params[$p])) {
+                        $chaninfo[$p] = $this->_filterUnknown($params, $p);
+                    }
+                }
+            }
             $this->_bModified = TRUE;
         }
     }
@@ -1119,13 +1136,30 @@ newexten: => Array
  */
         $trunkinfo =& $this->_identifyTrunk($params['Channel']);
         if (is_null($trunkinfo)) return;
-        
+
         if (isset($trunkinfo['active'][$params['Channel']])) {
             $chaninfo =& $trunkinfo['active'][$params['Channel']];
             foreach (array('CallerIDNum', 'CallerIDName', 'ConnectedLineNum',
                 'ConnectedLineName', 'ChannelStateDesc') as $p)
                 if (isset($params[$p])) $chaninfo[$p] = $this->_filterUnknown($params, $p);
             $this->_bModified = TRUE;
+        }
+    }
+
+    function msg_BridgeDestroy($sEvent, $params, $sServer, $iPort) {
+        unset($this->_bridges[$params['BridgeUniqueid']]);
+    }
+
+    function msg_BridgeEnter($sEvent, $params, $sServer, $iPort) {
+        $numchannels = $params['BridgeNumChannels'];
+        $this->_bridges[$params['BridgeUniqueid']]['Channel'.$numchannels]=$params['Channel'];
+        $this->_bridges[$params['BridgeUniqueid']]['Uniqueid'.$numchannels]=$params['Uniqueid'];
+        $this->_bridges[$params['BridgeUniqueid']]['CallerID'.$numchannels]=$params['ConnectedLineNum'];
+
+        if($numchannels == 2) {
+            $this->_bridges[$params['BridgeUniqueid']]['Event']='Bridge';
+            $this->_bridges[$params['BridgeUniqueid']]['Bridgesate']='Link';
+            $this->msg_Bridge('Bridge', $this->_bridges[$params['BridgeUniqueid']], $sServer, $iPort);
         }
     }
 
@@ -1153,10 +1187,12 @@ newexten: => Array
             if (!is_null($trunkinfo)) {
                 if (isset($trunkinfo['active'][$params[$ch1]])) {
                     $chaninfo =& $trunkinfo['active'][$params[$ch1]];
-                    if ($params['Bridgestate'] == 'Link')
+                    if ($params['Bridgestate'] == 'Link') {
                         $chaninfo['BridgedChannel'] = $params[$ch2];
-                    elseif ($params['Bridgestate'] == 'Unlink')
+                        $chaninfo['ConnectedLineNum'] = $params['CallerID1'];
+                    } elseif ($params['Bridgestate'] == 'Unlink') {
                         $chaninfo['BridgedChannel'] = NULL;
+                    }
                     $this->_bModified = TRUE;
                 }
             }
@@ -1298,7 +1334,7 @@ peerstatus: => Array
     {
         $this->msg_Join($sEvent, $params, $sServer, $iPort);
     }
- 
+
     function msg_QueueCallerLeave($sEvent, $params, $sServer, $iPort)
     {
         $this->msg_Leave($sEvent, $params, $sServer, $iPort);
