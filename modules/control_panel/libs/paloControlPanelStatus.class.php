@@ -20,7 +20,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloControlPanelStatus.class.php, Thu 08 Apr 2021 04:53:44 PM EDT, nicolas@issabel.com
+  $Id: paloControlPanelStatus.class.php, Thu 08 Apr 2021 05:37:16 PM EDT, nicolas@issabel.com
 */
 require_once 'libs/misc.lib.php';
 require_once 'libs/paloSantoDB.class.php';
@@ -400,7 +400,7 @@ class paloControlPanelStatus extends paloInterfaceSSE
         // Obtener la información de todas las conferencias activas
         $r = $this->_ami->MeetmeList(NULL, $this->_actionid);        
         if ($r['Response'] == 'Success') $this->_enumsInProgress++;
-        
+ 
         // Obtener la información de todas las llamadas parqueadas
         $r = $this->_ami->ParkedCalls($this->_actionid);
         if ($r['Response'] == 'Success') $this->_enumsInProgress++;
@@ -1436,6 +1436,104 @@ peerstatus: => Array
         }
     }
 
+    function msg_ConfbridgeLeave($sEvent, $params, $sServer, $iPort)
+    {
+        $this->_dumpevent($sEvent, $params);
+/*
+    [Event] => ConfbridgeLeave
+    [Privilege] => call,all
+    [Conference] => 700
+    [BridgeUniqueid] => 3f2064bf-dd48-48f7-9ecb-a839153c0960
+    [BridgeType] => base
+    [BridgeTechnology] => softmix
+    [BridgeCreator] => ConfBridge
+    [BridgeName] => 700
+    [BridgeNumChannels] => 3
+    [BridgeVideoSourceMode] => none
+    [Channel] => SIP/202-0000005c
+    [ChannelState] => 6
+    [ChannelStateDesc] => Up
+    [CallerIDNum] => 202
+    [CallerIDName] => Armando Garabano
+    [ConnectedLineNum] => <unknown>
+    [ConnectedLineName] => <unknown>
+    [Language] => es
+    [AccountCode] => Saliente
+    [Context] => from-internal
+    [Exten] => STARTMEETME
+    [Priority] => 4
+    [Uniqueid] => 1617916152.753
+    [Linkedid] => 1617916152.753
+    [ChanVariable] => DIALERVAR=
+    [Admin] => No
+    [local_timestamp_received] => 1617916170.2488
+
+*/
+
+        $newparam = array();
+        $newparam['Event']             = 'MeetmeLeave';
+        $newparam['Channel']           = $params['Channel'];
+        $newparam['Uniqueid']          = $params['Uniqueid'];
+        $newparam['Meetme']            = $params['BridgeName'];
+        $newparam['Usernum']           = $params['BridgeNumChannels'];
+        $newparam['CallerIDNum']       = $params['CallerIDNum'];
+        $newparam['CallerIDName']      = $params['CallerIDName'];
+        $newparam['ConnectedLineNum']  = $params['CallerIDNum'];
+        $newparam['ConnectedLineName'] = $params['CallerIDName'];
+
+        $this->msg_MeetmeLeave('MeetmeLeave', $newparam, $sServer, $iPort);
+
+    }
+
+
+    function msg_ConfbridgeJoin($sEvent, $params, $sServer, $iPort)
+    {
+        $this->_dumpevent($sEvent, $params);
+ /*
+    [Event] => ConfbridgeJoin
+    [Privilege] => call,all
+    [Conference] => 700
+    [BridgeUniqueid] => 06b0a074-fe57-4760-9d83-c848b99c2518
+    [BridgeType] => base
+    [BridgeTechnology] => softmix
+    [BridgeCreator] => ConfBridge
+    [BridgeName] => 700
+    [BridgeNumChannels] => 3
+    [BridgeVideoSourceMode] => none
+    [Channel] => SIP/202-0000005b
+    [ChannelState] => 6
+    [ChannelStateDesc] => Up
+    [CallerIDNum] => 202
+    [CallerIDName] => Armando Garabano
+    [ConnectedLineNum] => <unknown>
+    [ConnectedLineName] => <unknown>
+    [Language] => es
+    [AccountCode] => Saliente
+    [Context] => from-internal
+    [Exten] => STARTMEETME
+    [Priority] => 4
+    [Uniqueid] => 1617915621.741
+    [Linkedid] => 1617915621.741
+    [ChanVariable] => DIALERVAR=
+    [Admin] => No
+    [Muted] => No
+    [local_timestamp_received] => 1617915626.284
+ */
+        $newparam = array();
+        $newparam['Event']             = 'MeetmeJoin';
+        $newparam['Channel']           = $params['Channel'];
+        $newparam['Uniqueid']          = $params['Uniqueid'];
+        $newparam['Meetme']            = $params['BridgeName'];
+        $newparam['Usernum']           = $params['BridgeNumChannels'];
+        $newparam['CallerIDNum']       = $params['CallerIDNum'];
+        $newparam['CallerIDName']      = $params['CallerIDName'];
+        $newparam['ConnectedLineNum']  = $params['CallerIDNum'];
+        $newparam['ConnectedLineName'] = $params['CallerIDName'];
+
+        $this->msg_MeetmeJoin('MeetmeJoin', $newparam, $sServer, $iPort);
+
+    }
+
     function msg_MeetmeJoin($sEvent, $params, $sServer, $iPort)
     {
         $this->_dumpevent($sEvent, $params);
@@ -1456,6 +1554,8 @@ peerstatus: => Array
         if (isset($this->_internalState['conferences'][$params['Meetme']])) {
             $caller = array(
                 'Channel'   =>  $params['Channel'],
+                'CallerIDNum'   =>  $params['CallerIDNum'],
+                'CallerIDName'  =>  $params['CallerIDName'],
                 'ConfSince' =>  time(),
             );
             $this->_internalState['conferences'][$params['Meetme']]['callers'][$params['Channel']] = $caller;
