@@ -32,6 +32,7 @@ $arrLangModule = array(
     "Trunks" => "Troncales",
     "Advanced" => "Opciones Avanzadas",
     "Asterisk SIP Settings" => "Configuraciones SIP",
+    "Asterisk PJSIP Settings" => "Configuraciones PJSIP",
     "Asterisk IAX Settings" => "Configuraciones IAX",
     "Route Congestion Messages" => "Mensajes de Congestión",
     "Voicemail Admin" => "Administrar Correo de Voz",
