@@ -349,6 +349,8 @@ function getContent(&$smarty, $iss_module_name, $withList)
             $display = '';
     }
 
+    $return_CONFIG_HTML = '';
+
     // show the appropriate page
     switch($display) {
             case 'modules':
@@ -504,11 +506,13 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
                     // global component
                     if ( isset($currentcomponent) ) {
-                        $endpoint = $api_modules[$module_file];
-                        if(file_exists("/var/www/html/pbxapi/controllers/".$endpoint.".php")) {
-                            //$return_CONFIG_HTML = "NEW GUI ".$currentcomponent->_compname;
-                        } else {
-                            $return_CONFIG_HTML =  $currentcomponent->generateconfigpage();
+                        if(isset($api_modules[$module_file])) {
+                            $endpoint = $api_modules[$module_file];
+                            if(file_exists("/var/www/html/pbxapi/controllers/".$endpoint.".php")) {
+                                //$return_CONFIG_HTML = "NEW GUI ".$currentcomponent->_compname;
+                            } else {
+                                $return_CONFIG_HTML =  $currentcomponent->generateconfigpage();
+                            }
                         }
                     }
 
