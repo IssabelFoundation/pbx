@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Fri 26 Mar 2021 09:05:53 AM EDT, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Thu 22 Apr 2021 04:18:16 PM EDT, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -259,6 +259,9 @@ class paloSantoExtensionsBatch
                 'delete_vmail'          => 'no',
                 'parameters'            =>  array(),
             ));
+
+            if($tech=='pjsip') { $tech='sip'; }
+
             if (isset($prop[$tech][$ext]))  $recordset[$i]['parameters'] = $prop[$tech][$ext];
             if (isset($recording[$ext]))
                 $recordset[$i]['parameters'] = array_merge($recordset[$i]['parameters'], $recording[$ext]);
