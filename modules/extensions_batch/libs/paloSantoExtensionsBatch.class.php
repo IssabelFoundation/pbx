@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Thu 22 Apr 2021 04:18:16 PM EDT, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Sat 24 Apr 2021 11:10:32 AM EDT, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -73,6 +73,22 @@ class paloSantoExtensionsBatch
             'recording_out_internal'=>  'Record Outgoing Internal',
             'recording_ondemand'    =>  'Record On Demand',
             'recording_priority'    =>  'Record Priority',
+            'dtls_cert_file'        => 'DTLS Certificate File',
+            'dtls_private_key'      => 'DTLS Private Key',
+            'dtls_ca_file'          =>  'DTLS Certificate Authority File',
+            'media_encryption'      =>  'Media Encryption',
+            'message_context'       =>  'Message Context',
+            'subscribe_context'     =>  'Subscribe Context',
+            'allow_subscribe'       =>  'Allow Subscribe',
+            'nat'                   =>  'Nat',
+            'max_contacts'          =>  'Max Contacts',
+            'qualify_timeout'       =>  'Qualify Timeout',
+            'authenticate_qualify'  =>  'Authenticate Qualify',
+            'accountcode'           => 'Accountcode',
+            'transport'             =>  'Transport',
+            'rtcp_mux'              =>  'RTCP Mux',
+            'media_use_received_transport' =>  'Media Use Received Transport',
+            'direct_media'          =>  'Direct Media'
         );
     }
 
