@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Sat 24 Apr 2021 11:10:32 AM EDT, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Sat 24 Apr 2021 12:01:56 PM EDT, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -44,53 +44,61 @@ class paloSantoExtensionsBatch
     function getFieldTitles()
     {
         return array(
-            'name'                  =>  'Display Name',
-            'extension'             =>  'User Extension',
-            'directdid'             =>  'Direct DID',
-            'outboundcid'           =>  'Outbound CID',
-            'callwaiting'           =>  'Call Waiting',
-            'secret'                =>  'Secret',
-            'voicemail'             =>  'Voicemail Status',
-            'vm_secret'             =>  'Voicemail Password',
-            'email_address'         =>  'VM Email Address',
-            'pager_email_address'   =>  'VM Pager Email Address',
-            'vm_options'            =>  'VM Options',
-            'email_attachment'      =>  'VM Email Attachment',
-            'play_cid'              =>  'VM Play CID',
-            'play_envelope'         =>  'VM Play Envelope',
-            'delete_vmail'          =>  'VM Delete Vmail',
-            'context'               =>  'Context',
-            'tech'                  =>  'Tech',
-            'callgroup'             =>  'Callgroup',
-            'pickupgroup'           =>  'Pickupgroup',
-            'disallow'              =>  'Disallow',
-            'allow'                 =>  'Allow',
-            'deny'                  =>  'Deny',
-            'permit'                =>  'Permit',
-            'recording_in_external' =>  'Record Incoming External',
-            'recording_out_external'=>  'Record Outgoing External',
-            'recording_in_internal' =>  'Record Incoming Internal',
-            'recording_out_internal'=>  'Record Outgoing Internal',
-            'recording_ondemand'    =>  'Record On Demand',
-            'recording_priority'    =>  'Record Priority',
-            'dtls_cert_file'        => 'DTLS Certificate File',
-            'dtls_private_key'      => 'DTLS Private Key',
-            'dtls_ca_file'          =>  'DTLS Certificate Authority File',
-            'media_encryption'      =>  'Media Encryption',
-            'message_context'       =>  'Message Context',
-            'subscribe_context'     =>  'Subscribe Context',
-            'allow_subscribe'       =>  'Allow Subscribe',
-            'nat'                   =>  'Nat',
-            'max_contacts'          =>  'Max Contacts',
-            'qualify_timeout'       =>  'Qualify Timeout',
-            'authenticate_qualify'  =>  'Authenticate Qualify',
+            'name'                  => 'Display Name',
+            'extension'             => 'User Extension',
+            'directdid'             => 'Direct DID',
+            'outboundcid'           => 'Outbound CID',
+            'callwaiting'           => 'Call Waiting',
+            'secret'                => 'Secret',
+            'voicemail'             => 'Voicemail Status',
+            'vm_secret'             => 'Voicemail Password',
+            'email_address'         => 'VM Email Address',
+            'pager_email_address'   => 'VM Pager Email Address',
+            'vm_options'            => 'VM Options',
+            'email_attachment'      => 'VM Email Attachment',
+            'play_cid'              => 'VM Play CID',
+            'play_envelope'         => 'VM Play Envelope',
+            'delete_vmail'          => 'VM Delete Vmail',
+            'context'               => 'Context',
+            'tech'                  => 'Tech',
+            'callgroup'             => 'Callgroup',
+            'pickupgroup'           => 'Pickupgroup',
+            'disallow'              => 'Disallow',
+            'allow'                 => 'Allow',
+            'deny'                  => 'Deny',
+            'permit'                => 'Permit',
+            'recording_in_external' => 'Record Incoming External',
+            'recording_out_external'=> 'Record Outgoing External',
+            'recording_in_internal' => 'Record Incoming Internal',
+            'recording_out_internal'=> 'Record Outgoing Internal',
+            'recording_ondemand'    => 'Record On Demand',
+            'recording_priority'    => 'Record Priority',
+            'dtlscertfile'          => 'DTLS Certificate File',
+            'dtlsprivatekey'        => 'DTLS Private Key',
+            'dtlscafile'            => 'DTLS Certificate Authority File',
+            'media_encryption'      => 'Media Encryption',
+            'message_context'       => 'Message Context',
+            'subscribe_context'     => 'Subscribe Context',
+            'allow_subscribe'       => 'Allow Subscribe',
+            'nat'                   => 'Nat',
+            'max_contacts'          => 'Max Contacts',
+            'qualify_timeout'       => 'Qualify Timeout',
+            'authenticate_qualify'  => 'Authenticate Qualify',
             'accountcode'           => 'Accountcode',
-            'transport'             =>  'Transport',
-            'rtcp_mux'              =>  'RTCP Mux',
+            'transport'             => 'Transport',
+            'rtcp_mux'              => 'RTCP Mux',
             'media_use_received_transport' =>  'Media Use Received Transport',
-            'direct_media'          =>  'Direct Media'
+            'direct_media'          => 'Direct Media',
+            'avpf'                  => 'Enable Audio Video Profile',
+            'force_avp'             => 'Force Audio Video Profile',
+            'icesupport'            => 'ICE Support',
+            'dtlsverify'            => 'DTLS Verify',
+            'dtlssetup'             => 'DTLS Setup',
+
         );
     }
+
+
 
     function __construct(&$pDB, $arrAST, $arrAMP)
     {
@@ -175,12 +183,12 @@ class paloSantoExtensionsBatch
         }
 
         // Lista básica de extensiones
-    	$sql = 'SELECT u.extension, u.name, u.outboundcid, d.tech '.
+        $sql = 'SELECT u.extension, u.name, u.outboundcid, d.tech '.
             'FROM users u, devices d WHERE u.extension = d.id';
         $recordset = $this->_DB->fetchTable($sql, TRUE);
         if (!is_array($recordset)) {
             $this->errMsg = $this->_DB->errMsg;
-        	return NULL;
+            return NULL;
         }
 
         // Parámetros de las extensiones
@@ -193,25 +201,25 @@ class paloSantoExtensionsBatch
         }
         $prop = array();
         foreach ($r as $tupla) {
-        	$prop[$tupla['tech']][$tupla['id']][$tupla['keyword']] = $tupla['data'];
+            $prop[$tupla['tech']][$tupla['id']][$tupla['keyword']] = $tupla['data'];
         }
         unset($r);
 
         // Parámetros de llamada en espera
         $callwait = array();
         foreach ($astman->database_show('CW') as $cw_key => $status) {
-        	// [/CW/5011] => ENABLED
+            // [/CW/5011] => ENABLED
             $regs = NULL;
             if (preg_match('|^/CW/(\w+)|', $cw_key, $regs)) $callwait[$regs[1]] = $status;
         }
 
         $recording = array();
         foreach ($astman->database_show('AMPUSER') as $ampuser_key => $status) {
-        	$regs = NULL;
+            $regs = NULL;
             if (trim($status) != '' &&
                 preg_match('|^/AMPUSER/(\w+)/recording(/(\w+)(/(\w+))?)?|', $ampuser_key, $regs)) {
-            	if (!isset($recording[$regs[1]])) {
-            		// Valores por omisión para extensión
+                if (!isset($recording[$regs[1]])) {
+                    // Valores por omisión para extensión
                     $recording[$regs[1]] = array(
                         'recording_in_external'     =>  'dontcare',
                         'recording_out_external'    =>  'dontcare',
@@ -220,7 +228,7 @@ class paloSantoExtensionsBatch
                         'recording_ondemand'        =>  'disabled',
                         'recording_priority'        =>  10,
                     );
-            	}
+                }
                 if (!isset($regs[2])) {
                     // out=Adhoc|in=Adhoc
                     // TODO: implementar mapeo no trivial
@@ -278,7 +286,14 @@ class paloSantoExtensionsBatch
 
             if($tech=='pjsip') { $tech='sip'; }
 
-            if (isset($prop[$tech][$ext]))  $recordset[$i]['parameters'] = $prop[$tech][$ext];
+            if (isset($prop[$tech][$ext]))   { 
+                $recordset[$i]['parameters'] = $prop[$tech][$ext];
+                file_put_contents("/tmp/borrame.log","esta seteado prop de tech $tech de ext $ext\n",FILE_APPEND);
+                file_put_contents("/tmp/borrame.log",print_r($prop[$tech][$ext],1),FILE_APPEND);
+            } else {
+                file_put_contents("/tmp/borrame.log","no esta seteado prop de tech $tech de ext $ext\n",FILE_APPEND);
+            }
+
             if (isset($recording[$ext]))
                 $recordset[$i]['parameters'] = array_merge($recordset[$i]['parameters'], $recording[$ext]);
 
@@ -336,17 +351,17 @@ class paloSantoExtensionsBatch
         $hArchivo = fopen($sFilePath, 'r');
         if (!$hArchivo) {
             $this->errMsg = _tr("The file is incorrect or empty") .": $sFilePath";
-        	return FALSE;
+            return FALSE;
         }
 
-    	// Lista de cabeceras y el campo correspondiente de propiedad
+        // Lista de cabeceras y el campo correspondiente de propiedad
         $fieldTags = array_flip($this->getFieldTitles());
 
         // Construir mapa de posición de columna a clave correspondiente
         $mapaCol = array();
         $tupla = fgetcsv($hArchivo, 4096, ',');
         foreach ($tupla as $i => $h) {
-        	if (isset($fieldTags[$h])) $mapaCol[$i] = $fieldTags[$h];
+            if (isset($fieldTags[$h])) $mapaCol[$i] = $fieldTags[$h];
         }
 
         $exito = TRUE;
@@ -357,7 +372,7 @@ class paloSantoExtensionsBatch
                 $this->errMsg = _tr("Verify the header") ." - ".
                     _tr("At minimum there must be the columns").
                     ": \"Display Name\", \"User Extension\", \"Secret\", \"Tech\"";
-            	$exito = FALSE;
+                $exito = FALSE;
             }
         }
 
@@ -365,11 +380,11 @@ class paloSantoExtensionsBatch
         if ($exito) {
             $numLinea = 2;
             while ($exito && $tupla = fgetcsv($hArchivo, 4096, ',')) {
-            	$extension = array('line_number' => $numLinea);
+                $extension = array('line_number' => $numLinea);
                 foreach ($tupla as $i => $v) if (trim($v) != '') $extension[$mapaCol[$i]] = trim($v);
 
                 if (!$this->addExtension($extension)) {
-                	$this->errMsg = _tr('Line')." $numLinea: ".$this->errMsg;
+                    $this->errMsg = _tr('Line')." $numLinea: ".$this->errMsg;
                     $exito = FALSE;
                 }
 
@@ -393,7 +408,7 @@ class paloSantoExtensionsBatch
      */
     function addExtension($extension)
     {
-    	$numLinea = isset($extension['line_number']) ? $extension['line_number'] : _tr('(unavailable)');
+        $numLinea = isset($extension['line_number']) ? $extension['line_number'] : _tr('(unavailable)');
 
         // Valores por omisión
         if (!isset($extension['deny'])) $extension['deny'] = '0.0.0.0/0.0.0.0';
@@ -430,13 +445,13 @@ class paloSantoExtensionsBatch
 
         // Esta transformación estaba presente en implementación anterior
         if (isset($extension['outboundcid'])) {
-        	$extension['outboundcid'] = str_replace('“', '"', $extension['outboundcid']);
+            $extension['outboundcid'] = str_replace('“', '"', $extension['outboundcid']);
             $extension['outboundcid'] = str_replace('”', '"', $extension['outboundcid']);
         }
 
         if (!isset($extension['extension'])) {
             $this->errMsg = _tr("Can't exist a extension empty. Line").": $numLinea";
-        	return FALSE;
+            return FALSE;
         }
         if (!isset($extension['name'])) {
             $this->errMsg = _tr("Can't exist a display name empty. Line").": $numLinea";
@@ -459,22 +474,22 @@ class paloSantoExtensionsBatch
 
         // Ninguno de los valores admite saltos de línea
         foreach ($extension as $k => $v) {
-        	if (strpbrk($v, "\r\n") !== FALSE) {
+            if (strpbrk($v, "\r\n") !== FALSE) {
                 $this->errMsg = _tr('Newlines not allowed for field').": $k";
-        		return FALSE;
-        	}
+                return FALSE;
+            }
         }
 
         // El número de extensión debe ser numérico
         if (!ctype_digit($extension['extension'])) {
             $this->errMsg = _tr('Invalid extension, must be numeric');
-        	return FALSE;
+            return FALSE;
         }
 
         // Si el password de voicemail está definido, debe ser numérico (Issabel bug #1238)
         if (isset($extension['vm_secret']) && !ctype_digit($extension['vm_secret'])) {
             $this->errMsg = _tr('Voicemail password must be numeric');
-        	return FALSE;
+            return FALSE;
         }
 
         // Los valores de deny y permit deben ser IPs válidas
@@ -496,7 +511,7 @@ class paloSantoExtensionsBatch
                 : _tr('(unavailable)');
             $this->errMsg = _tr("Error, extension")." ".$extension['extension'].
                 " "._tr("repeat in lines")." $n2";
-        	return FALSE;
+            return FALSE;
         }
 
         $this->_batch[$extension['extension']] = $extension;
@@ -543,7 +558,7 @@ class paloSantoExtensionsBatch
         $this->_DB->beginTransaction();
 
         if ($exito) foreach ($this->_batch as $extension) {
-        	$exito = $this->_updateTechDevices($extension); if (!$exito) break;
+            $exito = $this->_updateTechDevices($extension); if (!$exito) break;
             $exito = $this->_updateUsers($extension); if (!$exito) break;
             $exito = $this->_updateDevices($extension); if (!$exito) break;
             $exito = $this->_updateDirectDID($extension); if (!$exito) break;
@@ -567,13 +582,13 @@ class paloSantoExtensionsBatch
 
     private function _updateTechDevices($extension)
     {
-    	/* Para la tecnología indicada, se borra la información de la misma
+        /* Para la tecnología indicada, se borra la información de la misma
          * extensión que esté presente en la otra tecnología */
         if ($extension['tech'] == 'sip' || $extension['tech'] == 'pjsip') $sqlborrar = 'DELETE FROM iax WHERE id = ?';
         if ($extension['tech'] == 'iax2') $sqlborrar = 'DELETE FROM sip WHERE id = ?';
         if (!$this->_DB->genQuery($sqlborrar, array($extension['extension']))) {
             $this->errMsg = $this->_DB->errMsg;
-        	return FALSE;
+            return FALSE;
         }
 
         // Sentencias a usar para probar y actualizar cada propiedad
@@ -589,7 +604,7 @@ class paloSantoExtensionsBatch
             'callerid'      =>  'device <'.$extension['extension'].'>',
             'account'       =>  $extension['extension'],
             'mailbox'       =>  $extension['extension'].(($extension['voicemail'] == 'enable') ? '@default' : '@device'),
-            'accountcode'   =>  '',
+            'accountcode'   =>  isset($extension['accountcode']) ? $extension['accountcode']:'',
             'allow'         =>  isset($extension['allow']) ? $extension['allow'] : '',
             'disallow'      =>  isset($extension['disallow']) ? $extension['disallow'] : '',
             'qualify'       =>  'yes',
@@ -599,13 +614,14 @@ class paloSantoExtensionsBatch
             'secret'        =>  $extension['secret'],
             'deny'          =>  $extension['deny'],
             'permit'        =>  $extension['permit'],
+            'nat'           =>  isset($extension['nat']) ? $extension['nat']:'',
 
             //IssabelPBX 2.11: recording ya no se usa en mysql sino en astdb
             //'record_out'    =>  $extension['record_out'],
             //'record_in'     =>  $extension['record_in'],
         );
         if ($extension['tech'] == 'iax2') {
-        	$prop = array_merge($prop, array(
+            $prop = array_merge($prop, array(
                 'dial'              =>  'IAX2/'.$extension['extension'],
                 'port'              =>  4569,
                 'requirecalltoken'  =>  'yes',
@@ -620,22 +636,39 @@ class paloSantoExtensionsBatch
         } elseif ($extension['tech'] == 'pjsip') {
 
             $prop = array_merge($prop, array(
-                'dial'              =>  'PJSIP/'.$extension['extension'],
-                'pickupgroup'       =>  isset($extension['pickupgroup']) ? $extension['pickupgroup'] : '',
-                'callgroup'         =>  isset($extension['callgroup']) ? $extension['callgroup'] : '',
-                'nat'               =>  'yes',
-                'rtp_symmetric'     =>  'yes',
-                'force_rport'       =>  'yes',
-                'rewrite_contact'   =>  'yes',
-                'dtmfmode'          =>  'rfc2833',
-                'qualifyfreq'       =>  '60',
-                'transport'         =>  'transport-udp',
-                'trust_id_inbound'  =>  'yes',
-                'use_avpf'          =>  'no',
-                'ice_support'       =>  'no',
-                'sendrpid'          =>  'no',
-                'max_contacts'      =>  1
+                'dial'                         =>  'PJSIP/'.$extension['extension'],
+                'pickupgroup'                  =>  isset($extension['pickupgroup']) ? $extension['pickupgroup'] : '',
+                'callgroup'                    =>  isset($extension['callgroup']) ? $extension['callgroup'] : '',
+                'rtp_symmetric'                =>  'yes',
+                'force_rport'                  =>  'yes',
+                'rewrite_contact'              =>  'yes',
+                'dtmfmode'                     =>  'rfc2833',
+                'qualify_frequency'            =>  '60',
+        'transport'                    =>  isset($extension['transport']) ? $extension['transport']:'',
+        'dtls_cert_file'               =>  isset($extension['dtlscertfile']) ? $extension['dtlscertfile']:'',
+        'dtls_ca_file'                 =>  isset($extension['dtlscafile']) ? $extension['dtlscafile']:'',
+        'dtls_private_key'             =>  isset($extension['dtlsprivatekey']) ? $extension['dtlsprivatekey']:'',
+        'media_encryption'             =>  isset($extension['media_encryption']) ? $extension['media_encryption']:'',
+        'message_context'              =>  isset($extension['message_context']) ? $extension['message_context']:'',
+        'subscribe_context'            =>  isset($extension['subscribe_context']) ? $extension['subscribe_context']:'',
+        'allow_subscribe'              =>  isset($extension['allow_subscribe']) ? $extension['allow_subscribe']:'',
+        'max_contacts'                 =>  isset($extension['max_contacts']) ? $extension['max_contacts']:'',
+        'qualify_timeout'              =>  isset($extension['qualify_timeout']) ? $extension['qualify_timeout']:'',
+        'authenticate_qualify'         =>  isset($extension['authenticate_qualify']) ? $extension['authenticate_qualify']:'',
+        'use_avpf'                     =>  isset($extension['avpf']) ? $extension['avpf']:'',
+        'ice_support'                  =>  isset($extension['icesupport']) ? $extension['icesupport']:'',
+        'rtcp_mux'                     =>  isset($extension['rtcp_mux']) ? $extension['rtcp_mux']:'',
+        'direct_media'                 =>  isset($extension['direct_media']) ? $extension['direct_media']:'',
+        'media_use_received_transport' =>  isset($extension['media_use_received_transport']) ? $extension['media_use_received_transport']:'',
+        'media_encryption'             =>  isset($extension['media_encryption']) ? $extension['media_encryption']:'no',
+        'force_avp'                    =>  isset($extension['force_avp']) ? $extension['force_avp']:'',
+        'icesupport'                   =>  isset($extension['icesupport']) ? $extension['icesupport']:'',
+        'dtls_verify'                  =>  isset($extension['dtlsverify']) ? $extension['dtlsverify']:'',
+        'dtls_setup'                   =>  isset($extension['dtlssetup']) ? $extension['dtlssetup']:'',
+                'trust_id_inbound'             =>  'yes',
+                'sendrpid'                     =>  'no',
             ));
+
 
         } elseif ($extension['tech'] == 'sip') {
             $prop = array_merge($prop, array(
@@ -643,7 +676,6 @@ class paloSantoExtensionsBatch
                 'port'              =>  5060,
                 'pickupgroup'       =>  isset($extension['pickupgroup']) ? $extension['pickupgroup'] : '',
                 'callgroup'         =>  isset($extension['callgroup']) ? $extension['callgroup'] : '',
-                'nat'               =>  'yes',
                 'canreinvite'       =>  'no',
                 'dtmfmode'          =>  'rfc2833',
 
@@ -652,18 +684,23 @@ class paloSantoExtensionsBatch
                 'qualifyfreq'       =>  '60',
                 'transport'         =>  'udp',
                 'trustrpid'         =>  'yes',
-                'avpf'              =>  'no',
-                'icesupport'        =>  'no',
                 'sendrpid'          =>  'no',
+        'icesupport'        =>  isset($extension['icesupport']) ? $extension['icesupport']:'',
+        'avpf'              =>  isset($extension['avpf']) ? $extension['avpf']:'',
+        'dtlsverify'        =>  isset($extension['dtlsverify']) ? $extension['dtlsverify']:'',
+        'dtlssetup'         =>  isset($extension['dtlssetup']) ? $extension['dtlssetup']:'',
+        'dtlscertfile'      =>  isset($extension['dtlscertfile']) ? $extension['dtlscertfile']:'',
+        'dtlscafile'        =>  isset($extension['dtlscafile']) ? $extension['dtlscafile']:'',
+        'dtlsprivatekey'    =>  isset($extension['dtlsprivatekey']) ? $extension['dtlsprivatekey']:'',
             ));
         }
 
         // Insertar o modificar todas las propiedades
         foreach ($prop as $k => $v) {
-        	$tupla = $this->_DB->getFirstRowQuery($sqlleer, TRUE, array($extension['extension'], $k));
+            $tupla = $this->_DB->getFirstRowQuery($sqlleer, TRUE, array($extension['extension'], $k));
             if (!is_array($tupla)) {
                 $this->errMsg = $this->_DB->errMsg;
-            	return FALSE;
+                return FALSE;
             }
             $r = $this->_DB->genQuery(
                 (($tupla['n'] > 0) ? $sqlupdate : $sqlinsert),
@@ -678,7 +715,7 @@ class paloSantoExtensionsBatch
 
     private function _updateUsers($extension)
     {
-    	$tupla = $this->_DB->getFirstRowQuery(
+        $tupla = $this->_DB->getFirstRowQuery(
             'SELECT COUNT(*) AS n FROM users WHERE extension = ?',
             TRUE, array($extension['extension']));
         if (!is_array($tupla)) {
@@ -708,8 +745,8 @@ class paloSantoExtensionsBatch
 
     private function _updateDevices($extension)
     {
-    	if ($extension['tech'] == 'pjsip') $dial = 'PJSIP/'.$extension['extension'];
-    	if ($extension['tech'] == 'sip') $dial = 'SIP/'.$extension['extension'];
+        if ($extension['tech'] == 'pjsip') $dial = 'PJSIP/'.$extension['extension'];
+        if ($extension['tech'] == 'sip') $dial = 'SIP/'.$extension['extension'];
         if ($extension['tech'] == 'iax2') $dial = 'IAX2/'.$extension['extension'];
 
         $tupla = $this->_DB->getFirstRowQuery(
@@ -738,7 +775,7 @@ class paloSantoExtensionsBatch
 
     private function _updateDirectDID($extension)
     {
-    	if (!isset($extension['directdid'])) return TRUE;
+        if (!isset($extension['directdid'])) return TRUE;
 
         $tupla = $this->_DB->getFirstRowQuery(
             'SELECT COUNT(*) AS n FROM incoming WHERE destination LIKE ?',
@@ -748,7 +785,7 @@ class paloSantoExtensionsBatch
             return FALSE;
         }
         if ($tupla['n'] > 0) {
-        	$sql = 'UPDATE incoming SET extension = ?, description = ?, destination = ? '.
+            $sql = 'UPDATE incoming SET extension = ?, description = ?, destination = ? '.
                    'WHERE destination LIKE ? LIMIT 1';
             $params = array(
                 $extension['directdid'],
@@ -756,7 +793,7 @@ class paloSantoExtensionsBatch
                 'from-did-direct,'.$extension['extension'].',1',
                 '%'.$extension['extension'].'%');
         } else {
-        	$sql = 'INSERT INTO incoming (cidnum, extension, description, destination, '.
+            $sql = 'INSERT INTO incoming (cidnum, extension, description, destination, '.
                         'privacyman, alertinfo, ringing, grppre, delay_answer, '.
                         'pricid, pmmaxretries, pmminlength) '.
                    'VALUES ("", ?, ?, ?, 0, "", "", "", 0, "", "", "")';
@@ -834,19 +871,19 @@ class paloSantoExtensionsBatch
 
     private function _updateVoicemailConf()
     {
-    	$lineas = file(VOICEMAIL_CONFIG);
+        $lineas = file(VOICEMAIL_CONFIG);
         if ($lineas === FALSE) {
             $this->errMsg = _tr('Failed to open voicemail config');
-        	return FALSE;
+            return FALSE;
         }
 
         // Quitar referencias anteriores a extensiones nuevas
         $l2 = array();
         for ($i = 0; $i < count($lineas); $i++) {
             $remover = FALSE;
-        	$regs = NULL;
+            $regs = NULL;
             if (preg_match('/^(\d+)\s+=>/', $lineas[$i], $regs)) {
-            	if (isset($this->_batch[$regs[1]])) $remover = TRUE;
+                if (isset($this->_batch[$regs[1]])) $remover = TRUE;
             }
 
             if (!$remover) $l2[] = $lineas[$i];
@@ -890,14 +927,14 @@ class paloSantoExtensionsBatch
         $recordset = $this->_DB->fetchTable($sql);
         if (!is_array($recordset)) {
             $this->errMsg = $this->_DB->errMsg;
-        	$exito = FALSE;
+            $exito = FALSE;
         }
         $extlist = array();
         foreach ($recordset as $tupla) $extlist[] = $tupla[0];
         unset($recordset);
 
         foreach ($extlist as $ext) {
-        	// Borrar propiedades en base de datos de Asterisk
+            // Borrar propiedades en base de datos de Asterisk
             foreach (array('AMPUSER', 'DEVICE', 'CW', 'CF', 'CFB', 'CFU') as $family) {
                 $astman->database_deltree($family.'/'.$ext);
             }
@@ -905,16 +942,16 @@ class paloSantoExtensionsBatch
         }
 
         if ($exito) {
-        	foreach (array(
+            foreach (array(
                 "DELETE s FROM sip s INNER JOIN devices d ON s.id=d.id and d.tech='sip'",
                 "DELETE i FROM iax i INNER JOIN devices d ON i.id=d.id and d.tech='iax2'",
                 "DELETE u FROM users u INNER JOIN devices d ON u.extension=d.id and (d.tech='sip' or d.tech='iax2')",
                 "DELETE FROM devices WHERE tech='sip' or tech='iax2'",
                 ) as $sql) {
-            	if (!$this->_DB->genQuery($sql)) {
+                if (!$this->_DB->genQuery($sql)) {
                     $this->errMsg = $this->_DB->errMsg;
-            		$exito = FALSE; break;
-            	}
+                    $exito = FALSE; break;
+                }
             }
         }
 
