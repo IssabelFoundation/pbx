@@ -513,6 +513,8 @@ function getContent(&$smarty, $iss_module_name, $withList)
                             } else {
                                 $return_CONFIG_HTML =  $currentcomponent->generateconfigpage();
                             }
+                        } else {
+                            $return_CONFIG_HTML =  $currentcomponent->generateconfigpage();
                         }
                     }  else {
                         // Missing new gui, load normally
