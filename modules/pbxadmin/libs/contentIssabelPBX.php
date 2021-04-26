@@ -682,7 +682,7 @@ function getContent(&$smarty, $iss_module_name, $withList)
 
             // if module admin does not eixsts as privilege, insert it and grant administrator access
             if (!in_array('modules',$allprivs)) {
-                $pACL->createModulePrivilege($id_resource, 'modules', $name);
+                $pACL->createModulePrivilege($id_resource, 'modules', "Module Admin");
                 $id_privilege  = $pACL->getIdModulePrivilege($id_resource,'modules');
                 $bExito        = $pACL->grantModulePrivilege2Group($id_privilege, $id_group);
             }
