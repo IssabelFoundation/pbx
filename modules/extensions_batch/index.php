@@ -19,8 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2008/01/30 15:55:57 a_villacis Exp $ */
-
+  $Id: index.php, Wed 28 Apr 2021 10:16:09 AM EDT, nicolas@issabel.com
+*/
 function _moduleContent(&$smarty, $module_name)
 {
     require_once "modules/$module_name/configs/default.conf.php";
@@ -92,14 +92,30 @@ function download_csv($smarty)
     
     
     foreach ($r as $tupla) {
-    
+
         $t = array();
         foreach (array_keys($keyOrder) as $k)
             $t[] = isset($tupla[$k]) 
                 ? $tupla[$k] 
-                : (isset($tupla['parameters'][$k]) ? $tupla['parameters'][$k] : '');
+                : (isset($tupla['parameters'][$k]) ? $tupla['parameters'][$k] 
+                : (isset($tupla['parameters'][key_dictionary($k)]) ? $tupla['parameters'][key_dictionary($k)] : ''));
         print '"'.implode('","', $t)."\"\n";
     }
+}
+
+function key_dictionary($key) {
+  $dict = array (
+     "icesupport"     => "ice_support",
+     "dtlsverify"     => "dtls_verify",
+     "dtlssetup"      => "dtls_setup",
+     "dtlscertfile"   => "dtls_cert_file",
+     "dtlsprivatekey" => "dtls_private_key",
+     "dtlscafile"     => "dtls_ca_file",
+     "avpf"           => "use_avpf",
+     "encryption"     => "media_encryption"
+  );
+
+  return isset($dict[$key])?$dict[$key]:$key;
 }
 
 function delete_extensions($smarty, $module_name)
