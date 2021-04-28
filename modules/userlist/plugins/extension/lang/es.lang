@@ -25,5 +25,6 @@ $arrLangModule = array(
     "Extension" => "Extensión",
     "No extension associated" => "La extensión no ha sido asociada",
     "no extension" => "sin extensión",
+    "PBX Profile" => "Perfil PBX",
 );
 ?>
