@@ -660,6 +660,14 @@ left: 0;
 right: 0;
 }
 
+h5, .h5 {
+    font-size: 1.2em;
+    padding: 5px;
+    background-color: #eee;
+    border-bottom: 3px solid #CCB3FF;
+    margin: 15px 0;
+}
+
 /* Issabel PBX wrapper, we do not have top menu, override top padding/margin */
 #page_body { margin-top:0 !important; padding-top:0 !important;  }
 
