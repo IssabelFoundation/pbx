@@ -1,3 +1,11 @@
+<a class="btn btn-primary" data-toggle="collapse" href="#filters" role="button" aria-haspopup="true" aria-expanded="false" aria-controls="filters">
+{$FILTER_SHOW}
+<span class="caret"></span>
+</a>
+
+<div class="collapse multi-collapse" id="filters">
+</br>
+<form id=formFilter method="POST" action="">
 <table width="99%" border="0" cellspacing="0" cellpadding="0" align="center">
     <tr class="letra12">
 	<td align="right">{$date_start.LABEL}:</td>
@@ -15,4 +23,11 @@
     </td>
 	<td align="right"><input class="button" type="submit" name="show" value="{$SHOW}" /></td>
     </tr>
+    <tr class="letra12">
+        <td align="right">{$limit.LABEL}: </td>
+        <td align="left" nowrap>{$limit.INPUT}</td>
+    </tr>
 </table>
+</form>
+</div>
+

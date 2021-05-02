@@ -2,10 +2,9 @@
   /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 4.0.0-18                                             |
+  | Issabel version 4.0.0-18                                               |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2020 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -20,8 +19,10 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php, Thu 11 Jun 2020 11:41:36 AM EDT, nicolas@issabel.com
-*/
+  $Id: index.php,v 1.3 2007/09/05 00:26:21 gcarrillo Exp $
+  $Id: index.php,v 1.3 2008/04/14 09:22:21 afigueroa Exp $
+  $Id: index.php,v 2.0 2010/02/03 09:00:00 onavarre Exp $
+  $Id: index.php,v 2.1 2010-03-22 05:03:48 Eduardo Cueva ecueva@palosanto.com Exp $ */
 //include issabel framework
 
 // exten => s,n,Set(CDR(userfield)=audio:${CALLFILENAME}.${MIXMON_FORMAT})   extensions_additional
@@ -80,18 +81,18 @@ function _moduleContent(&$smarty, $module_name)
 
 function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
 {
-    require_once "libs/paloSantoGrid.class.php";
     require_once "libs/paloSantoForm.class.php";
-
+    $arrUniqueids=explode(',', $_POST['uniqueid']);    
     if (isset($_POST['submit_eliminar']) && isset($_POST['uniqueid']) &&
-        is_array($_POST['uniqueid']) && count($_POST['uniqueid']) > 0) {
-        deleteRecord($smarty, $module_name, $local_templates_dir, $pDB, $pACL, $arrConf, $user, $extension);
+        is_array($arrUniqueids) && count($arrUniqueids) > 0) {
+        deleteRecord($smarty, $module_name, $local_templates_dir, $pDB, $pACL, $arrConf, $user, $extension, $arrUniqueids);
     }
 
     $bPuedeVerTodos = hasModulePrivilege($user, $module_name, 'reportany');
     $bPuedeBorrar = hasModulePrivilege($user, $module_name, 'deleteany');
 
     $pMonitoring = new paloSantoMonitoring($pDB);
+
     $filter_field = getParameter("filter_field");
 
     switch($filter_field){
@@ -138,11 +139,16 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     }
     $date_ini = getParameter("date_start");
     $date_end = getParameter("date_end");
+    $limit    = getParameter("limit");
+    if ($limit == 0) {
+        $limit = 100000;
+    }
 
     $path_record = $arrConf['records_dir'];
 
     $_POST['date_start'] = isset($date_ini)?$date_ini:date("d M Y");
     $_POST['date_end']   = isset($date_end)?$date_end:date("d M Y");
+    $_POST['limit']      = isset($limit)?$limit:'100000';
 
     if($date_ini===""){
         $_POST['date_start'] = " ";
@@ -156,16 +162,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
 
     $date_initial = date('Y-m-d',strtotime($_POST['date_start']))." 00:00:00";
     $date_final   = date('Y-m-d',strtotime($_POST['date_end']))." 23:59:59";
-
     $_DATA = $_POST;
-    //begin grid parameters
-    $oGrid  = new paloSantoGrid($smarty);
-    $oGrid->setTitle(_tr("Monitoring"));
-    $oGrid->setIcon("modules/$module_name/images/pbx_monitoring.png");
-    $oGrid->pagingShow(true); // show paging section.
-
-    $oGrid->enableExport();   // enable export.
-    $oGrid->setNameFile_Export(_tr("Monitoring"));
 
     // TODO: agregar filtro por extensión de usuario de Issabel sólo para reportany
 
@@ -176,7 +173,7 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     );
     if (!$bPuedeVerTodos) $param['extension'] = $extension;
     if ($filter_field != '' && $filter_value != '') $param[$filter_field] = $filter_value;
-    $totalMonitoring = $pMonitoring->getNumMonitoring($param);
+    $total = $pMonitoring->getNumMonitoring($param);
     $url = array('menu' => $module_name);
 
     $paramFilter = array(
@@ -184,42 +181,23 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
        'filter_value'           => $filter,
        'filter_value_recordingfile' => $filter_recordingfile,
        'date_start'             => $_POST['date_start'],
-       'date_end'               => $_POST['date_end']
+       'date_end'               => $_POST['date_end'],
+       'limit'                  => isset($limit)?$limit:'100000',
     );
     $url = array_merge($url, $paramFilter);
-    $oGrid->setURL($url);
 
     $arrData = null;
-    $oGrid->setTotal($totalMonitoring);
-    if ($oGrid->isExportAction()) {
-        $limit = $totalMonitoring;
-        $offset = 0;
-
-        $arrColumns = array(_tr("Date"), _tr("Time"), _tr("Source"),
-            _tr("Destination"), _tr("Duration"),_tr("Type"),_tr("File"));
-    } else {
-        $limit  = 20;
-        $oGrid->setLimit($limit);
-        $offset = $oGrid->calculateOffset();
-
-        $arrColumns = array('', _tr("Date"), _tr("Time"), _tr("Source"),
+    $arrColumns = array(_tr("UniqueID"), _tr("Date"), _tr("Time"), _tr("Source"),
             _tr("Destination"),_tr("Duration"),_tr("Type"),_tr("Message"));
-    }
-
-    $oGrid->setColumns($arrColumns);
 
     // Se asume que sólo el administrador puede consultar con extension NULL
+    $offset=0;
     $arrResult = $pMonitoring->getMonitoring($param, $limit, $offset);
 
     if (is_array($arrResult)) {
-        if ($oGrid->isExportAction()) {
-            $arrData = array_map('formatCallRecordingTuple', $arrResult);
-        } else foreach ($arrResult as $value) {
+        foreach ($arrResult as $value) {
             $arrTmp = formatCallRecordingTuple($value);
-            array_unshift($arrTmp, ($bPuedeBorrar && ($value['recordingfile'] != 'deleted'))
-                ? '<input type="checkbox" name="uniqueid[]" value="'.
-                    htmlentities($value['uniqueid'].'|'.$value['recordingfile'], ENT_COMPAT, 'UTF-8').'"/>'
-                : '');
+            array_unshift($arrTmp, $value['uniqueid']);
 
             // checkbox(id_uniqueid) date time src dst hh:mm:ss rectype namefile
             if ($arrTmp[3] == '') $arrTmp[3] = "<font color='gray'>"._tr("unknown")."</font>";
@@ -240,7 +218,10 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
                         'namefile'  =>  $arrTmp[7],
                         'rawmode'   =>  'yes',
                     );
-                    $recordingLink = "<a title=\"$esc_recfile\" href=\"javascript:popUp('index.php?".urlencode(http_build_query($urlparams)."',350,100);")."\">"._tr("Listen")."</a>&nbsp;";
+                    //$recordingLink = "<a title=\"$esc_recfile\" href=\"javascript:popUp('index.php?".urlencode(http_build_query($urlparams)."',350,100);")."\">"._tr("Listen")."</a>&nbsp;";
+                    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+                    $recURL=$protocol.'://'.$_SERVER["HTTP_HOST"].'/'.'index.php?'.urlencode(http_build_query($urlparams));
+                    $recordingLink = "<a title=\"$esc_recfile\" href=\"javascript:playaudio('".$recURL."')\">"._tr("Listen")."</a>&nbsp;";
 
                     $urlparams['action'] = 'download';
                     $recordingLink .= "<a title=\"$esc_recfile\" href='?".http_build_query($urlparams)."' >"._tr("Download")."</a>";
@@ -252,11 +233,6 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
 
             $arrData[] = $arrTmp;
         }
-    }
-    $oGrid->setData($arrData);
-
-    if ($bPuedeBorrar) {
-        $oGrid->deleteList(_tr("message_alert"), 'submit_eliminar', _tr("Delete"));
     }
 
     //begin section filter
@@ -271,23 +247,42 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     $_POST["filter_field"]           = $filter_field;
     $_POST["filter_value"]           = $filter;
     $_POST["filter_value_recordingfile"] = $filter_recordingfile;
-
-    $oGrid->addFilterControl(_tr("Filter applied ")._tr("Start Date")." = ".$paramFilter['date_start'].", "._tr("End Date")." = ".$paramFilter['date_end'], $paramFilter,  array('date_start' => date("d M Y"),'date_end' => date("d M Y")),true);
-
-    if($filter_field == "recordingfile"){
-        $oGrid->addFilterControl(_tr("Filter applied ")." $nameFilterField = $nameFilterUserfield", $_POST, array('filter_field' => "src",'filter_value_recordingfile' => "incoming"));
-    }
-    else{
-        $oGrid->addFilterControl(_tr("Filter applied ")." $nameFilterField = $filter", $_POST, array('filter_field' => "src","filter_value" => ""));
-    }
+    $_POST["limit"]                  = $limit;
 
     $htmlFilter = $oFilterForm->fetchForm("$local_templates_dir/filter.tpl","",$_POST);
     //end section filter
-    $oGrid->showFilter(trim($htmlFilter));
-    $content = $oGrid->fetchGrid();
 
-    //end grid parameters
+   $valueLimit = number_format($limit,0,",",".");
+    if ($total == $paramFilter['limit']) {
+        $msgLimit =    '<font color=red>'.
+                       '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>'." ".
+                       _tr("Limit")." = ".$valueLimit.
+                       '</font>';
+    } else {
+        $msgLimit =    '<font color=green>'.
+                       '<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>'." ".
+                       _tr("Limit")." = ".$valueLimit.
+                       '</font>';
+    }
 
+    $MsgFilter = "<b>"._tr("Filter applied: ")."</b>".
+    '<span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>'." ".
+    _tr("Start Date")." = ".$paramFilter['date_start'].", "._tr("End Date")." = ".
+    $paramFilter['date_end']." - ".
+    '<span class="glyphicon glyphicon-phone-alt" aria-hidden="true"></span>'." ".
+    $filter_field." = ".$paramFilter['filter_value'] . _tr(ucfirst($paramFilter['filter_value_recordingfile'])) . " - ".
+    $msgLimit;
+    $smarty->assign("FILTER_SHOW"  , _tr("Show Filter"));
+    $smarty->assign("FILTER_MSG"  , $MsgFilter);
+    $smarty->assign("COLUMNS", $arrColumns);
+    $smarty->assign("CDR", json_encode($arrData));
+    $smarty->assign("DELMSG", _tr("message_alert"));
+    $smarty->assign("puedeBorrar", json_encode($bPuedeBorrar));
+    $lang = get_language();
+    $smarty->assign("LANG",$lang);
+    $smarty->assign("module_name","monitoring");
+    $content .= $oFilterForm->fetchForm("$local_templates_dir/filter.tpl", "", $paramFilter);
+    $content .= $smarty->fetch("$local_templates_dir/datatables.tpl");
     return $content;
 }
 
@@ -317,12 +312,12 @@ function formatCallRecordingTuple($value)
     $src       = isset($value['src']) ? $value['src'] : '';
     $cnum      = isset($value['cnum']) ? $value['cnum'] : '';
     $final_src = $src;
-    if($cnum != $src) {
+    if(($cnum != $src) && ($cnum != "")) {
         $final_src = $cnum;
     }
 
     return array(
-        date('d M Y',strtotime($value['calldate'])),
+        date('d/m/Y',strtotime($value['calldate'])),
         date('H:i:s',strtotime($value['calldate'])),
         $final_src,
         isset($value['dst']) ? $value['dst'] : '',
@@ -335,8 +330,6 @@ function formatCallRecordingTuple($value)
 function downloadFile($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
     $arrConf, $user, $extension)
 {
-    ob_end_clean();
-
     $record = getParameter("id");
     $namefile = getParameter('namefile');
     if (is_null($record) || !preg_match('/^[[:digit:]]+\.[[:digit:]]+$/', $record)) {
@@ -415,6 +408,9 @@ function display_record($smarty, $module_name, $local_templates_dir, &$pDB, $pAC
     ));
     $sContenido=<<<contenido
 <!DOCTYPE html>
+<script>
+modal.style.display = "block";
+</script>
 <html>
 <head><title>Issabel</title></head>
 <body>
@@ -425,10 +421,12 @@ function display_record($smarty, $module_name, $local_templates_dir, &$pDB, $pAC
 </body>
 </html>
 contenido;
+    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+    $sContenido=$protocol.'://'.$_SERVER["HTTP_HOST"].'/index.php'.$audiourl;
     return $sContenido;
 }
 
-function deleteRecord($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension)
+function deleteRecord($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension, $arrUniqueids)
 {
     if (!hasModulePrivilege($user, $module_name, 'deleteany')) {
         $smarty->assign("mb_title", _tr("ERROR"));
@@ -437,9 +435,9 @@ function deleteRecord($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
     }
     $pMonitoring = new paloSantoMonitoring($pDB);
     $path_record = $arrConf['records_dir'];
-    foreach ($_POST['uniqueid'] as $ID) {
-        $l = explode('|', $ID);
-        if (count($l) >= 2) $pMonitoring->deleteRecordFile($l[0], $l[1]);
+    foreach ($arrUniqueids as $ID) {
+        $nameFile=$pMonitoring->getAudioByUniqueId($ID);
+        if ($nameFile['recordingfile'] != "") $pMonitoring->deleteRecordFile($ID, $nameFile['recordingfile']);
     }
 
     return TRUE;
@@ -489,6 +487,17 @@ function createFieldFilter(){
                                               "INPUT_EXTRA_PARAM"      => "",
                                               "VALIDATION_TYPE"        => "text",
                                               "VALIDATION_EXTRA_PARAM" => ""),
+        "limit"  => array("LABEL"                  => _tr("Limit"),
+                            "REQUIRED"               => "no",
+                            "INPUT_TYPE"             => "SELECT",
+                            "INPUT_EXTRA_PARAM"      => array(
+                                                        "100000"         => _tr("100.000"),
+                                                        "50000"    => _tr("50.000"),
+                                                        "20000"        => _tr("20.000"),
+                                                        "10000"      => _tr("10.000"),
+                                                        "1000"  => _tr("1.000")),
+                            "VALIDATION_TYPE"        => "text",
+                            "VALIDATION_EXTRA_PARAM" => ""),
                     );
     return $arrFormElements;
 }
