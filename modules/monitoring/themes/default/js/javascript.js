@@ -12,7 +12,7 @@ function playaudio(URL) {
     var urlParams = new URLSearchParams(file);
     var namefile = urlParams.get('namefile')
     modal.style.display = "block";
-    $('.modal-content').css('top',$(window).scrollTop());
+    $('#myModal').css('top',$(window).scrollTop());
   Amplitude.init({
     "bindings": {
       37: 'prev',
