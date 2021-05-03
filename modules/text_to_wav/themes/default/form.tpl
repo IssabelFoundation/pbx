@@ -10,7 +10,7 @@
 </table>
 <table>
     <tr>{if !$FILENAME}
-        <table class="tabForm" style="font-size: 16px;" width="100%" >
+        <table class="tabForm" style="font-size: 16px;" width="99%" >
             <tr class="letra12">
                 <td align="left"><b>{$message.LABEL}:</b></td>
                 <td align="left">{$message.INPUT}</td>
@@ -29,7 +29,7 @@
  
         </table>
 	{else}
-	<table class="tabForm" style="font-size: 16px;" width="100%" >
+	<table class="tabForm" style="font-size: 16px;" width="99%" >
             <tr class="letra12">
                 <td align="left"><b> {if $EXECUTE}<a href="{$PATH}/{$FILENAME}{$EXTENSION}">{$DOWNLOAD} {$EXTENSION}</a>{/if}</b></td>
             </tr>

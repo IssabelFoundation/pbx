@@ -3,7 +3,7 @@
         <td align="left" colspan='2'><input class="button" type="submit" name="save" value="{$SAVE}" {$DISABLED}/></td>
     </tr>
     <tr>
-        <table class="tabForm" style="font-size: 16px;" width="100%" border='0'>
+        <table class="tabForm" style="font-size: 16px;" width="99%" border='0'>
             <tr class="letra12">
                 <td colspan='2'>
                     <input type="radio" name="option_record" id="record_by_phone" value="by_record" {$check_record} onclick="Activate_Option_Record()" />
@@ -27,7 +27,7 @@
             </tr>
         </table>
     </tr>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" class="tabForm" id="info">
+    <table width="99%" border="0" cellspacing="0" cellpadding="0" class="tabForm" id="info">
 	<tr><td><i>{$NAME}</i></td></tr>
 	<tr><td><i>{$INFO}</i></td></tr>
     </table>
