@@ -7,7 +7,7 @@
     <td><input class='button' type='submit' name='delete_all' value='{$LABEL_DELETE}' onClick="return confirmSubmit('{$CONFIRM_DELETE}');" /></td>
     </tr>
 </table>
-<table class="tabForm" width="100%">
+<table class="tabForm" width="99%">
 <tbody>
 <tr>
     <td align="right" width="15%"><b>{$LABEL_FILE}:</b></td>
