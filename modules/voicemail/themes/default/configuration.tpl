@@ -9,7 +9,7 @@
         </td>
     </tr>
 </table>
-<table class="tabForm" style="font-size: 16px;" width="100%" border="0">
+<table class="tabForm" style="font-size: 16px;" width="99%" border="0">
     <tr class="letra12">
         <td align="left">{$status.LABEL}</td>
         <td align="left">{$status.INPUT}</td>
