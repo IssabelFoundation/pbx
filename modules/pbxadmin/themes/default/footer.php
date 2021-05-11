@@ -93,6 +93,11 @@ $html .= "\n" . '<script type="text/javascript">'
 		. ';$(document).click();' //TODO: this should be cleaned up eventually as right now it prevents the nav bar from not being fully displayed
  		. '</script>';
 
+if (file_exists("/var/www/html/admin/assets/js/chosen.jquery.js")) {
+    $html .= '<script type="text/javascript" src="admin/assets/js/chosen.jquery.js"></script>';
+    $html .= '<link rel="stylesheet" href="admin/assets/css/chosen.css" type="text/css">';
+}
+
 // Production versions should include the packed consolidated javascript library but if it
 // is not present (useful for development, then include each individual library below
 if (file_exists("/var/www/html/admin/assets/js/pbxlib.js")) {
