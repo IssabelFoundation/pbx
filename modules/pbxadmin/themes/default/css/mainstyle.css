@@ -700,3 +700,8 @@ select {
 .chosen-container {
   margin-bottom:5px;
 }
+
+.confidential:not(:focus):not(:hover) {
+  color: transparent;
+  text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
