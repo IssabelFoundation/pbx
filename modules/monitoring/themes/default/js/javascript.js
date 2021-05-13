@@ -389,6 +389,7 @@ function buildData() {
 function downloadPDF2() {
     var newCanvas = document.querySelector('#myChart');
     var newCanvasImg = newCanvas.toDataURL("image/jpeg", 1.0);
+    var jsPDF = window.jspdf.jsPDF;
     var doc = new jsPDF('landscape');
     doc.setFontSize(20);
     doc.text(15, 15, "Issabel CDR");
