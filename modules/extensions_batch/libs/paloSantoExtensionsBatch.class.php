@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Sat 24 Apr 2021 12:01:56 PM EDT, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Thu 13 May 2021 09:36:24 AM EDT, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -816,6 +816,7 @@ class paloSantoExtensionsBatch
 
     private function _updateAsteriskDB($extension, $astman)
     {
+        if ($extension['tech'] == 'pjsip') $dial = 'PJSIP/'.$extension['extension'];
         if ($extension['tech'] == 'sip') $dial = 'SIP/'.$extension['extension'];
         if ($extension['tech'] == 'iax2') $dial = 'IAX2/'.$extension['extension'];
 
