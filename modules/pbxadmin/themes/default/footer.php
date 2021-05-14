@@ -7,6 +7,7 @@ global $reload_needed;
 global $remove_rnav;
 global $js_content;
 
+set_language();
 $version     = get_framework_version();
 $version_tag = '?load_version=' . urlencode($version);
 
