@@ -82,6 +82,10 @@ $ipbx['msg']['framework']['validateSingleDestination']['required'] = _('Please s
 $ipbx['msg']['framework']['validateSingleDestination']['error'] = _('Custom Goto contexts must contain the string "custom-".  ie: custom-app,s,1');
 $ipbx['msg']['framework']['weakSecret']['length'] = _("The secret must be at minimum six characters in length.");
 $ipbx['msg']['framework']['weakSecret']['types'] = _("The secret must contain at least two numbers and two letters.");
+$ipbx['msg']['framework']['add'] = _("Add");
+$ipbx['msg']['framework']['reloading'] = _("Reloading...");
+$ipbx['msg']['framework']['pleasewait'] = _("Please Wait");
+
 
 $html .= "\n" . '<script type="text/javascript">'
 		. 'var ipbx='
