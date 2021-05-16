@@ -646,10 +646,10 @@ a.info:link, a.info:hover {
 	background-color:#DEEDF7;
 	color:#2779AA;
 	text-align:justify;
-	font-size:15px;
+	font-size:1.5em;
 	font-weight:normal;
 	padding:8px 12px;
-	line-height:15px;
+	line-height:1.5em;
 	border-radius: 5px;
 
 }
