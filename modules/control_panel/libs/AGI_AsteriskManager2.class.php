@@ -227,7 +227,7 @@ class AGI_AsteriskManager2 extends AGI_AsteriskManager
     }
     
     // Implementación de send_request para compatibilidad con phpagi-asmanager
-    function send_request($action, $parameters=array())
+    function send_request($action, $parameters=array(), $retry=true)
     {
         if (!is_null($this->socket)) {
             $req = "Action: $action\r\n";
@@ -242,7 +242,7 @@ class AGI_AsteriskManager2 extends AGI_AsteriskManager
     }
 
     // Implementación de wait_response para compatibilidad con phpagi-asmanager
-    function wait_response()
+    function wait_response($allow_timeout = false, $return_on_event = false)
     {
         while (!is_null($this->socket) && is_null($this->_response)) {
             if (!$this->procesarActividad()) {
@@ -260,7 +260,7 @@ class AGI_AsteriskManager2 extends AGI_AsteriskManager
         }
     }
     
-    function connect($server, $username, $secret)
+    function connect($server=NULL, $username=NULL, $secret=NULL, $events="on")
     {
         // Determinar servidor y puerto a usar
         $iPuerto = AMI_PORT;
