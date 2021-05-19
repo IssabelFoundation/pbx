@@ -70,7 +70,18 @@ function getContent(&$smarty, $iss_module_name, $withList)
         $_GET['display']     = 'extensions';
         $_GET['type']        = 'setup';
     }
+
     $logMSG="";
+    if(isset($_POST['extension'])) {
+        $logMSG .= "extension=".$_POST['extension']." ";
+    }
+    if(isset($_POST['routename'])) {
+        $logMSG .= "route=".$_POST['routename']." ";
+    }
+    if(isset($_POST['trunk_name'])) {
+        $logMSG .= "trunk=".$_POST['trunk_name']." ";
+    }
+
     foreach ($vars as $k => $v) {
         // were use config_vars instead of, say, vars, so as not to polute
         // page.<some_module>.php (which usually uses $var or $vars)
@@ -105,8 +116,15 @@ function getContent(&$smarty, $iss_module_name, $withList)
     //write audit.log
     $ipaddr = $_SERVER['REMOTE_ADDR'];
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : 'unknown';
-    writeLOG("audit.log", "PBX $user: Configuration access from $ipaddr, user $user - $logMSG");
+    if(isset($config_vars['action'])) {
+        writeLOG("audit.log", "PBX $user: Action performed from $ipaddr, user $user - $logMSG");
+    }
 
+    if(isset($_POST['handler'])) {
+        if($_POST['handler']=='reload') {
+            writeLOG("audit.log", "PBX $user: Changes applied from $ipaddr, user $user - $logMSG");
+        }
+    }
     header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
     header('Expires: Sat, 01 Jan 2000 00:00:00 GMT');
     header('Cache-Control: post-check=0, pre-check=0',false);
