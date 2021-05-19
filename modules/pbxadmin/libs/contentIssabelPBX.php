@@ -70,11 +70,16 @@ function getContent(&$smarty, $iss_module_name, $withList)
         $_GET['display']     = 'extensions';
         $_GET['type']        = 'setup';
     }
-
+    $logMSG="";
     foreach ($vars as $k => $v) {
         // were use config_vars instead of, say, vars, so as not to polute
         // page.<some_module>.php (which usually uses $var or $vars)
         $config_vars[$k] = $$k = isset($_REQUEST[$k]) ? $_REQUEST[$k] : $v;
+
+        //set message for audit.log
+        if ($config_vars[$k] != null && $config_vars[$k] != "") {
+            $logMSG .= $k . "=" . $config_vars[$k] . " ";
+        }
 
         //special handeling
         switch ($k) {
@@ -96,6 +101,11 @@ function getContent(&$smarty, $iss_module_name, $withList)
                     break;
         }
     }
+
+    //write audit.log
+    $ipaddr = $_SERVER['REMOTE_ADDR'];
+    $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : 'unknown';
+    writeLOG("audit.log", "PBX $user: Configuration access from $ipaddr, user $user - $logMSG");
 
     header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
     header('Expires: Sat, 01 Jan 2000 00:00:00 GMT');
