@@ -5,6 +5,7 @@
   | Issabel version 0.5                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoCDR.class.php,v 1.1.1.1 2008/01/31 21:31:55 afigueroa Exp $ */
+  $Id: paloSantoConference.php, Thu 20 May 2021 08:46:55 AM EDT, nicolas@issabel.com
+*/
 
 //ini_set("display_errors", true);
 require_once "/var/lib/asterisk/agi-bin/phpagi-asmanager.php";
@@ -28,7 +30,7 @@ class paloSantoConference {
     var $_DB;
     var $errMsg;
 
-    function paloSantoConference(&$pDB)
+    function __construct(&$pDB)
     {
         // Se recibe como parámetro una referencia a una conexión paloDB
         if (is_object($pDB)) {

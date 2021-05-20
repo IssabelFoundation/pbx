@@ -2,9 +2,10 @@
   /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.1-4                                               |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: default.conf.php,v 1.1 2008-06-12 09:06:35 afigueroa Exp $ */
+  $Id: paloSantoRecordings.class.php, Thu 20 May 2021 08:47:25 AM EDT, nicolas@issabel.com
+*/
 
 if (file_exists("/var/lib/asterisk/agi-bin/phpagi-asmanager.php")) {
 require_once "/var/lib/asterisk/agi-bin/phpagi-asmanager.php";
@@ -28,7 +30,7 @@ require_once "/var/lib/asterisk/agi-bin/phpagi-asmanager.php";
 class paloSantoRecordings {
     var $errMsg;
 
-    function paloSantoRecordings()
+    function __construct()
     {
     }
 

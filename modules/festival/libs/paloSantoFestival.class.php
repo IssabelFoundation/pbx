@@ -2,9 +2,10 @@
   /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 4.0.4-5                                               |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,7 +20,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoFestival.class.php,v 1.1 2011-04-14 11:04:34 Alberto Santos asantos@palosanto.com Exp $ */
+  $Id: paloSantoFestival.class.php, Thu 20 May 2021 08:48:27 AM EDT, nicolas@issabel.com
+*/
 
 class paloSantoFestival{
     /**
@@ -33,7 +35,7 @@ class paloSantoFestival{
      * Constructor. It sets the attribute errMsg to an empty string
      *
      */
-    function paloSantoFestival()
+    function __construct()
     {
         $this->errMsg = "";
     }

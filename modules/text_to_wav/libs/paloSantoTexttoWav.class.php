@@ -2,9 +2,10 @@
   /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 1.2-4                                               |
+  | Issabel version 4.0                                                  |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
+  | Copyright (c) 2021 Issabel Foundation                                |
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
   +----------------------------------------------------------------------+
   | The contents of this file are subject to the General Public License  |
@@ -19,13 +20,13 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoTexttoWav.class.php, Sun 17 Nov 2019 11:01:13 AM EST, nicolas@issabel.com
+  $Id: paloSantoTexttoWav.class.php, Thu 20 May 2021 08:47:52 AM EDT, nicolas@issabel.com
 */
 class paloSantoTexttoWav {
     var $errMsg;
 
 	
-    function paloSantoTexttoWav()
+    function __construct()
     {
     }
 
