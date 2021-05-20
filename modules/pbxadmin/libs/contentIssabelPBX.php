@@ -117,12 +117,12 @@ function getContent(&$smarty, $iss_module_name, $withList)
     $ipaddr = $_SERVER['REMOTE_ADDR'];
     $user = isset($_SESSION['issabel_user']) ? $_SESSION['issabel_user'] : 'unknown';
     if(isset($config_vars['action'])) {
-        writeLOG("audit.log", "PBX $user: Action performed from $ipaddr, user $user - $logMSG");
+        writeLOG("audit.log", "PBX $user: User $user performed an action [".trim($logMSG)."] from $ipaddr.");
     }
 
     if(isset($_POST['handler'])) {
         if($_POST['handler']=='reload') {
-            writeLOG("audit.log", "PBX $user: Changes applied from $ipaddr, user $user - $logMSG");
+            writeLOG("audit.log", "PBX $user: User $user applied changes from $ipaddr.");
         }
     }
     header('Last-Modified: '.gmdate('D, d M Y H:i:s').' GMT');
