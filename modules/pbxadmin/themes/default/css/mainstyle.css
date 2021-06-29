@@ -394,13 +394,12 @@ a.info:hover span{
 /*** reload button ****/
 #button_reload {
 	display:none;
-        width:90%;
-	/*width:1023px;*/
-        background-color:#f6bbbb;
-        height:23px;
-        border-radius: 6px;
-        padding-top: 3px;
-
+    width:95%;
+    background-color:#da4128;
+    color: #ff0;
+    height:23px;
+    border-radius: 6px;
+    padding-top: 3px;
 }
 
 /************************* For modules page *************************/
