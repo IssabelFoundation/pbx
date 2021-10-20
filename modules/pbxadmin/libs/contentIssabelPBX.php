@@ -749,7 +749,13 @@ function getContent(&$smarty, $iss_module_name, $withList)
                             }
                             $idx = array_search($cate,$menuorder);
                             if($moduledata['status']==2) {
-                                $menu[$idx][$cate][]=array('urlkey'=>$urlkey,'name'=>_tr($name),'category'=>$cate);
+                                $translated_menu_name = _tr($name);
+                                if($translated_menu_name==$name) {
+                                    modgettext::push_textdomain($urlkey);
+                                    $translated_menu_name = _($name);
+                                    modgettext::pop_textdomain();
+                                }
+                                $menu[$idx][$cate][]=array('urlkey'=>$urlkey,'name'=>$translated_menu_name,'category'=>$cate);
                             }
                         }
                     }
