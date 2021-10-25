@@ -1,0 +1,48 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Bruno Macias                                           |
+  | Email: bmacias@palosanto.com                                         |
+  +----------------------------------------------------------------------+
+  $Id: en.lang,v 1.7 2008/02/18 09:49:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Recordings" => "Gravações",
+"Record Name" => "Record Name",
+"Record" => "Gravar",
+"Insert the Recording Name" => "Insira o nome da gravação",
+"The recording couldn't be realized" => "A gravação não pôde ser realizada",
+"The recording was saved" => "A gravação foi salva",
+"To continue: record a message then click on save" => "Para continuar: grave uma mensagem e clique em salvar",
+"Recording File" => "Arquivo de Gravação",
+"Destiny directory couldn't be created" => "Não foi possível criar o diretório de destino",
+"File Upload" => "Upload de arquivo",
+"ERROR" => "ERRO",
+"You don't have extension number associated with user" => "Não há número de ramal associado ao usuário atual. Você pode associar um número de ramal ao seu usuário clicando em <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">here</a>",
+"The call couldn't be realized" => "A chamada não pôde ser realizada",
+"Error copying the file" => "Erro ao copiar o arquivo",
+"Message" => "Mensagem: ",
+"Possible file upload attack" => "Possível ataque de upload de arquivo",
+"contact_admin" => "Não há número de ramal associado ao usuário atual. Entre em contato com o administrador para atribuir uma extensão",
+"You can start your recording after you hear a beep in your phone. Once you have finished recording you must press the # key and then hangup" => "<b> Ao pressionar GRAVAR o ramal vinculado ao usúario web, irá tocar, ocê pode iniciar a gravação depois de ouvir um bipe no telefone. Depois de terminar a gravação, você deve pressionar a tecla # e desligar</b>",
+"You do not need to add an extension to the record name" => "Você não precisa adicionar uma extensão ao nome do registro"
+);
+?>
