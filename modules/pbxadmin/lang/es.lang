@@ -78,6 +78,7 @@ $arrLangModule = array(
     "Dynamic Features" => "Funcionalidades Dinámicas",
     "Asterisk Manager Settings" => "Configuraciones AMI",
     "Asterisk Logfile Settings" => "Configuraciones Logger",
-    "Asterisk PJSIP Settings" => "Configuraciones PJSIP"
+    "Asterisk PJSIP Settings" => "Configuraciones PJSIP",
+    "Text to Speech Engines" => "Motores de Texto al Habla"
 );
 ?>
