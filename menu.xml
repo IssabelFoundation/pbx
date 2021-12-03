@@ -67,6 +67,11 @@
             <group id="1" name="administrator" desc="total access"></group>
         </permissions>
     </menuitem>
+    <menuitem menuid="qr_batch"       desc="QR Configurations"     parent="endpoints" module="yes" link=""      order="54">
+        <permissions>
+            <group id="1" name="administrator" desc="total access"></group>
+        </permissions>
+    </menuitem>
     <menuitem menuid="conference"             desc="Conference"              parent="pbxconfig" module="yes" link=""      order="6">
         <permissions>
             <group id="1" name="administrator" desc="total access"></group>

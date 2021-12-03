@@ -1,0 +1,4 @@
+<?php
+$arrLangMenu=array(
+"QR Configurations" => "Configuraciones QR"
+);
