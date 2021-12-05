@@ -4,7 +4,10 @@ $(document).ready(function(){
     var addoption = $('<option/>', {class: 'addItem'}).data('content', content);
     var hostoption = $('<option/>').data('content', window.location.host).val(window.location.host);
     $('.selectpicker').selectpicker();
-    $('.selectpickeradd').append(hostoption).append(divider).append(addoption).selectpicker();
+    if($('.selectpickeradd option[value="'+window.location.host+'"]').length==0) {
+        $('.selectpickeradd').append(hostoption);
+    }
+    $('.selectpickeradd').append(divider).append(addoption).selectpicker();
 });
 
 function addSelectItem(t,ev) {
