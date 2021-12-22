@@ -25,6 +25,7 @@ Codificación: UTF-8
 $Id: br.lang,v 1.0 2017/07/19 19:45:00 Ibinetwork Informática - rafael@ibinetwork.com.br $ */
 global $arrLangModule;
 $arrLangModule=array(
+    
 "Control Panel" => "Painel Operador",
 "Name" => "Nome",
 "New" => "Novo",
@@ -33,14 +34,30 @@ $arrLangModule=array(
 "Participant" => "Participante",
 "Error when connecting to Asterisk Manager" => "Erro ao conectar ao Asterisk Manager",
 "Loading" => "Carregando",
+'Area 1' => 'Grupo 1',
+'Area 2' => 'Grupo 2',
+'Area 3' => 'Grupo 3',
 'Members' => 'Membros',
 'Not Attended' => 'Não Atendida',
 'Callers'   =>  'Chamadores',
 'No Callers' => 'Sem Chamadores',
 'Participant(s)' => 'Participante(s)',
-'Parked' => 'Estacionado',
+'Parked' => 'Espera',
 'Invalid or missing parameters' => 'Parametros inválidos ou inexistentes',
-'Hide All' => 'Ocultar Tudo',
-'Show All' => 'Exibir Tudo',
+'Hide All' => 'Ocultar',
+'Show All' => 'Exibir',
+'Edit Name' => 'Editar',
+'Extensions' => '<b>Ramais</b>',
+'DAHDI Trunks' => 'Placa-DAHDI',
+'SIP/IAX Trunks' => '<b>Linhas Externas</b>',
+'Conferences' => 'Conferencias',
+'Queues' => 'Fila Atendimento',
+'Parking lots' => 'Ligações Estacionadas',
+'Trunks' => 'Troncos',
+'TrunksSIP' => 'Troncos-SIP',
+'Half waiting time Queue' => 'Tempo de espera na fila',
+'Calls in Queue' => 'Chamadas na fila',
+'Reload' => 'Atualizar',
+'phones' => 'Ramais',
 );
 ?>

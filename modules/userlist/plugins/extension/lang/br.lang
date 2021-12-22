@@ -29,5 +29,22 @@ $arrLangModule = array(
     "No extension associated" => "Nenhum ramal associado",
     "no extension" => "sem ramal",
     "PBX Profile" => "Perfil PBX",
+
+    "Create New User" => "Criar Novo Usuário",
+    "Name" => "Nome",
+	"Login" => "Login",
+    "Password" => "Senha",
+    "Retype password" => "Re-digite a senha",
+    "New User" => "Novo Usuário",
+    "Edit User" => "Editar Usuário",
+	"View User" => "Vizualizar Usuário",
+	"(Ex. John Doe)" => "(Ex. Amanda Silva)",
+    "The passwords are empty or don't match" => "A senha é em branco ou não confere",
+    "The admin user cannot be deleted because is the default Issabel administrator. You can delete any other user." => "O Usuário admin não pode ser apagador porque é o Administrador padrão do Issabel Server",
+    "User List" => "Lista de Usuários",
+    "Real Name" => "Nome Usuário",
+	"userNoAllowed" => "Usuário Sem Permissão",
+	"You are not authorized to access to information of that user" =>"Você não está autorizado a acessar as informações desse usuário",
+	"Page" => "Página",
 );
 ?>
