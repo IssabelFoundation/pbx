@@ -2,9 +2,10 @@
 /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
 Codificación: UTF-8
 +----------------------------------------------------------------------+
-| Issabel version 1.0                                                  |
+| Issabel version 4.0                                                  |
 | http://www.issabel.org                                               |
 +----------------------------------------------------------------------+
+| Copyright (c) 2021 Issabel Foundation                                |
 | Copyright (c) 2006 Palosanto Solutions S. A.                         |
 +----------------------------------------------------------------------+
 | The contents of this file are subject to the General Public License  |
@@ -18,9 +19,6 @@ Codificación: UTF-8
 | limitations under the License.                                       |
 +----------------------------------------------------------------------+
 | The Initial Developer of the Original Code is PaloSanto Solutions    |
-|                                                                      |
-| Translate by: Bruno Macias                                           |
-| Email: bmacias@palosanto.com                                         |
 +----------------------------------------------------------------------+
 $Id: br.lang,v 1.0 2017/07/19 19:45:00 Ibinetwork Informática - rafael@ibinetwork.com.br $ */
 global $arrLangModule;
