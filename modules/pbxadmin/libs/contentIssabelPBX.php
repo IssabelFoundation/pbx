@@ -552,19 +552,6 @@ function getContent(&$smarty, $iss_module_name, $withList)
                     break;
     }
 
-    /* Lo siguiente es un SOBERANO HACKEO.
-     *
-     * El módulo ivr de IssabelPBX tiene un HTML inválido que mete un <table> dentro
-     * de otro <table> lo cual es tolerado por el navegador en la interfaz no
-     * embebida pero rompe el HTML dentro de Issabel. Aquí se recoge el HTML
-     * inválido y se lo embebe dentro de un <tr><td>. */
-    if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'ivr') {
-        $return_CONFIG_HTML = preg_replace(
-            '|</tr>\s*(<table .*?</table><img .* id="add_entrie">)\s*<tr>|s',
-            '</tr><tr><td colspan="2">$1</td></tr><tr>',
-            $return_CONFIG_HTML);
-    }
-
     if ($quietmode) {
         // send the output buffer, should be sending just the page contents
         ob_end_flush();
