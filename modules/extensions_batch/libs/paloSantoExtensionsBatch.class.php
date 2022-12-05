@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Thu 13 May 2021 09:36:24 AM EDT, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Mon 05 Dec 2022 10:07:25 AM EST, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -922,7 +922,7 @@ class paloSantoExtensionsBatch
         $this->_DB->beginTransaction();
 
         // Lista de extensiones a borrar
-        $sql = "SELECT id FROM devices WHERE tech = 'sip' OR tech = 'iax2'";
+        $sql = "SELECT id FROM devices WHERE tech = 'sip' OR tech = 'iax2' OR tech = 'pjsip'";
         $recordset = $this->_DB->fetchTable($sql);
         if (!is_array($recordset)) {
             $this->errMsg = $this->_DB->errMsg;
@@ -943,9 +943,10 @@ class paloSantoExtensionsBatch
         if ($exito) {
             foreach (array(
                 "DELETE s FROM sip s INNER JOIN devices d ON s.id=d.id and d.tech='sip'",
+                "DELETE s FROM sip s INNER JOIN devices d ON s.id=d.id and d.tech='pjsip'",
                 "DELETE i FROM iax i INNER JOIN devices d ON i.id=d.id and d.tech='iax2'",
-                "DELETE u FROM users u INNER JOIN devices d ON u.extension=d.id and (d.tech='sip' or d.tech='iax2')",
-                "DELETE FROM devices WHERE tech='sip' or tech='iax2'",
+                "DELETE u FROM users u INNER JOIN devices d ON u.extension=d.id and (d.tech='sip' or d.tech='iax2' or d.tech='pjsip')",
+                "DELETE FROM devices WHERE tech='sip' or tech='iax2' or tech ='pjsip'",
                 ) as $sql) {
                 if (!$this->_DB->genQuery($sql)) {
                     $this->errMsg = $this->_DB->errMsg;
