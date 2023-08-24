@@ -16,11 +16,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: asternic/checkout@v2
+    - uses: asternic/checkout@v3
 
     - name: build RPM package
       id: rpm
-      uses: asternic/rpmbuild@master
+      uses: asternic/rpmbuild@centos8
       with:
         spec_file: "issabel-pbx.spec"
 
