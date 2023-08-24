@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: asternic/checkout@v2
 
     - name: build RPM package
       id: rpm
