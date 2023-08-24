@@ -1,8 +1,8 @@
 %define modname pbx
 Summary: Issabel PBX Module
 Name:    issabel-pbx
-Version: 4.0.0
-Release: 7
+Version: 5.0.0
+Release: 1
 License: GPL
 Group:   Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
@@ -15,7 +15,7 @@ Requires(pre): vsftpd
 #Requires(pre): asterisk >= 1.8
 Requires: festival >= 1.95
 Requires: picotts
-Requires(pre): issabelPBX >= 2.11.0-46
+Requires(pre): issabelPBX >= 2.12.0
 
 #Requires: issabel-endpointconfig2 >= 4.0.0-1
 
@@ -94,6 +94,14 @@ chmod 755 $RPM_BUILD_ROOT/var/lib/asterisk/agi-bin/*
 mv setup/asterisk/moh/*                    $RPM_BUILD_ROOT/var/lib/asterisk/moh/
 rmdir setup/asterisk/*
 rmdir setup/asterisk
+
+# issabel_issabelpbx
+mkdir -p $RPM_BUILD_ROOT/var/www/html/admin/
+mv setup/var/www/html/admin/issabel_issabelpbx_auth.php $RPM_BUILD_ROOT/var/www/html/admin/
+rmdir setup/var/www/html/admin
+rmdir setup/var/www/html
+rmdir setup/var/www
+rmdir setup/var
 
 # Moviendo archivos festival y sip_notify_custom_issabel.conf
 chmod +x setup/etc/asterisk/sip_notify_custom_issabel.conf
@@ -297,6 +305,7 @@ fi
 %defattr(755, root, root)
 /etc/init.d/festival
 /bin/asterisk.reload
+/var/www/html/admin/issabel_issabelpbx_auth.php
 /usr/share/issabel/privileged/*
 /var/lib/asterisk/agi-bin/*
 /etc/cron.daily/asterisk_cleanup

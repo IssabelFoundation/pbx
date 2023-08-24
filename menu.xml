@@ -2,7 +2,7 @@
 <module>
   <menulist>
     <menuitem menuid="pbxconfig"              desc="PBX"                     parent=""          module="no"  link=""      order="5"></menuitem>
-    <menuitem menuid="pbxadmin"               desc="PBX Configuration"       parent="pbxconfig" module="yes" link=""      order="1">
+    <menuitem menuid="pbxadmin"               desc="PBX Configuration"       parent="pbxconfig" module="no" link="/admin/"      order="1">
         <permissions>
             <group id="1" name="administrator" desc="total access"></group>
         </permissions>
