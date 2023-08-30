@@ -87,9 +87,10 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
     $unserialized = unserialize($module_serialized[0]);
 
     // special issabelPBX section, not in modules.xml, needed for reload bar and also device type selection on extensions section
-    $reloadbar = array('menuitems'=>array('999'=>'Add Devices'),'embedcategory'=>'dummy');
+    $adddevice = array('menuitems'=>array('999'=>'Add Devices'),'embedcategory'=>'dummy');
+    $unserialized['999']=$adddevice;
     $reloadbar = array('menuitems'=>array('99'=>'Apply Changes'),'embedcategory'=>'dummy');
-    $unserialized['999']=$reloadbar;
+    $unserialized['99']=$reloadbar;
 
     // We do not want to show ampusers section when loaded from issabel framework
     unset($unserialized['ampusers']);
