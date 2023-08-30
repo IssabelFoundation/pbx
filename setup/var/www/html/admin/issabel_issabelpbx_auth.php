@@ -93,6 +93,7 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
     // We do not want to show ampusers section when loaded from issabel framework
     unset($unserialized['ampusers']);
     unset($unserialized['core']['menuitems']['ampusers']);
+    $unserialized['core']['menuitems']['modules1']='Module Admin';
 
     $noadmin=0;
 
