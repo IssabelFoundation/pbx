@@ -297,6 +297,7 @@ fi
 /var/lib/asterisk/agi-bin
 /var/log/festival
 /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf
+/var/www/html/admin/issabel_issabelpbx_auth.php
 %defattr(-, root, root)
 %{_localstatedir}/www/html/*
 /usr/share/issabel/module_installer/*
@@ -305,7 +306,6 @@ fi
 %defattr(755, root, root)
 /etc/init.d/festival
 /bin/asterisk.reload
-/var/www/html/admin/issabel_issabelpbx_auth.php
 /usr/share/issabel/privileged/*
 /var/lib/asterisk/agi-bin/*
 /etc/cron.daily/asterisk_cleanup
