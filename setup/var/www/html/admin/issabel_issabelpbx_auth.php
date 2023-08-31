@@ -27,12 +27,12 @@ if(is_file("../libs/misc.lib.php") ) {
         session_start();
     }
 
-
-    $mylang = array('en'=>'en_US','es'=>'es_ES','br'=>'pt_BR');
-    $lang = get_language('../');
-
-    $finallang = isset($mylang[$lang])?$mylang[$lang]:$lang."_".strtoupper($lang);
-    setcookie("lang", $finallang);
+    if($user!='') {
+        $mylang = array('en'=>'en_US','es'=>'es_ES','br'=>'pt_BR');
+        $lang = get_language('../');
+        $finallang = isset($mylang[$lang])?$mylang[$lang]:$lang."_".strtoupper($lang);
+        setcookie("lang", $finallang);
+    }
 
     $pDB = new paloDB($dsnAsterisk);
 
