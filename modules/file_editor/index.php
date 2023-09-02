@@ -161,7 +161,7 @@ function modificarArchivo($module_name, $smarty, $local_templates_dir, $sDirecto
         $parameters = array('Command'=>"module reload");
         $result = AsteriskManagerAPI("Command",$parameters,true);
         if($result){
-            $smarty->assign("mb_title", "MESSAGE");
+            $smarty->assign("mb_title", "Message");
             $smarty->assign("mb_message", _tr("Asterisk has been reloaded"));
         }else{
             $smarty->assign("mb_title", "ERROR");
