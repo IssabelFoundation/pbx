@@ -77,7 +77,10 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
     $amp_conf['AUTHTYPE']='none'; // so it does not show the logout button in menu
     $amp_conf['SHOWLANGUAGE']=false; // so it does not show lanuage selection in menu
     unset($no_auth);
-    define('ISSABELPBX_IS_AUTH', 'TRUE');
+
+    if (!defined('ISSABELPBX_IS_AUTH')) {
+        define('ISSABELPBX_IS_AUTH', 'TRUE');
+    }
 
     $_SESSION['AMP_user'] = new ampuser($username);
     $_SESSION['AMP_user']->clearSections();
