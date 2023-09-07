@@ -27,7 +27,7 @@ require_once("phpqrcode/phpqrcode.php");
 class IssabelQRConfig {
 
     var $_DB;
-    var $_allips;
+    var $_allips = array();
 
     function __construct()
     {
