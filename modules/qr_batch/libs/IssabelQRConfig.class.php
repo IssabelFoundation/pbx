@@ -47,7 +47,7 @@ class IssabelQRConfig {
             echo "$this->rutaDB: $pDB->errMsg <br>";
         } else{
             $this->_DB = $pDB;
-            $sPeticionSQL = 'SELECT data FROM sipsettings WHERE keyword="externip_val"';
+            $sPeticionSQL = 'SELECT data FROM sipsettings WHERE keyword="externip_val" UNION SELECT data FROM pjsipsettings WHERE keyword="externip_val"';
             $result = $this->_DB->getFirstRowQuery($sPeticionSQL, TRUE, array());
             if(count($result)>0) {
                 $this->_allips[$result['data']]=1;
