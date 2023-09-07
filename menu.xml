@@ -7,12 +7,14 @@
             <group id="1" name="administrator" desc="total access"></group>
         </permissions>
     </menuitem>
+<!--
     <menuitem menuid="control_panel"          desc="Operator Panel"          parent="pbxconfig" module="yes" link=""      order="2">
         <permissions>
             <group id="1" name="administrator" desc="total access"></group>
             <group id="2" name="Operator" desc="Operator"></group>
         </permissions>
     </menuitem>
+-->
     <menuitem menuid="voicemail"              desc="Voicemail"               parent="pbxconfig" module="yes" link=""      order="3">
         <permissions>
             <group id="1" name="administrator" desc="total access"></group>
