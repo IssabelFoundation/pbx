@@ -153,7 +153,7 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
         'username'           => '',
     );
 
-    $logMSG="";
+    $logMSG="issabelPBX ".$_POST['display']." ".$_POST['action']." ";
     if(isset($_POST['extension'])) {
         $logMSG .= "extension=".$_POST['extension']." ";
     }
@@ -162,6 +162,45 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
     }
     if(isset($_POST['trunk_name'])) {
         $logMSG .= "trunk=".$_POST['trunk_name']." ";
+    }
+    if(isset($_POST['account'])) {
+        $logMSG .= $_POST['account']." ";
+    }
+    if(isset($_POST['displayname'])) {
+        $logMSG .= "Display Name=".$_POST['displayname']." ";
+    }
+    if(isset($_POST['name'])) {
+        $logMSG .= "Name=".$_POST['name']." ";
+    }
+    if(isset($_POST['extdisplay']) && !isset($_POST['extension'])) {
+        $logMSG .= $_POST['extdisplay']." ";
+    }
+    if(isset($_POST['announcement_id'])) {
+        $logMSG .= "Announcement ID=".$_POST['announcement_id']." ";
+    }
+    if(isset($_POST['cid_id'])) {
+        $logMSG .= "Set CID ID=".$_POST['cid_id']." ";
+    }
+    if(isset($_POST['qlog_id'])) {
+        $logMSG .= "Queue Log ID=".$_POST['qlog_id']." ";
+    }
+    if(isset($_POST['description'])) {
+        $logMSG .= "Desc=".$_POST['description']." ";
+    }
+    if(isset($_POST['fc_description'])) {
+        $logMSG .= "Desc=".$_POST['fc_description']." ";
+    }
+    if(isset($_POST['destdial'])) {
+        $logMSG .= "Dial=".$_POST['destdial']." ";
+    }
+    if(isset($_POST['callbacknum'])) {
+        $logMSG .= "Dial=".$_POST['callbacknum']." ";
+    }
+    if(isset($_POST['tech'])) {
+        $logMSG .= "TECH=".$_POST['tech']." ";
+    }
+    if(isset($_POST['customcontext'])) {
+        $logMSG .= "COS=".$_POST['customcontext']." ";
     }
 
 
