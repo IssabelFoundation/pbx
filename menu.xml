@@ -94,11 +94,6 @@
             <group id="1" name="administrator" desc="total access"></group>
         </permissions>
     </menuitem>
-    <menuitem menuid="text_to_wav"            desc="Text to Wav"             parent="tools"     module="yes" link=""      order="83">
-        <permissions>
-            <group id="1" name="administrator" desc="total access"></group>
-        </permissions>
-    </menuitem>
     <menuitem menuid="festival"            desc="Festival"             parent="tools"     module="yes" link=""      order="84">
       <permissions>
         <group id="1" name="administrator" desc="total access"></group>
