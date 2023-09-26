@@ -153,7 +153,11 @@ if(is_file("../libs/misc.lib.php") && $user!='') {
         'username'           => '',
     );
 
-    $logMSG="issabelPBX ".$_POST['display']." ".$_POST['action']." ";
+    $action  = isset($_POST['action'])?$_POST['action'].' ':'';
+    $display = isset($_POST['display'])?$_POST['display'].' ':'';
+
+    $logMSG="issabelPBX ".$display.$action;
+
     if(isset($_POST['extension'])) {
         $logMSG .= "extension=".$_POST['extension']." ";
     }
