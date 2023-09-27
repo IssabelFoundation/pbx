@@ -207,7 +207,7 @@ else
 fi
 
 varwriter=1
-mv /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf /etc/asterisk/
+cp /usr/share/issabel/module_installer/%{name}-%{version}-%{release}/setup/extensions_override_issabel.conf /etc/asterisk/
 chown -R asterisk.asterisk /etc/asterisk
 
 if [ $varwriter -eq 1  ]; then
