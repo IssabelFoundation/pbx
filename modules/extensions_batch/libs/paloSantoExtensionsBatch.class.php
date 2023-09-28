@@ -19,7 +19,7 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoExtensionsBatch.class.php, Mon 05 Dec 2022 10:07:25 AM EST, nicolas@issabel.com
+  $Id: paloSantoExtensionsBatch.class.php, Thu 28 Sep 2023 07:15:14 PM EDT, nicolas@issabel.com
 */
 require_once '/var/lib/asterisk/agi-bin/phpagi-asmanager.php';
 
@@ -594,8 +594,8 @@ class paloSantoExtensionsBatch
         if ($extension['tech'] == 'pjsip') $tabla = 'sip';
         if ($extension['tech'] == 'iax2') $tabla = 'iax';
         $sqlleer = "SELECT COUNT(*) AS n FROM $tabla WHERE id = ? AND keyword = ?";
-        $sqlupdate = "UPDATE $tabla SET data = ? WHERE id = ? AND keyword = ?";
-        $sqlinsert = "INSERT INTO $tabla (data, id, keyword) VALUES (?, ?, ?)";
+        $sqlupdate = "UPDATE $tabla SET data = ? WHERE id = ? AND keyword = ? AND -1 <> ?";
+        $sqlinsert = "INSERT INTO $tabla (data, id, keyword, flags) VALUES (?, ?, ?, ?)";
 
         // Las propiedades a insertar o actualizar para la extensión
         $prop = array(
@@ -693,8 +693,10 @@ class paloSantoExtensionsBatch
             ));
         }
 
-        // Insertar o modificar todas las propiedades
-        foreach ($prop as $k => $v) {
+    // Insertar o modificar todas las propiedades
+    $i=0;
+    foreach ($prop as $k => $v) {
+        $i++;
             $tupla = $this->_DB->getFirstRowQuery($sqlleer, TRUE, array($extension['extension'], $k));
             if (!is_array($tupla)) {
                 $this->errMsg = $this->_DB->errMsg;
@@ -702,7 +704,7 @@ class paloSantoExtensionsBatch
             }
             $r = $this->_DB->genQuery(
                 (($tupla['n'] > 0) ? $sqlupdate : $sqlinsert),
-                array($v, $extension['extension'], $k));
+                array($v, $extension['extension'], $k, $i));
             if (!$r) {
                 $this->errMsg = "Ext: {$extension['extension']} - "._tr('Error updating Tech').': '.$this->_DB->errMsg;
                 return FALSE;
