@@ -95,7 +95,12 @@ class paloSantoExtensionsBatch
             'icesupport'            => 'ICE Support',
             'dtlsverify'            => 'DTLS Verify',
             'dtlsenable'            => 'Enable DTLS',
-            'dtlssetup'             => 'DTLS Setup',
+	    'dtlssetup'             => 'DTLS Setup',
+	    'stir_shaken'           => 'STIR Shaken',
+	    'force_rport'           => 'Force RPort',
+	    'rtp_symmetric'         => 'RTP Symmetric',
+
+
 
         );
     }
@@ -637,10 +642,11 @@ class paloSantoExtensionsBatch
                 'dial'                         =>  'PJSIP/'.$extension['extension'],
                 'pickupgroup'                  =>  isset($extension['pickupgroup']) ? $extension['pickupgroup'] : '',
                 'callgroup'                    =>  isset($extension['callgroup']) ? $extension['callgroup'] : '',
-                'rtp_symmetric'                =>  'yes',
-                'force_rport'                  =>  'yes',
-                'rewrite_contact'              =>  'yes',
-                'dtmfmode'                     =>  'rfc2833',
+                'rtp_symmetric'                =>  isset($extension['rtp_symmetric']) ? $extension['rtp_symmetric'] : 'yes',
+                'force_rport'                  =>  isset($extension['force_rport']) ? $extension['force_rport'] : 'yes',
+                'rewrite_contact'              =>  isset($extension['rewrite_contact']) ? $extension['rewrite_contact'] : 'yes',
+                'stir_shaken'                  =>  isset($extension['stir_shaken']) ? $extension['stir_shaken'] : 'off',
+                'dtmfmode'                     =>  isset($extension['dtmfmode']) ? $extension['dtmfmode'] : 'rfc2833',
                 'qualifyfreq'                  =>  '60',
                 'transport'                    =>  isset($extension['transport']) ? $extension['transport']:'',
                 'dtls_cert_file'               =>  isset($extension['dtlscertfile']) ? $extension['dtlscertfile']:'',
