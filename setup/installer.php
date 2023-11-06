@@ -323,7 +323,7 @@ function insertAccount($data, &$pDB, &$pDBIssabelPBX)
     return true;
 }
 
-function insertTrunlBill($trunkName, &$pDB)
+function insertTrunkBill($trunkName, &$pDB)
 {
     $data = array($trunkName);
     $query = "INSERT INTO trunk_bill(trunk) VALUES(?);";
