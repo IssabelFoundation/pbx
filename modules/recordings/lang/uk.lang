@@ -1,0 +1,52 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-29 23:16:36 LLC LENET support@lenet.ua Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+	"Recordings" => "Запис Привітань",
+	"Record Name" => "Назва Запису",
+	"Record" => "Запис",
+	"Insert the Recording Name" => "Введіть Назву Запису",
+	"The recording couldn't be realized" => "Не вдалося реалізувати запис",
+	"The recording was saved" => "Запис збережено",
+	"To continue: record a message then click on save" => "Щоб продовжити: запишіть повідомлення і натисніть на кнопку Зберегти",
+	"Recording File" => "Файл Запису",
+	"Destiny directory couldn't be created" => "Не вдалося створити каталог призначення",
+	"File Upload" => "Завантажити Файл",
+	"ERROR" => "ПОМИЛКА",
+	"You don't have extension number associated with user" => "There is no extension number associated with the current user. You can associate an extension number to your user by clicking <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">here</a>",
+	"The call couldn't be realized" => "The call couldn't be realized",
+	"Error copying the file" => "Помилка копіювання файлу",
+	"Message" => "Повідомлення",
+	"Possible file upload attack" => "Можлива атака на завантаження файлів",
+	"contact_admin" => "З поточним користувачем не пов'язаний внутрішній номер. Будь ласка, зверніться до адміністратора, щоб призначити йому внутрішній номер",
+	"You can start your recording after you hear a beep in your phone. Once you have finished recording you must press the # key and then hangup" => "Ви можете почати запис після того, як почуєте звуковий сигнал у вашому телефоні. Після завершення запису необхідно натиснути клавішу # і покласти слухавку",
+	"You do not need to add an extension to the record name" => "Вам не потрібно додавати внутрішній номер до імені запису",
+	"The recording couldn" => "Не вдалося реалізувати запис",
+	"Destiny directory couldn" => "Destiny directory couldn't be created",
+	"You don" => "Немає внутрішнього номера, пов’язаного з поточним користувачем. Ви можете пов’язати внутрішній номер зі своїм користувачем, натиснувши <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">ТУТ</a>",
+);
+?>

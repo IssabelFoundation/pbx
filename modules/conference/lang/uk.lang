@@ -1,0 +1,91 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-27 22:36:48 LLC LENET support@lenet.ua Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+	"Conference" => "Конференція",
+	"State" => "Статус",
+	"Past Conferences" => "Минулі Конференції",
+	"Current Conferences" => "Поточні Конференції",
+	"Future Conferences" => "Очікуючі Конференції",
+	"Conference #" => "Конференція #",
+	"Conference Name" => "Назва Конференції",
+	"Starts" => "Розпочати Конференцію",
+	"Ends" => "Закінчити Конференцію",
+	"Participants" => "Учасники",
+	"All" => "Все",
+	"New Conference" => "Нова Конференція",
+	"Conference Owner" => "Власник Конференції",
+	"Conference Number" => "Номер Конференції",
+	"Moderator PIN" => "PIN Модератора",
+	"Moderator Options" => "Параметри Модератора",
+	"Announce" => "Анонсувати",
+	"Record" => "Запис",
+	"User PIN" => "PIN Користувача",
+	"Listen Only" => "Тільки Слухай",
+	"Wait for Leader" => "Чекати Ведучого",
+	"User Options" => "Параметри Користувача",
+	"Start Time" => "Час Початку",
+	"Duration (HH:MM)" => "Тривалість (ГГ:ХХ)",
+	"Recurs" => "Рекурс",
+	"Max Participants" => "Максимум Учасників",
+	"Reoccurs" => "Reoccurs",
+	"for" => "для",
+	"days" => "днів",
+	"Daily" => "Щодня",
+	"Weekly" => "Щотижня",
+	"Bi-weekly" => "Раз на два тижні",
+	"Moderator and user PINs must not be equal" => "PIN-коди Модератора та Користувача не повинні бути однаковими",
+	"Are you sure you wish to delete conference (es)?" => "Ви впевнені, що бажаєте видалити конференцію (конференції)?",
+	"Id" => "Id",
+	"CallerId" => "CallerId",
+	"Mode" => "Режим",
+	"Mute" => "Вимкнути звук",
+	"Kick" => "Вимкнути",
+	"Are you sure you wish to Mute caller (s)?" => "Ви впевнені, що хочете вимкнути звук учасник(у/ам)?",
+	"Are you sure you wish to Kick caller (s)?" => "Ви впевнені що бажаєте відключити учасник(ів)?",
+	"Muted" => "Без Звуку",
+	"UnMuted" => "Звук Увімкнено",
+	"Error when connecting to Asterisk Manager" => "Помилка підключення до Asterisk Manager",
+	"The conference installation is almost done. To complete it please" => "Встановлення конференції майже виконане. Будь ласка, завершіть її.",
+	"Kick All" => "Вимкнути Усіх",
+	"Invite Caller" => "Запросити Учасника",
+	"The device wasn't write" => "Пристрій не було записано",
+	"The device must be numeric" => "Пристрій має бути числовим значенням",
+	"The device couldn't be added to the conference" => "Устройство не может быть добавлено в конференцию",
+	"Filter" => "Фільтр",
+	"Show" => "Показати",
+	"click here" => "натисніть тут",
+	"Duration" => "Тривалість",
+	"Status" => "Статус",
+	"Update" => "Оновити",
+	"No Extensions" => "Немає Внутрішніх Номерів",
+	"Unselected" => "Не Вибраний",
+	"Period" => "Період",
+	"The device couldn" => "Не вдалося додати пристрій до конференції",
+	"The device wasn" => "Пристрій не було записано",
+);
+?>

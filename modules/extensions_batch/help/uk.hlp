@@ -1,0 +1,100 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>Опція "Група Внутрішніх Номерів" з меню "АТС" в Issabel дозволяє створювати розширення з файлу CSV. Також ви можете завантажити CSV-файл з усіма розширеннями, які наразі налаштовані в Issabel Server. Це полегшує міграцію даних.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_extensions_batch.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+
+<p>Щоб завантажити файл CSV з усіма внутрішніми номерами, створеними в Issabel, натисніть на посилання "Завантажити" і збережіть файл на своєму жорсткому диску.</p>
+
+<p>Щоб завантажити CSV-файл з внутрішніми номерами, які ви хочете створити, натисніть кнопку "Виберіть файл", виберіть CSV-файл і натисніть кнопку "Завантажити CSV-файл"</p>
+
+<p><b>Переконайтеся, що враховані наступні ознаки:</b></p>
+<p>
+    <ul>
+        <li>Дублювання внутрішніх номерів не допускається.</li>
+        <li>Перший рядок CSV-файлу повинен містити заголовки стовпців.</li>
+        <li>Файл повинен мати щонайменше чотири колонки.</li>
+        <li>Цей тип файлів можна створити і відкрити за допомогою будь-якого текстового редактора або електронних таблиць, таких як Open Office Calc, Excel тощо.</li>
+        <li>Розділювачем стовпців є кома.</li>
+    </ul>
+</p>
+<br />
+<p>Чотири обов'язкові параметри є наступними:</p>
+
+<table class="inline">
+  <tr>
+    <th>Заголовок</th><th>Тип даних</th>
+  </tr>
+  <tr>
+    <td>Display Name</td><td>Text</td>
+  </tr>
+  <tr>
+    <td>User Extension</td><td>Number</td>
+  </tr>
+  <tr>
+    <td>Secret</td><td>Text</td>
+  </tr>
+  <tr>
+    <td>Tech</td><td>Text</td>
+  </tr>
+</table>
+
+<p>Ці параметри також підтримуються у файлі CSV:</p>
+<table class="inline">
+  <th colspan="2">Параметри</th>  
+  <tr>
+    <td>Direct DID</td><td>Call Waiting</td>
+  </tr>
+  <tr>
+    <td>Voicemail Status</td><td>Voicemail Password</td>
+  </tr>
+  <tr>
+    <td>VM Options</td><td>Outbound CID</td>
+  </tr>
+  <tr>
+    <td>VM Email Address</td><td>VM Pager Email Address</td>
+  </tr>
+  <tr>
+    <td>VM Email Attachment</td><td>VM Play CID</td>
+  </tr>
+  <tr>
+    <td>VM Play Envelope</td><td>VM Delete Vmail</td>
+  </tr>
+  <tr>
+    <td>Context</td><td>Callgroup</td>
+  </tr>
+  <tr>
+    <td>Pickupgroup</td><td>Disallow</td>
+  </tr>
+  <tr>
+    <td>Allow</td><td>Deny</td>
+  </tr>
+  <tr>
+    <td>Permit</td><td>Record Incoming</td>
+  </tr>
+  <tr>
+    <td>Record Outgoing</td><td></td>
+  </tr>
+</table>
+<br />
+
+<p>Нижче наведено приклад файлу CSV, відкритого за допомогою простого текстового редактора.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_csv.png" border="0" />
+<p>Зображення 2</p></div>
+<br />
+
+<p>Той самий файл, відкритий за допомогою електронної таблиці:</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_calc.png" border="0" />
+<p>Зображення 3</p></div>
+<br />
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p>Пункт "Фестиваль" меню "АТС->Інструменти" дозволяє вмикати та вимикати сервіс Фестиваль для роботи з Asterisk. Фестиваль це механізм перетворення тексту в мовлення, який може конвертувати текст в аудіо.</p>
+        <div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_festival.png" border="0" />
+        <p>Зображення 1</p></div>
+        <br />
+        <p>Якщо файл /usr/share/festival/festival.scm не налаштований належним чином, при ввімкненні сервісу це буде зроблено автоматично.</p>
+    </body>
+</html>

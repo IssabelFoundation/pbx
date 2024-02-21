@@ -1,0 +1,30 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>Пункт "Запис Привітань" меню "АТС->Інструменти" в Issabel дозволяє створювати аудіофайли із запису нашого голосу. Також ви можете завантажити аудіофайли з вашого жорсткого диска. Ця опція доступна тільки в тому випадку, якщо підключеному користувачеві присвоєно внутрішній номер.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_recordings_record_1.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+<p>Щоб записати аудіофайл, вам потрібно ввести назву запису і натиснути кнопку "Запис". Коли задзвонить ваш внутрішній номер, візьміть слухавку і після сигналу почніть запис голосу. Коли закінчите, натисніть "#" і покладіть слухавку. Натисніть на кнопку "Зберегти", щоб зберегти запис.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_recordings_record_2.png" border="0" />
+<p>Зображення 2</p></div>
+<br />
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_recordings_record_3.png" border="0" />
+<p>Зображення 3</p></div>
+<br />
+<p>Також ви можете завантажити існуючий аудіофайл.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_recordings_upload.png" border="0" />
+<p>Зображення 4</p></div>
+<br />
+<p>Ця опція використовувалася з модулем Календар у старій версії Issabel. Всі записи та завантажені файли зберігаються за адресою <b>/var/lib/asterisk/sounds/custom/XXX</b> , де XXX - внутрішній номер підключеного користувача.</p>
+
+</body>
+</html>
+
+

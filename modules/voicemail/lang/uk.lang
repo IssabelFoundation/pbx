@@ -1,0 +1,61 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-30 03:30:14 LLC LENET support@lenet.ua Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+	"Pager Email Address" => "Адреса Електронної Пошти Пейджера",
+	"Confirm Password" => "Підтвердити Пароль",
+	"Email Attachment" => "Вкладення Електронної Пошти",
+	"Play CID" => "Відтворити CID",
+	"Play Envelope" => "Відтворити Конверт",
+	"Delete Vmail" => "Видалити Голосову Пошту",
+	"Required Field" => "Обов'язкове поле",
+	"Filter" => "Фільтр",
+	"Configuration" => "Конфігурація",
+	"Start Date" => "Початок Дата",
+	"End Date" => "Кінцева Дата",
+	"Voicemail List" => "Список Голосової Пошти",
+	"Are you sure you wish to delete voicemails?" => "Ви впевнені що хочете видалити голосові повідомлення?",
+	"Date" => "Дата",
+	"Time" => "Час",
+	"Message" => "Повідомлення",
+	"CallerID" => "CallerID",
+	"Extension" => "Внутрішній Номер",
+	"Duration" => "Тривалість",
+	"Email" => "Email",
+	"Status" => "Стан",
+	"Enable" => "Увімкнути",
+	"Disable" => "Вимкнути",
+	"Yes" => "Так",
+	"No" => "Ні",
+	"no_file" => "Файл не знайдено!",
+	"no_extension" => "Цей файл не дозволено завантажувати",
+	"Download" => "Скачати",
+	"Listen" => "Слухати",
+	"no_extension_assigned" => "Немає внутрішнього номера, пов’язаного з поточним користувачем. Ви можете пов’язати внутрішній номер зі своїм користувачем, натиснувши <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">тут</a>",
+	"contact_admin" => "З поточним користувачем не пов'язаний внутрішній номер. Будь ласка, зверніться до адміністратора, щоб призначити йому внутрішній номер",
+);
+?>

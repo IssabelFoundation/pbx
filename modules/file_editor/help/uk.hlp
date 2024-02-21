@@ -1,0 +1,24 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>Пункт "Редактор файлів Asterisk" в меню "АТС" дозволяє вам змінювати конфігураційні файли Asterisk без необхідності входу в консоль. Змінювати можна файли, розташовані в каталозі /etc/asterisk/.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_file_editor.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+<h2>Редагування файлів</h2>
+<p>Щоб знайти потрібний файл, введіть його ім'я у вікні фільтрації. Коли ви знайдете файл, натисніть на його назву і внесіть необхідні зміни. Щоб застосувати зміни, натисніть кнопку "Зберегти", а потім "Перезавантажити Asterisk", якщо це необхідно.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_file_editor_sip.png" border="0" />
+<p>Зображення 2</p></div>
+<br />
+<h2>Створити файл</h2>
+<p>Ви також можете створювати нові файли у цьому каталозі, натиснувши кнопку "Новий Файл". Нові файли буде створено з розширенням ".conf" всередині каталогу /etc/asterisk.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_file_editor_new.png" border="0" />
+<p>Зображення 3</p></div>
+</body>
+</html>

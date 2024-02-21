@@ -1,0 +1,18 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>Опція "Командний рядок Астеріск" в меню "АТС" в Issabel дозволяє нам виконувати команди Asterisk.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/uk_hlp_asterisk_cli.png" border="0" />
+<p>Зображення 1</p></div>
+<br />
+
+<p>Щоб виконати команду, введіть її в поле "Команда" і натисніть кнопку "Виконати".</p>
+
+</body>
+</html>

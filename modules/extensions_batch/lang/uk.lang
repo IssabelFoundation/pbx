@@ -1,0 +1,79 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+   Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel Version 4.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2017 Issabel Foundation                                |
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on "AS IS"     |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translated by: LLC LeNET                                             |
+  | Email: support@lenet.com.ua                                          |
+  +----------------------------------------------------------------------+
+  $Id: uk.lang,v 1.7 2023-10-29 15:37:24 LLC LENET support@lenet.ua Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+	"Extensions Batch" => "Група Внутрішніх Номерів",
+	"Batch of Extensions" => "Група Внутрішніх Номерів",
+	"Are you really sure you want to delete all the extensions in this server?" => "Ви дійсно впевнені що ви хочете видалити всі внутрішні номери на цьому сервері?",
+	"Invalid file extension.- It must be csv" => "Недійсне розширення файлу.- Має бути csv",
+	"Possible file upload attack. Filename" => "Можлива атака із завантаженням файлів. Ім'я файлу",
+	"Error" => "Помилка",
+	"Secret weak. Line" => "Слабкий пароль. Рядок",
+	"Error updating Tech" => "Помилка оновлення Tech",
+	"Error updating Users" => "Помилка оновлення Users",
+	"Error updating Devices" => "Помилка оновлення Devices",
+	"Error updating Voicemail" => "Помилка оновлення Voicemail",
+	"Error processing CallWaiting" => "Помилка обробки CallWaiting",
+	"Total extension updated" => "Усі внутрішні номери оновлено",
+	"Error, extension" => "Помилка, внутрішній номер",
+	"repeat in lines" => "повторюється у рядку",
+	"with" => "з",
+	"The file is incorrect or empty" => "Неправильний або порожній файл",
+	"Incomplete Columns" => "Неповні Стовпці",
+	"Verify the header" => "Перевірте заголовок",
+	"At minimum there must be the columns" => "Як мінімум мають бути стовпці",
+	"Can't exist a extension empty. Line" => "Внутрішні номери не можуть бути порожніми. Рядок",
+	"Can't exist a display name empty. Line" => "Ім'я для відображення не може бути порожнім. Рядок",
+	"Please read the lines in the footer" => "Будь ласка, прочитайте рядки в нижньому колонтитулі",
+	"Header File Extensions Batch" => "Перша лінія повинна містити ім'я (або назву) стовпців, і файл повинен мати як мінімум чотири стовпці: Display Name, User Extension, Secret, Tech. Для більш детальної інформації про всі параметри, будь ласка, читайте у вбудованій довідковій документації.",
+	"About Update Extensions Batch" => "Якщо ви завантажуєте файл із раніше створеними внутрішніми номерами, ці внутрішні номери будуть оновлені.",
+	"There aren't extensions" => "Немає внутрішніх номерів",
+	"Download Extensions" => "Завантажити поточні внутрішні номери у форматі CSV",
+	"Error processing Database Family" => "Помилка обробки Сімейства Бази даних",
+	"Delete All Extensions" => "Видалити Всі Внутрішні Номери",
+	"All extensions deletes" => "Усі внутрішні номери видалені",
+	"Error to delete extensions" => "Помилка видалення внутрішніх номерів",
+	"Unable to reload the changes" => "Неможливо перезавантажити зміни",
+	"Could not delete the database" => "Не вдалося видалити базу даних",
+	"Could not delete the ASTERISK database" => "Не вдалося видалити базу даних ASTERISK",
+	"Unable delete AMPUSER in database astDB" => "Неможливо видалити AMPUSER у базі даних astDB",
+	"Unable delete DEVICE in database astDB" => "Неможливо видалити DEVICE у базі даних astDB",
+	"Unable delete CW in database astDB" => "Неможливо видалити CW в базі даних astDB",
+	"Unable delete CF in database astDB" => "Неможливо видалити CF у базі даних astDB",
+	"Unable delete CFB in database astDB" => "Не вдається видалити CFB у базі даних astDB",
+	"Unable delete CFU in database astDB" => "Неможливо видалити CFU в базі даних astDB",
+	"File" => "Файл для Завантаження (*.csv)",
+	"Message" => "Повідомлення",
+	"Save" => "Завантажити CSV Файл",
+	"Error to insert or update Direct DID" => "Помилка додавання або оновлення Direct DID",
+	"Can't exist a technology empty. Line" => "Поле 'Tech' не може бути порожнім. Рядок",
+	"has a wrong tech in line" => "має неправильне значення tech у рядку",
+	"Tech must be sip or iax" => "Поле 'Tech' має бути sip або iax",
+	"The secret must be minimum" => "Пароль має бути не менше 6 символів і містити цифри та літери, включаючи верхній та нижній регістр.",
+	"Can" => "Поле 'Tech' не може бути порожнім. Рядок",
+);
+?>
