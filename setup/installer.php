@@ -23,18 +23,20 @@
 
 require_once "/var/www/html/libs/paloSantoDB.class.php";
 require_once "/var/www/html/libs/misc.lib.php";
-require_once "/var/lib/asterisk/agi-bin/phpagi-asmanager.php";
+//require_once "/var/lib/asterisk/agi-bin/phpagi-asmanager.php";
 
 $DocumentRoot = (isset($_SERVER['argv'][1]))?$_SERVER['argv'][1]:"/var/www/html";
 $DataBaseRoot = "/var/www/db";
 $tmpDir = '/tmp/new_module/pbx';  # in this folder the load module extract the package content
 
+/*
 if (!file_exists("$DataBaseRoot/control_panel_design.db")) {
     $cmd_mv    = "mv $tmpDir/setup/control_panel_design.db $DataBaseRoot/";
     $cmd_chown = "chown asterisk.asterisk $DataBaseRoot/control_panel_design.db";
     exec($cmd_mv);
     exec($cmd_chown);
 }
+*/
 
 createTrunkDB($DataBaseRoot);
 if (!file_exists("$DataBaseRoot/trunk.db")) {
@@ -528,15 +530,19 @@ function do_reloadAll($data_connection, $arrAST, $arrAMP, &$pDB)
     $retrieve = $arrAMP['AMPBIN']['valor'].'/retrieve_conf';
     exec($retrieve);
 
+    /*
     //reload MOH to get around 'reload' not actually doing that, reload asterisk
     $command_data = array("moh reload", "reload");
     $arrResult = AsteriskManager_Command($data_connection['host'], $data_connection['user'], $data_connection['password'], $command_data);
+    */
 
+    /*
     if (isset($arrAMP['FOPRUN']['valor'])) {
 	//bounce op_server.pl
 	$wOpBounce = $arrAMP['AMPBIN']['valor'].'/bounce_op.sh';
 	exec($wOpBounce.' &>'.$arrAST['astlogdir']['valor'].'/issabelpbx-bounce_op.log');
     }
+    */
 
     //store asterisk reloaded status
     $sql = "UPDATE admin SET value = 'false' WHERE variable = 'need_reload'";
@@ -554,6 +560,7 @@ function do_reloadAll($data_connection, $arrAST, $arrAMP, &$pDB)
     else return true;
 }
 
+/*
 function AsteriskManager_Command($host, $user, $password, $command_data) 
 {
     $salida = array();
@@ -574,4 +581,5 @@ function AsteriskManager_Command($host, $user, $password, $command_data)
     }
     return false;
 }
+*/
 ?>
