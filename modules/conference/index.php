@@ -19,7 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: index.php,v 1.1 2008/01/30 15:55:57 afigueroa Exp $ */
+  $Id: index.php, Mon 10 Feb 2025 07:04:05 PM EST, nicolas@issabel.com
+*/
 
 function _moduleContent(&$smarty, $module_name)
 {
@@ -494,7 +495,7 @@ function add_conference($smarty, $module_name, $local_templates_dir, $pDB, $arrC
 
     $pConference = new paloSantoConference($pDB);
     $id_cbmysql_conference = $pConference->CreateConference($_POST['conference_name'],
-        $_POST['conference_number'], $_POST['start_time'],
+        htmlspecialchars($_POST['conference_number']), $_POST['start_time'],
         ($_POST['duration'] * 3600) + ($_POST['duration_min'] * 60),
         $_POST['max_participants'],
         array(
