@@ -52,11 +52,17 @@ function _moduleContent(&$smarty, $module_name)
     $pDBACL = new paloDB($arrConf['issabel_dsn']['acl']);
     $pACL = new paloACL($pDBACL);
     $user = isset($_SESSION['issabel_user'])?$_SESSION['issabel_user']:"";
-    $extension = $pACL->getUserExtension($user);
-    if ($extension == '') $extension = NULL;
+    $ownext = $pACL->getUserExtension($user);
+    if ($ownext == '') $ownext = NULL;
 
-    // Sólo el administrador puede consultar con $extension == NULL
-    if (is_null($extension)) {
+    // Lista de extensiones que el usuario puede monitorear. Si tiene definida
+    // la columna acl_user.monitorexten se usa esa lista; si no, su propia
+    // extensión (comportamiento clásico). $extension es SIEMPRE un arreglo.
+    $extension = $pACL->getUserMonitorExtensions($user);
+    if (count($extension) == 0 && !is_null($ownext)) $extension = array($ownext);
+
+    // Sólo reportany (administrador) puede consultar sin ninguna extensión asociada
+    if (count($extension) == 0) {
         if (hasModulePrivilege($user, $module_name, 'reportany'))
             $smarty->assign("mb_message", "<b>"._tr("no_extension")."</b>");
         else{
