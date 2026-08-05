@@ -20,13 +20,16 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: paloSantoMonitoring.class.php, Fri 23 May 2025 06:41:52 PM EDT, nicolas@issabel.com
+  $Id: paloSantoMonitoring.class.php, Thu 20 May 2021 03:34:57 PM EDT, nicolas@issabel.com
 */
+
+define ('DEFAULT_ASTERISK_RECORDING_BASEDIR', '/var/spool/asterisk/monitor');
 
 class paloSantoMonitoring
 {
     var $_DB;
     var $errMsg;
+    private $_recordingBasedirs = array();
 
     private static $_listaExtensiones = array(
         'wav'   =>  'audio/wav',
@@ -35,8 +38,23 @@ class paloSantoMonitoring
         'WAV'   =>  'audio/wav',    // audio gsm en envoltura RIFF
     );
 
-    function __construct(&$pDB)
+    function __construct(&$pDB, $recordsDir = NULL)
     {
+        $primaryBasedir = rtrim(DEFAULT_ASTERISK_RECORDING_BASEDIR, '/').'/';
+        $this->_recordingBasedirs = array($primaryBasedir);
+
+        // records_dir is optional and is used only when it identifies a
+        // different absolute directory from Asterisk's standard location.
+        if (is_string($recordsDir)) {
+            $configuredBasedir = rtrim(trim($recordsDir), '/');
+            if ($configuredBasedir !== '' && $configuredBasedir[0] === '/') {
+                $configuredBasedir .= '/';
+                if ($configuredBasedir !== $primaryBasedir) {
+                    $this->_recordingBasedirs[] = $configuredBasedir;
+                }
+            }
+        }
+
         // Se recibe como parámetro una referencia a una conexión paloDB
         if (is_object($pDB)) {
             $this->_DB =& $pDB;
@@ -56,8 +74,6 @@ class paloSantoMonitoring
 
     private function _construirWhereMonitoring($param)
     {
-        global $arrConfModule;
-        $basedir = $arrConfModule['records_dir'];
         $condSQL = array();
         $paramSQL = array();
 
@@ -147,7 +163,7 @@ SQL_COND_EXTENSION;
                 $fieldSQL[] = 'recordingfile LIKE ?';
                 $paramSQL[] = $p.'%';
                 $fieldSQL[] = 'recordingfile LIKE ?';
-                $paramSQL[] = $basedir.'%/'.$p.'%';
+                $paramSQL[] = DEFAULT_ASTERISK_RECORDING_BASEDIR.'%/'.$p.'%';
             }
 
             $condSQL[] = '('.implode(' OR ', $fieldSQL).')';
@@ -246,28 +262,58 @@ SQL_COND_EXTENSION;
                     $result['mimetype'] = self::$_listaExtensiones[$regs[1]];
                 }
             }
-        }
+	    }
         return $result;
     }
 
-    private function _rutaAbsolutaGrabacion($file)
-    {
-        global $arrConfModule;
-        $basedir = $arrConfModule['records_dir'];
+private function _rutaAbsolutaGrabacion($file)
+{
+    $filesToTry = array($file);
 
+        // Some CDRs preserve the leading "+" in a telephone number while the
+        // recording written to disk omits it. Retry with plus signs removed from
+        // the filename only, without altering any directory component.
+        $lastSlash = strrpos($file, '/');
+        $filenameOffset = ($lastSlash === FALSE) ? 0 : $lastSlash + 1;
+        $fileWithoutPlus = substr($file, 0, $filenameOffset).
+            str_replace('+', '', substr($file, $filenameOffset));
+        if ($fileWithoutPlus !== $file) $filesToTry[] = $fileWithoutPlus;
+
+    // Prefer Asterisk's standard directory, then the configured records_dir.
+    foreach ($this->_recordingBasedirs as $recordingBasedir) {
+            foreach ($filesToTry as $fileToTry) {
+                $ruta = $this->_buscarRutaGrabacion($fileToTry, $recordingBasedir);
+                if ($ruta !== NULL) return $ruta;
+            }
+        }
+
+        // ...me doy
+        return NULL;
+    }
+
+    /**
+     * Busca la ruta absoluta de un archivo de grabación en un directorio base dado.
+     *
+     * @param string $file Nombre o ruta del archivo
+     * @param string $basedir Directorio base donde buscar (debe terminar en /)
+     * @return string|null Ruta absoluta del archivo si se encuentra, NULL en caso contrario
+     */
+    private function _buscarRutaGrabacion($file, $basedir)
+    {
         /* Si la ruta almacenada en recordingfile es absoluta, sólo se acepta
-         * si luego de canonicalizar inicia en /var/spool/asterisk/monitor */
+         * si luego de canonicalizar inicia en el basedir indicado */
+        $archivoBuscar = $file;
         if ($file[0] == '/') {
             $dir = realpath(dirname($file)); // FALSE si el directorio no existe
             if ($dir === FALSE || strpos($dir.'/', $basedir) !== 0)
                 return NULL;
-            $file = substr($dir.'/'.basename($file), strlen($basedir));
+            $archivoBuscar = substr($dir.'/'.basename($file), strlen($basedir));
         }
 
-        if (file_exists($basedir.$file)) return $basedir.$file;
+        if (file_exists($basedir.$archivoBuscar)) return $basedir.$archivoBuscar;
 
         /* ¿Por qué no existe la ruta indicada? */
-
+    
         /* Algunas rutas a través del dialplan almacenan el archivo en
          * el directorio clasificado por año/mes/día, pero no almacenan
          * esta ruta en recordingfile. Se analiza el nombre de archivo
@@ -276,12 +322,13 @@ SQL_COND_EXTENSION;
          * análisis sólo se hace si el recordingfile no tiene componentes
          * de directorio. */
         $datedir = '';
-        if (strpos($file, '/') === FALSE) {
+
+        if (strpos($archivoBuscar, '/') === FALSE) {
             /* FreePBX acostumbra construir el nombre de archivo con
              * componentes separados por guiones. Si uno de los
              * componentes representa una fecha, se compondrá de
              * exactamente 8 dígitos y empezará con 2. */
-            foreach (explode('-', $file) as $test_token) {
+            foreach (explode('-', $archivoBuscar) as $test_token) {
                 if (strlen($test_token) == 8 && ctype_digit($test_token) &&
                     $test_token[0] == '2') {
                     // /var/spool/asterisk/monitor/2010/12/31/
@@ -295,7 +342,7 @@ SQL_COND_EXTENSION;
                 }
             }
 
-            if (file_exists($basedir.$datedir.$file)) return $basedir.$datedir.$file;
+            if (file_exists($basedir.$datedir.$archivoBuscar)) return $basedir.$datedir.$archivoBuscar;
         }
 
         /* Algunas rutas a través del dialplan guardan un nombre de archivo SIN
@@ -303,21 +350,20 @@ SQL_COND_EXTENSION;
          * conjunto de archivos. ESTO TOMA TIEMPO. */
         $bFaltaExtension = TRUE;
         $regs = NULL;
-        if (preg_match('/\.(\S{3})$/', $file, $regs)) {
+        if (preg_match('/\.(\S{3})$/', $archivoBuscar, $regs)) {
             /* Si la extensión es conocida, ni me molesto en hacer el glob. */
             $bFaltaExtension = !(in_array($regs[1], array_keys(self::$_listaExtensiones)));
         }
         if ($bFaltaExtension) {
             // $datedir puede ser "" si no se resolvió una fecha
             if ($datedir != '') {
-                $r = glob($basedir.$datedir.$file.'*');
+                $r = glob($basedir.$datedir.$archivoBuscar.'*');
                 if (count($r) > 0) return $r[0];
             }
-            $r = glob($basedir.$file.'*');
+            $r = glob($basedir.$archivoBuscar.'*');
             if (count($r) > 0) return $r[0];
         }
 
-        // ...me doy
         return NULL;
     }
 

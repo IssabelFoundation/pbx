@@ -19,7 +19,8 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: default.conf.php,v 1.1 2010-03-22 05:03:48 Eduardo Cueva ecueva@palosanto.com Exp $ */
+  $Id: default.conf.php, Wed 05 Aug 2026 02:16:36 PM EDT, nicolas@issabel.com
+  */
     global $arrConf;
     global $arrConfModule;
 

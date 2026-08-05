@@ -72,6 +72,9 @@ function _moduleContent(&$smarty, $module_name)
     case 'display_record':
         $h = 'display_record';
         break;
+    case 'check_recordings':
+        $h = 'checkRecordings';
+        break;
     default:
         $h = 'reportMonitoring';
         break;
@@ -91,7 +94,8 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     $bPuedeVerTodos = hasModulePrivilege($user, $module_name, 'reportany');
     $bPuedeBorrar = hasModulePrivilege($user, $module_name, 'deleteany');
 
-    $pMonitoring = new paloSantoMonitoring($pDB);
+    $pMonitoring = new paloSantoMonitoring($pDB,
+        isset($arrConf['records_dir']) ? $arrConf['records_dir'] : NULL);
 
     $filter_field = getParameter("filter_field");
 
@@ -143,8 +147,6 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     if ($limit == 0) {
         $limit = 100000;
     }
-
-    $path_record = $arrConf['records_dir'];
 
     $_POST['date_start'] = isset($date_ini)?$date_ini:date("d M Y");
     $_POST['date_end']   = isset($date_end)?$date_end:date("d M Y");
@@ -206,26 +208,28 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
 
             if ($arrTmp[7] != 'deleted') {
                 $esc_recfile = htmlentities($value['recordingfile'], ENT_COMPAT, 'UTF-8');
-                $recinfo = $pMonitoring->resolveRecordingPath($value['recordingfile']);
-                if (is_null($recinfo['fullpath'])) {
-                    $recordingLink = '<span title="'.$esc_recfile.'" style="color: red"><b>'.
-                        htmlentities(_tr('Recording missing', ENT_COMPAT, 'UTF-8')).'</b></span>';
-                } else {
-                    $urlparams = array(
-                        'menu'      =>  $module_name,
-                        'action'    =>  'display_record',
-                        'id'        =>  $value['uniqueid'],
-                        'namefile'  =>  $arrTmp[7],
-                        'rawmode'   =>  'yes',
-                    );
-                    //$recordingLink = "<a title=\"$esc_recfile\" href=\"javascript:popUp('index.php?".urlencode(http_build_query($urlparams)."',350,100);")."\">"._tr("Listen")."</a>&nbsp;";
-                    $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
-                    $recURL=$protocol.'://'.$_SERVER["HTTP_HOST"].'/'.'index.php?'.urlencode(http_build_query($urlparams));
-                    $recordingLink = "<a title=\"$esc_recfile\" href=\"javascript:playaudio('".$recURL."')\">"._tr("Listen")."</a>&nbsp;";
+                $esc_uniqueid = htmlentities($value['uniqueid'], ENT_COMPAT, 'UTF-8');
+                $urlparams = array(
+                    'menu'      =>  $module_name,
+                    'action'    =>  'display_record',
+                    'id'        =>  $value['uniqueid'],
+                    'namefile'  =>  $arrTmp[7],
+                    'rawmode'   =>  'yes',
+                );
+                $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+                $recURL=$protocol.'://'.$_SERVER["HTTP_HOST"].'/'.'index.php?'.urlencode(http_build_query($urlparams));
+                $actions = "<a title=\"$esc_recfile\" href=\"javascript:playaudio('".$recURL."')\">"._tr("Listen")."</a>&nbsp;";
+                $urlparams['action'] = 'download';
+                $actions .= "<a title=\"$esc_recfile\" href='?".http_build_query($urlparams)."' >"._tr("Download")."</a>";
 
-                    $urlparams['action'] = 'download';
-                    $recordingLink .= "<a title=\"$esc_recfile\" href='?".http_build_query($urlparams)."' >"._tr("Download")."</a>";
-                }
+                // DataTables paginates in the browser. Defer filesystem checks
+                // so S3FS is touched only for rows on the visible page.
+                $recordingLink = '<span class="recording-check" data-recording-id="'.$esc_uniqueid.'">'.
+                    '<span class="recording-pending">...</span>'.
+                    '<span class="recording-actions" style="display:none">'.$actions.'</span>'.
+                    '<span class="recording-missing" title="'.$esc_recfile.'" style="display:none;color:red"><b>'.
+                    htmlentities(_tr('Recording missing'), ENT_COMPAT, 'UTF-8').'</b></span>'.
+                    '</span>';
             } else {
                 $recordingLink = '';
             }
@@ -286,6 +290,41 @@ function reportMonitoring($smarty, $module_name, $local_templates_dir, &$pDB, $p
     return $content;
 }
 
+/**
+ * Resolve recording paths only for rows on the currently displayed page.
+ */
+function checkRecordings($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
+    $arrConf, $user, $extension)
+{
+    $ids = isset($_POST['recording_ids']) ? $_POST['recording_ids'] : array();
+    if (!is_array($ids)) $ids = array($ids);
+
+    $validIds = array();
+    foreach ($ids as $id) {
+        if (count($validIds) >= 100) break;
+        if (is_string($id) && preg_match('/^[[:digit:]]+\.[[:digit:]]+$/', $id) &&
+            !in_array($id, $validIds, TRUE)) {
+            $validIds[] = $id;
+        }
+    }
+
+    $pMonitoring = new paloSantoMonitoring($pDB,
+        isset($arrConf['records_dir']) ? $arrConf['records_dir'] : NULL);
+    $canViewAll = hasModulePrivilege($user, $module_name, 'reportany');
+    $availability = array();
+    foreach ($validIds as $id) {
+        if (!$canViewAll && !$pMonitoring->recordBelongsToUser($id, $extension)) {
+            continue;
+        }
+        $recinfo = $pMonitoring->getAudioByUniqueId($id);
+        $availability[$id] = is_array($recinfo) && !$recinfo['deleted'] &&
+            !is_null($recinfo['fullpath']);
+    }
+
+    header('Content-Type: application/json; charset=UTF-8');
+    return json_encode($availability);
+}
+
 function formatCallRecordingTuple($value)
 {
     $namefile = basename($value['recordingfile']);
@@ -338,7 +377,8 @@ function downloadFile($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
         die("<b>404 "._tr("no_file")." </b>");
     }
 
-    $pMonitoring = new paloSantoMonitoring($pDB);
+    $pMonitoring = new paloSantoMonitoring($pDB,
+        isset($arrConf['records_dir']) ? $arrConf['records_dir'] : NULL);
     if (!hasModulePrivilege($user, $module_name, 'downloadany')) {
         if (!$pMonitoring->recordBelongsToUser($record, $extension)) {
             Header('HTTP/1.1 403 Forbidden');
@@ -385,7 +425,8 @@ function downloadFile($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
 function display_record($smarty, $module_name, $local_templates_dir, &$pDB, $pACL, $arrConf, $user, $extension){
     $file = getParameter("id");
     $namefile = getParameter('namefile');
-    $pMonitoring = new paloSantoMonitoring($pDB);
+    $pMonitoring = new paloSantoMonitoring($pDB,
+        isset($arrConf['records_dir']) ? $arrConf['records_dir'] : NULL);
 
     if (!hasModulePrivilege($user, $module_name, 'downloadany')) {
         if(!$pMonitoring->recordBelongsToUser($file, $extension)){
@@ -433,8 +474,8 @@ function deleteRecord($smarty, $module_name, $local_templates_dir, &$pDB, $pACL,
         $smarty->assign("mb_message", _tr("You are not authorized to delete any records"));
         return FALSE;
     }
-    $pMonitoring = new paloSantoMonitoring($pDB);
-    $path_record = $arrConf['records_dir'];
+    $pMonitoring = new paloSantoMonitoring($pDB,
+        isset($arrConf['records_dir']) ? $arrConf['records_dir'] : NULL);
     foreach ($arrUniqueids as $ID) {
         $nameFile=$pMonitoring->getAudioByUniqueId($ID);
         if ($nameFile['recordingfile'] != "") $pMonitoring->deleteRecordFile($ID, $nameFile['recordingfile']);

@@ -2,6 +2,56 @@ var modal;
 var span;
 var table;
 var file;
+var recordingAvailability = {};
+var recordingChecksPending = {};
+
+function showRecordingAvailability(id, available) {
+    $('.recording-check').filter(function() {
+        return $(this).attr('data-recording-id') == id;
+    }).each(function() {
+        $(this).find('.recording-pending').hide();
+        $(this).find('.recording-actions').toggle(available);
+        $(this).find('.recording-missing').toggle(!available);
+    });
+}
+
+function checkVisibleRecordings(api) {
+    var ids = [];
+    $(api.rows({page: 'current'}).nodes()).find('.recording-check').each(function() {
+        var id = $(this).attr('data-recording-id');
+        if (Object.prototype.hasOwnProperty.call(recordingAvailability, id)) {
+            showRecordingAvailability(id, recordingAvailability[id]);
+        } else if (!recordingChecksPending[id]) {
+            recordingChecksPending[id] = true;
+            ids.push(id);
+        }
+    });
+
+    if (ids.length == 0) return;
+    $.ajax({
+        url: './index.php',
+        type: 'post',
+        dataType: 'json',
+        data: {
+            menu: module,
+            action: 'check_recordings',
+            rawmode: 'yes',
+            recording_ids: ids
+        },
+        success: function(response) {
+            $.each(ids, function(index, id) {
+                recordingAvailability[id] = response[id] === true;
+                delete recordingChecksPending[id];
+                showRecordingAvailability(id, recordingAvailability[id]);
+            });
+        },
+        error: function() {
+            $.each(ids, function(index, id) {
+                delete recordingChecksPending[id];
+            });
+        }
+    });
+}
 
 function playaudio(URL) {
     var xmlHttp = new XMLHttpRequest();
@@ -97,6 +147,7 @@ $(document).ready( function () {
           bSort: true,
           "initComplete": function(settings, json) {
               buildData();
+              checkVisibleRecordings(this.api());
               $('div.dataTables_filter input').off('keyup.DT input.DT');
 
               var searchDelay = null;
@@ -111,6 +162,9 @@ $(document).ready( function () {
                       }
                   }, 1000);
               });
+          },
+          "drawCallback": function(settings) {
+              checkVisibleRecordings(this.api());
           },
           "lengthMenu": [[10, 25, 50, 100], [10, 25, 50, 100]],
           "dom": '<"clear"><"top"<"row"<"col-md-12 nopadding"B>><"row"<"col-md-6 nopadding"l><"col-md-6 nopadding"f>>>'+
