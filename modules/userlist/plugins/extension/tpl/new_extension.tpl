@@ -6,5 +6,10 @@
             <td width="30%">{$extension.INPUT}</td>
             <td colspan="2">&nbsp;</td>
         </tr>
+        <tr>
+            <td width="20%">{$monitorexten.LABEL}:</td>
+            <td width="30%">{$monitorexten.INPUT}</td>
+            <td colspan="2">{$monitorexten.LABEL_HELP}</td>
+        </tr>
     </table>
 </fieldset>

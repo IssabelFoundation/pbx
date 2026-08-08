@@ -2,7 +2,7 @@
 Summary: Issabel PBX Module
 Name:    issabel-pbx
 Version: 5.0.0
-Release: 5
+Release: 6
 License: GPL
 Group:   Applications/System
 Source0: issabel-%{modname}-%{version}.tar.gz
@@ -311,3 +311,6 @@ fi
 /etc/cron.daily/asterisk_cleanup
 
 %changelog
+* Tue Jun 30 2026 Trixocom <hectorquiroz@trixocom.com> - 5.0.0-6
+- monitoring: filter recordings by a group of extensions per user (acl_user.monitorexten)
+

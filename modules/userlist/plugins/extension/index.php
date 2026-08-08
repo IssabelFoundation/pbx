@@ -64,11 +64,28 @@ class paloUserPlugin_extension extends paloSantoUserPluginBase
                     "VALIDATION_TYPE"        => "text",
                     "VALIDATION_EXTRA_PARAM" => ""
                 ),
+                "monitorexten" => array(
+                    "LABEL"                  => _tr("Monitor extensions"),
+                    "REQUIRED"               => "no",
+                    "INPUT_TYPE"             => "TEXT",
+                    "INPUT_EXTRA_PARAM"      => '',
+                    "VALIDATION_TYPE"        => "text",
+                    "VALIDATION_EXTRA_PARAM" => ""
+                ),
             );
         } else {
             return array(
                 "extension"   => array(
                     "LABEL"                  => _tr("Extension"),
+                    "REQUIRED"               => "no",
+                    "INPUT_TYPE"             => "TEXT",
+                    "INPUT_EXTRA_PARAM"      => '',
+                    "VALIDATION_TYPE"        => "text",
+                    "VALIDATION_EXTRA_PARAM" => "",
+                    'EDITABLE'               => 'no',
+                ),
+                "monitorexten" => array(
+                    "LABEL"                  => _tr("Monitor extensions"),
                     "REQUIRED"               => "no",
                     "INPUT_TYPE"             => "TEXT",
                     "INPUT_EXTRA_PARAM"      => '',
@@ -85,6 +102,9 @@ class paloUserPlugin_extension extends paloSantoUserPluginBase
         if (!isset($_POST['extension'])) {
             $_POST['extension'] = $this->_pACL->getUserExtension($username);
         }
+        if (!isset($_POST['monitorexten'])) {
+            $_POST['monitorexten'] = implode(',', $this->_pACL->getUserMonitorExtensions($username));
+        }
     }
 
     function fetchForm($smarty, $oForm, $local_templates_dir, $pvars)
@@ -97,6 +117,10 @@ class paloUserPlugin_extension extends paloSantoUserPluginBase
     {
         $r = $this->_pACL->setUserExtension($username,
             (trim($_POST['extension']) == '') ? NULL : trim($_POST['extension']));
+        if ($r && isset($_POST['monitorexten'])) {
+            $r = $this->_pACL->setUserMonitorExtensions($username,
+                (trim($_POST['monitorexten']) == '') ? NULL : trim($_POST['monitorexten']));
+        }
         if (!$r) {
             $smarty->assign(array(
                 'mb_title'  =>  'ERROR',

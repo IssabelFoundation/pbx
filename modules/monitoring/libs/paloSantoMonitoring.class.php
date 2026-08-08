@@ -110,18 +110,27 @@ class paloSantoMonitoring
             }
         }
 
-        // Extensión de fuente o destino, copiada de paloSantoCDR.class.php
+        // Extensión(es) de fuente o destino, copiada de paloSantoCDR.class.php.
+        // Acepta un valor escalar (comportamiento clásico) o un arreglo de
+        // extensiones (filtro por grupo de extensiones).
         if (isset($param['extension'])) {
-            $condSQL[] = <<<SQL_COND_EXTENSION
+            $extens = is_array($param['extension'])
+                ? $param['extension'] : array($param['extension']);
+            $extens = array_values(array_filter(array_map('trim', $extens),
+                '_construirWhereMonitoring_notempty'));
+            if (count($extens) > 0) {
+                $ph = implode(',', array_fill(0, count($extens), '?'));
+                $condSQL[] = <<<SQL_COND_EXTENSION
 (
-       src = ?
-    OR dst = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) = ?
+       src IN ($ph)
+    OR dst IN ($ph)
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) IN ($ph)
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) IN ($ph)
 )
 SQL_COND_EXTENSION;
-            array_push($paramSQL, $param['extension'], $param['extension'],
-                $param['extension'], $param['extension']);
+                for ($i = 0; $i < 4; $i++)
+                    foreach ($extens as $e) $paramSQL[] = $e;
+            }
         }
 
         foreach (array('src', 'dst') as $sCampo) if (isset($param[$sCampo])) {
@@ -369,17 +378,26 @@ private function _rutaAbsolutaGrabacion($file)
 
     function recordBelongsToUser($uniqueid, $extension)
     {
+        // $extension puede ser un escalar (clásico) o un arreglo de extensiones.
+        $extens = is_array($extension) ? $extension : array($extension);
+        $tmp = array();
+        foreach ($extens as $e) { $e = trim($e); if ($e !== '') $tmp[] = $e; }
+        $extens = $tmp;
+        if (count($extens) == 0) return FALSE;
+        $ph = implode(',', array_fill(0, count($extens), '?'));
         $sql = <<<RECORD_BELONGS_TO_EXTENSION
 SELECT COUNT(*) FROM cdr
 WHERE uniqueid = ? AND (
-       src = ?
-    OR dst = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) = ?
-    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) = ?
+       src IN ($ph)
+    OR dst IN ($ph)
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(channel,'-',1),'/',-1) IN ($ph)
+    OR SUBSTRING_INDEX(SUBSTRING_INDEX(dstchannel,'-',1),'/',-1) IN ($ph)
 )
 RECORD_BELONGS_TO_EXTENSION;
-        $result = $this->_DB->getFirstRowQuery($sql, FALSE,
-            array($uniqueid, $extension, $extension, $extension, $extension));
+        $params = array($uniqueid);
+        for ($i = 0; $i < 4; $i++)
+            foreach ($extens as $e) $params[] = $e;
+        $result = $this->_DB->getFirstRowQuery($sql, FALSE, $params);
         if (!is_array($result)) {
             $this->errMsg = $this->_DB->errMsg;
             return FALSE;
