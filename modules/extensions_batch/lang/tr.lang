@@ -1,0 +1,78 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Mahir Gül                                              |
+  | Email: mahirgul@gmail.com                                            |
+  +----------------------------------------------------------------------+
+  $Id: tr.lang,v 1.0 18/02/2025 16:30:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Extensions Batch" => "Toplu İşlem",
+    "Batch of Extensions" => "Uzantılar için Toplu İşlem",
+    "Are you really sure you want to delete all the extensions in this server?" => "Bu sunucudaki tüm uzantıları silmek istediğinizden gerçekten emin misiniz?",
+    "Invalid file extension.- It must be csv" => "Geçersiz dosya uzantısı.- csv olmalı",
+    "Possible file upload attack. Filename" => "Olası dosya yükleme saldırısı. Dosya adı",
+    "Error" => "Hata",
+    "Secret weak. Line" => "Zayıf Şifre. Satır",
+    "Error updating Tech" => "Teknoloji güncellenirken hata",
+    "Error updating Users" => "Kullanıcılar güncellenirken hata",
+    "Error updating Devices" => "Cihazlar güncellenirken hata",
+    "Error updating Voicemail" => "Sesli posta güncellenirken hata",
+    "Error processing CallWaiting" => "Arama Bekletme işlenirken hata",
+    "Total extension updated" => "Toplam uzantı güncellendi",
+    "Error, extension" => "Hata, uzantı",
+    "repeat in lines" => "satırlarda tekrar ediyor",
+    "with" => "ile",
+    "The file is incorrect or empty" => "Dosya hatalı veya boş",
+    "Incomplete Columns" => "Eksik Sütunlar",
+    "Verify the header" => "Başlığı doğrulayın",
+    "At minimum there must be the columns" => "En azından şu sütunlar olmalı",
+    "Can't exist a extension empty. Line" => "Boş bir uzantı olamaz. Satır",
+    "Can't exist a display name empty. Line" => "Boş bir görüntüleme adı olamaz. Satır",
+    "Please read the lines in the footer" => "Lütfen alt bilgideki satırları okuyun",
+    "Header File Extensions Batch" => "İlk satır, sütunların adını (veya başlığını) içermelidir ve dosya en az dört sütuna sahip olmalıdır: Görüntüleme Adı, Kullanıcı Uzantısı, Gizli, Teknoloji. Desteklenen tüm parametreler hakkında daha fazla bilgi için lütfen çevrimiçi yerleşik yardımı okuyun.",
+    "About Update Extensions Batch" => "Zaten oluşturulmuş uzantıları içeren bir dosya yüklerseniz, bu uzantılar güncellenecektir",
+    "There aren't extensions" => "Uzantı yok",
+    "Download Extensions" => "Mevcut uzantıları CSV formatında indirin",
+    "Error processing Database Family" => "Veritabanı Ailesi işlenirken hata",
+    "Delete All Extensions" => "Tüm Uzantıları Sil",
+    "All extensions deletes" => "Tüm uzantılar silindi",
+    "Error to delete extensions" => "Uzantıları silerken hata",
+    "Unable to reload the changes" => "Değişiklikler yeniden yüklenemiyor",
+    "Could not delete the database" => "Veritabanı silinemedi",
+    "Could not delete the ASTERISK database" => "ASTERISK veritabanı silinemedi",
+    "Unable delete AMPUSER in database astDB" => "astDB veritabanında AMPUSER silinemiyor",
+    "Unable delete DEVICE in database astDB" => "astDB veritabanında DEVICE silinemiyor",
+    "Unable delete CW in database astDB" => "astDB veritabanında CW silinemiyor",
+    "Unable delete CF in database astDB" => "astDB veritabanında CF silinemiyor",
+    "Unable delete CFB in database astDB" => "astDB veritabanında CFB silinemiyor",
+    "Unable delete CFU in database astDB" => "astDB veritabanında CFU silinemiyor",
+    "File" => "Yüklenecek Dosya (*.csv)",
+    "Message" => "Mesaj",
+    "There aren't extensions" => "Uzantı yok",
+    "Save" => "CSV Dosyasını Yükle",
+    "Error to insert or update Direct DID" => "Doğrudan DID ekleme veya güncelleme hatası",
+    "Can't exist a technology empty. Line" => "Boş bir teknoloji olamaz. Satır",
+    "has a wrong tech in line" => "satırda yanlış teknoloji var",
+    "Tech must be sip or iax" => "Teknoloji sip veya iax olmalı",
+    "The secret must be minimum" => "Şifre en az 6 alfasayısal karakter, büyük ve küçük harf içermelidir."
+);
+?>
