@@ -1,0 +1,55 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Mahir Gül                                              |
+  | Email: mahirgul@gmail.com                                            |
+  +----------------------------------------------------------------------+
+  $Id: tr.lang,v 1.0 18/02/2025 16:30:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule = array(
+    "Monitoring" => "İzleme Listesi",
+    "Date" => "Tarih",
+    "Time" => "Saat",
+    "Source" => "Kaynak",
+    "Destination" => "Hedef",
+    "Duration" => "Süre",
+    "Download" => "İndir",
+    "Listen" => "Dinle",
+    "Type" => "Tür",
+    "Message" => "Mesaj",
+    "Start_Date" => "Başlangıç Tarihi",
+    "End_Date" => "Bitiş Tarihi",
+    "message_alert" => "Kayıtları silmek istediğinizden emin misiniz?",
+    "no_extension" => "Mevcut kullanıcıyla ilişkilendirilmiş bir uzantı numarası yok. <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">Buraya</a> tıklayarak kullanıcınıza bir uzantı numarası atayabilirsiniz.",
+    "no_file" => "Dosya bulunamadı!",
+    "Outgoing" => "Giden",
+    "Incoming" => "Gelen",
+    "Queue" => "Kuyruk",
+    "Group" => "Grup",
+    "unknown" => "Bilinmeyen",
+    "delete_file_error" => "Seçilen dosyalardan en az biri mevcut olmadığı için silinemiyor",
+    "contact_admin" => "Mevcut kullanıcıyla ilişkilendirilmiş bir uzantı numarası yok. Lütfen bir uzantı ataması için yöneticiyle iletişime geçin",
+    "You are not authorized to download this file" => "Bu dosyayı indirme yetkiniz yok",
+    "You are not authorized to listen this file" => "Bu dosyayı dinleme yetkiniz yok",
+    "You are not authorized to delete any records" => "Herhangi bir kaydı silme yetkiniz yok",
+    'Recording missing' => 'Kayıt eksik',
+);
+?>
