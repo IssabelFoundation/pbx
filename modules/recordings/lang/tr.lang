@@ -1,0 +1,48 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Mahir Gül                                              |
+  | Email: mahirgul@gmail.com                                            |
+  +----------------------------------------------------------------------+
+  $Id: tr.lang,v 1.0 18/02/2025 16:30:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+    "Recordings" => "Kayıtlar",
+    "Record Name" => "Kayıt Adı",
+    "Record" => "Kaydet",
+    "Insert the Recording Name" => "Kayıt Adını Girin",
+    "The recording couldn't be realized" => "Kayıt gerçekleştirilemedi",
+    "The recording was saved" => "Kayıt kaydedildi",
+    "To continue: record a message then click on save" => "Devam etmek için: bir mesaj kaydedin ve ardından kaydete tıklayın",
+    "Recording File" => "Kayıt Dosyası",
+    "Destiny directory couldn't be created" => "Hedef dizin oluşturulamadı",
+    "File Upload" => "Dosya Yükleme",
+    "ERROR" => "HATA",
+    "You don't have extension number associated with user" => "Mevcut kullanıcıyla ilişkilendirilmiş bir uzantı numarası yok. <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">Buraya</a> tıklayarak kullanıcınıza bir uzantı numarası atayabilirsiniz.",
+    "The call couldn't be realized" => "Arama gerçekleştirilemedi",
+    "Error copying the file" => "Dosya kopyalama hatası",
+    "Message" => "Mesaj",
+    "Possible file upload attack" => "Olası dosya yükleme saldırısı",
+    "contact_admin" => "Mevcut kullanıcıyla ilişkilendirilmiş bir uzantı numarası yok. Lütfen bir uzantı ataması için yöneticiyle iletişime geçin",
+    "You can start your recording after you hear a beep in your phone. Once you have finished recording you must press the # key and then hangup" => "Telefonunuzda bir bip sesi duyduktan sonra kaydınıza başlayabilirsiniz. Kaydı bitirdikten sonra # tuşuna basmalı ve ardından kapatmalısınız",
+    "You do not need to add an extension to the record name" => "Kayıt adına bir uzantı eklemenize gerek yoktur"
+);
+?>
