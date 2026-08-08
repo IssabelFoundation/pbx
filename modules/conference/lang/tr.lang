@@ -1,0 +1,86 @@
+<?php
+/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  Codificación: UTF-8
+  +----------------------------------------------------------------------+
+  | Issabel version 1.0                                                  |
+  | http://www.issabel.org                                               |
+  +----------------------------------------------------------------------+
+  | Copyright (c) 2006 Palosanto Solutions S. A.                         |
+  +----------------------------------------------------------------------+
+  | The contents of this file are subject to the General Public License  |
+  | (GPL) Version 2 (the "License"); you may not use this file except in |
+  | compliance with the License. You may obtain a copy of the License at |
+  | http://www.opensource.org/licenses/gpl-license.php                   |
+  |                                                                      |
+  | Software distributed under the License is distributed on an "AS IS"  |
+  | basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See  |
+  | the License for the specific language governing rights and           |
+  | limitations under the License.                                       |
+  +----------------------------------------------------------------------+
+  | The Initial Developer of the Original Code is PaloSanto Solutions    |
+  |                                                                      |
+  | Translate by: Mahir Gül                                              |
+  | Email: mahirgul@gmail.com                                            |
+  +----------------------------------------------------------------------+
+  $Id: tr.lang,v 1.0 18/02/2025 16:30:00 bmacias Exp $ */
+global $arrLangModule;
+$arrLangModule=array(
+"Conference" => "Konferans",
+"State" => "Durum",
+"Past Conferences" => "Geçmiş Konferanslar",
+"Current Conferences" => "Mevcut Konferanslar",
+"Future Conferences" => "Gelecek Konferanslar",
+"Conference #" => "Konferans #",
+"Conference Name" => "Konferans Adı",
+"Starts" => "Başlangıç",
+"Ends" => "Bitiş",
+"Participants" => "Katılımcılar",
+"All" => "Tümü",
+"New Conference" => "Yeni Konferans",
+"Conference Owner" => "Konferans Sahibi",
+"Conference Number" => "Konferans Numarası",
+"Moderator PIN" => "Moderatör PIN",
+"Moderator Options" => "Moderatör Seçenekleri",
+"Announce" => "Duyuru",
+"Record" => "Kaydet",
+"User PIN" => "Kullanıcı PIN",
+"Listen Only" => "Sadece Dinle",
+"Wait for Leader" => "Lideri Bekle",
+"User Options" => "Kullanıcı Seçenekleri",
+"Start Time" => "Başlangıç Zamanı",
+"Duration (HH:MM)" => "Süre (SS:DD)",
+"Recurs" => "Tekrarlar",
+"Max Participants" => "Maksimum Katılımcı",
+"Reoccurs" => "Tekrar Eder",
+"for" => "için",
+"days" => "gün",
+"Daily" => "Günlük",
+"Weekly" => "Haftalık",
+"Bi-weekly" => "İki Haftada Bir",
+"Moderator and user PINs must not be equal" => "Moderatör ve kullanıcı PIN’leri aynı olmamalıdır",
+"Are you sure you wish to delete conference (es)?" => "Konferans(ları) silmek istediğinizden emin misiniz?",
+"Id" => "Kimlik",
+"CallerId" => "Arayan Kimliği",
+"Mode" => "Mod",
+"Mute" => "Sessize Al",
+"Kick" => "At",
+"Are you sure you wish to Mute caller (s)?" => "Arayan(ları) sessize almak istediğinizden emin misiniz?",
+"Are you sure you wish to Kick caller (s)?" => "Arayan(ları) atmak istediğinizden emin misiniz?",
+"Muted" => "Sessize Alındı",
+"UnMuted" => "Sesi Açıldı",
+"Error when connecting to Asterisk Manager" => "Asterisk Yöneticisine bağlanırken hata oluştu",
+"The conference installation is almost done. To complete it please" => "Konferans kurulumu neredeyse tamamlandı. Tamamlamak için lütfen",
+"Kick All" => "Herkesi At",
+"Invite Caller" => "Arayanı Davet Et",
+"The device wasn't write" => "Cihaz yazılamadı",
+"The device must be numeric" => "Cihaz sayısal olmalıdır",
+"The device couldn't be added to the conference" => "Cihaz konferansa eklenemedi",
+"Filter" => "Filtrele",
+"Show" => "Göster",
+"click here" => "buraya tıklayın",
+"Duration" => "Süre",
+"Status" => "Durum",
+"Update" => "Güncelle",
+"No Extensions" => "Uzantı Yok",
+"Unselected" => "Seçilmemiş",
+);
