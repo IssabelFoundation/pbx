@@ -1,0 +1,25 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>A opção "Editor de Arquivos Asterisk" do Menu "PBX" no Issabel nos permite editar facilmente os arquivos de configuração do Issabel. O caminho dos arquivos que você pode modificar é /etc/asterisk/.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_file_editor.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+<h2>Editando um arquivo</h2>
+<p>Você pode encontrar um arquivo inserindo o nome no campo de filtro. Para editá-lo, clique no nome para acessar o modo de edição. Clique no botão "Salvar" para salvar as alterações e "Recarregar o Asterisk", se necessário.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_file_editor_sip.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<h2>Criando um arquivo</h2>
+<p>Você também pode criar um novo arquivo clicando no botão "Novo arquivo". Este arquivo será criado com a extensão ".conf" em /etc/asterisk/.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_file_editor_new.png" border="0" />
+<p>Figura 3</p></div>
+
+</body>
+</html>

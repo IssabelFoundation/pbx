@@ -1,0 +1,99 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>A opção "Lote de Ramais" do menu "PBX" no Issabel permite criar ramais a partir de um arquivo CSV. Você também pode baixar um arquivo CSV com todos os ramais configurados no Issabel Server. Isso facilita a migração de dados.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Para baixar um arquivo CSV com todas os ramais criados no Issabel, clique no link "Download" e salve o arquivo em seu disco rígido local.</p>
+
+<p>Para carregar um arquivo CSV com os ramais que deseja criar, clique no botão "Examinar", selecione o arquivo CSV e clique no botão "Enviar o arquivo CSV".</p>
+
+<p><b>Certifique-se de que as seguintes indicações sejam levadas em consideração:</b></p>
+<p>
+<ul>
+<li>Ramais duplicadas não são permitidas.</li>
+<li>A primeira linha do arquivo CSV deve conter os cabeçalhos do colunas.</li>
+<li>O arquivo deve ter no mínimo quatro colunas.</li>
+<li>Este tipo de arquivo pode ser criado e aberto com qualquer editor de texto ou planilha, como Open Office Calc, Excel, etc.</li>
+<li>O separador de colunas é a vírgula.</li>
+</ul>
+</p>
+<br />
+<p>Os quatro parâmetros obrigatórios são os seguintes:</p>
+
+<table class="inline">
+<tr>
+<th>Cabeçalho</th><th>Tipo de dado</th>
+</tr>
+<tr>
+<td>Nome de exibição</td><td>Texto</td>
+</tr>
+<tr>
+<td>Ramal do usuário</td><td>Número</td>
+</tr>
+<tr>
+<td>Segredo</td><td>Texto</td>
+</tr>
+<tr>
+<td>Tecnologia</td><td>Texto</td>
+</tr>
+</table>
+
+<p>Estes parâmetros também são suportados no arquivo CSV:</p>
+<table class="inline">
+<th colspan="2">Parâmetros</th>
+<tr>
+<td>DDR</td><td>Chamada em Espera</td>
+</tr>
+<tr>
+<td>Status do Correio de Voz</td><td>Senha do Correio de Voz</td>
+</tr>
+<tr>
+<td>Opções da VM</td><td>CID de Saída</td>
+</tr>
+<tr>
+<td>Endereço de E-mail da VM</td><td>Endereço de E-mail do Pager da VM</td>
+</tr>
+<tr>
+<td>Anexo de E-mail da VM</td><td>CID de Reprodução da VM</td>
+</tr>
+<tr>
+<td>Envelope de Reprodução da VM</td><td>Excluir Vmail da VM</td>
+</tr>
+<tr>
+<td>Contexto</td><td>Grupo de Chamada</td>
+</tr>
+<tr>
+<td>Grupo de Captura</td><td>Não Permitir</td>
+</tr>
+<tr>
+<td>Permitir</td><td>Negar</td>
+</tr>
+<tr>
+<td>Permitir</td><td>Registro de Entrada</td>
+</tr>
+<tr>
+<td>Registro de Saída</td><td></td>
+</tr>
+</table>
+<br />
+<p>Abaixo, um exemplo de um arquivo CSV aberto com um editor de texto simples.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_csv.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+
+<p>O mesmo arquivo aberto com uma planilha:</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_extensions_batch_calc.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+
+</body>
+</html>

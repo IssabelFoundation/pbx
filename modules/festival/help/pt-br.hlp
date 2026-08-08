@@ -1,0 +1,15 @@
+<html>
+    <header>
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+        <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+    </header>
+    <body>
+        <h1>{$node_name}</h1>
+        <p>A opção "Festival" do menu "PBX" permite habilitar e desabilitar o serviço Festival para funcionar com o Asterisk. O Festival é um mecanismo de conversão de texto em voz que pode converter texto em áudio.</p>
+        <div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_festival.png" border="0" />
+        <p>Figura 1</p></div>
+        <br />
+        <p>Se o arquivo /usr/share/festival/festival.scm não estiver configurado corretamente, ao ativar o serviço, ele o fará automaticamente.</p>
+    </body>
+</html>
+

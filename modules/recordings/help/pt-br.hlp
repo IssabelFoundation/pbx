@@ -1,0 +1,27 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>A opção "Gravações" do menu "PBX" no Issabel permite criar arquivos de áudio a partir da gravação da sua voz. Você também pode carregar arquivos de áudio do seu disco rígido. Esta opção só estará disponível se o usuário conectado tiver um ramal atribuído à sua conta.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_record.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+<p>Para gravar um arquivo de áudio, você precisa digitar o nome da gravação e clicar no botão "Gravar". Quando o seu ramal estiver tocando, atenda o telefone e inicie a gravação após o sinal. Ao terminar, pressione '#' e desligue o telefone. Clique no botão "Salvar" para salvar a gravação.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_record_2.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<p>Você também pode enviar um arquivo de áudio existente.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_recordings_upload.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+<p>Esta opção era usada com o módulo Calendário na versão antiga do Issabel. Todas as gravações e arquivos enviados são armazenados em <b>/var/lib/asterisk/sounds/custom/XXX</b>, onde XXX é o ramal do usuário conectado.</p>
+
+</body>
+</html>
+
+

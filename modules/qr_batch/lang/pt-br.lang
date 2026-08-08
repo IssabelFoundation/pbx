@@ -1,0 +1,11 @@
+<?php
+global $arrLangModule;
+$arrLangModule=array(
+    "Generate QR Code list for softphones" => "Gerar lista de QR Code para softphones",
+    "Generate" => "Generar",
+    "Issabel Host/IP Address" => "Endereço IP/Host do Issabel",
+    "Phone Brand" => "Marca do telefone",
+    "Close" => "Fechar",
+    "Add Hostname" => "Adicionar hostname",
+);
+?>

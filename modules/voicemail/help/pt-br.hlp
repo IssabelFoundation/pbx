@@ -1,0 +1,70 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>A opção "Correio de voz" do menu "PABX" no Issabel permite visualizar uma lista com detalhes dos correios de voz do ramal do usuário conectado.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_voicemail.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>O relatório mudará dependendo dos valores do filtro:</p>
+
+<table class="inline">
+  <tr>
+    <th>Parâmetro</th><th>Descrição</th>
+  </tr>
+  <tr>
+    <td>Data de início</td><td>Data de início para a seleção de mensagens de voz.</td>
+  </tr>
+  <tr>
+    <td>Data de fim</td><td>Data de fim para a seleção de mensagens de voz.</td>
+  </tr>
+</table>
+<br/>
+<p>Para excluir uma mensagem de voz, basta selecioná-la na lista e clicar no botão "Excluir".</p>
+<br />
+<h2>Configurando a mensagem de voz</h2>
+<p>Você também pode configurar os parâmetros da mensagem de voz, desde que o usuário conectado tenha um ramal atribuído no Issabel.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_voicemail_config.png" border="0" />
+<p>Figura 2</p></div>
+<br/>
+<table class="inline">
+  <tr>
+    <th>Parâmetro</th><th>Descrição</th>
+  </tr>
+  <tr>
+    <td>Status</td><td>Ativar ou desativar o correio de voz para o usuário</td>
+  </tr>
+  <tr>
+    <td>E-mail</td><td>O endereço de e-mail para o qual as mensagens de voz são enviadas.</td>
+  </tr>
+  <tr>
+    <td>Endereço de e-mail do pager</td><td>Endereço de e-mail do pager/celular para o qual as notificações curtas de correio de voz são enviadas.</td>
+  </tr>
+  <tr>
+    <td>Senha</td><td>Esta é a senha usada pelo usuário para acessar seu sistema de correio de voz.</td>
+  </tr>
+
+  <tr>
+    <td>Anexo de e-mail</td><td>Opção para anexar mensagens de voz ao e-mail.</td>
+  </tr>
+  <tr>
+    <td>Reproduzir CID</td><td>Lê o número de telefone do chamador antes de reproduzir a mensagem recebida e logo após anunciar a data e a hora em que a mensagem foi deixada.</td>
+  </tr>
+  <tr>
+    <td>Reproduzir envelope</td><td>A função Envelope controla se o sistema de correio de voz reproduzirá o envelope da mensagem (data/hora) antes de reproduzi-la. Esta configuração não afeta a operação da opção de envelope no menu avançado de correio de voz.</td>
+  </tr>
+  <tr>
+    <td>Excluir Vmail</td><td>Se definido como "sim", a mensagem será excluída da caixa de correio de voz (após ter sido enviada por e-mail). Ele oferece uma funcionalidade que permite ao usuário receber seu correio de voz somente por e-mail, em vez de recuperá-lo da interface Web ou do aparelho do ramal.</td>
+  </tr>
+</table>
+<br />
+</body>
+</html>

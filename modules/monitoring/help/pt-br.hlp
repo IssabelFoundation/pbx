@@ -1,0 +1,43 @@
+<html>
+<header>
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+  <link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+
+<h1>{$node_name}</h1>
+
+<p>A opção "Lista de Monitoramento" do Menu "PBX" no Issabel nos permite visualizar uma lista com detalhes de todas as chamadas gravadas para o ramal associado ao usuário conectado. A conta de administrador pode ver todas as gravações.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_monitoring.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>O relatório mudará dependendo dos valores do filtro: </p>
+
+<table class="inline">
+  <tr>
+    <th>Nome</th><th>Descrição</th>
+  </tr>
+  <tr>
+    <td>Data de início</td><td>A data de início das chamadas a serem selecionadas.</td>
+  </tr>
+  <tr>
+    <td>Data de fim</td><td>A data de fim das chamadas a serem selecionadas.</td>
+  </tr>
+  <tr>
+    <td>Origem</td><td>O ramal que iniciou a chamada.</td>
+  </tr>
+  <tr>
+    <td>Destino</td><td>O ramal que recebeu a chamada.</td>
+  </tr>
+  <tr>
+    <td>Tipo</td><td>O tipo de chamada, como Entrada, Saída, Fila ou Grupo.</td>
+  </tr>
+</table>
+
+<p>Além disso, podemos ouvir as chamadas clicando na opção "Ouvir" para cada chamada, ou podemos baixar um arquivo de áudio com a extensão .wav da chamada selecionada.</p>
+<p>Se desejar exportar a lista das chamadas gravadas, clique no botão "Baixar" e escolha o tipo de arquivo que deseja baixar. As extensões disponíveis são: csv, xls e pdf.</p>
+
+</body>
+</html>

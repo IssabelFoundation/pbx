@@ -1,8 +1,8 @@
 <?php
-/* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
+  /* vim: set expandtab tabstop=4 softtabstop=4 shiftwidth=4:
   Codificación: UTF-8
   +----------------------------------------------------------------------+
-  | Issabel version 0.5                                                  |
+  | Issabel version 4.0.0-18                                               |
   | http://www.issabel.org                                               |
   +----------------------------------------------------------------------+
   | Copyright (c) 2006 Palosanto Solutions S. A.                         |
@@ -19,9 +19,34 @@
   +----------------------------------------------------------------------+
   | The Initial Developer of the Original Code is PaloSanto Solutions    |
   +----------------------------------------------------------------------+
-  $Id: es.lang,v 1.7 2007/09/05 00:36:42 alex Exp $ */
+  $Id: pt-br.lang,v 1.0 2025-05-10 10:06:23 Rafael Fontenelle rffontenelle@gmail.com Exp $ */
 global $arrLangModule;
-$arrLangModule = array(
-    "delete_file_error" => "At least one of files selected cannot be deleted because it no exists",
+$arrLangModule=array(
+"Monitoring" => "Lista de Monitoramento",
+"Date" => "Data",
+"Time" => "Hora",
+"Source" => "Fonte",
+"Destination" => "Destino",
+"Duration" => "Duração",
+"Download" => "Baixar",
+"Listen" => "Ouvir",
+"Type" => "Tipo",
+"Message" => "Mensagem",
+"Start_Date" => "Data de início",
+"End_Date" => "Data de fim",
+"message_alert" => "Tem certeza que deseja excluir as gravações?",
+"no_extension" => "Não há um número de ramal associado ao usuário atual. Você pode associar um número de ramal ao seu usuário clicando <a href=\"javascript: openWindow('index.php?menu=userlist&amp;action=edit_userExtension&amp;rawmode=yes');\">aqui</a>",
+"no_file" => "Arquivo não encontrado!",
+"Outgoing" => "Saída",
+"Incoming" => "Entrada",
+"Queue" => "Fila",
+"Group" => "Grupo",
+"unknown" => "Desconhecido",
+"delete_file_error" => "Pelo menos um dos arquivos selecionados não pode ser excluído porque não existe",
+"contact_admin" => "Não há um número de ramal associado ao usuário atual. Entre em contato com o administrador para atribuir um ramal.",
+"You are not authorized to download this file" => "Você não está autorizado a baixar este arquivo",
+"You are not authorized to listen this file" => "Você não está autorizado a ouvir este arquivo",
+"You are not authorized to delete any records" => "Você não está autorizado a excluir nenhum registro",
+'Recording missing' => 'Gravação faltando',
 );
 ?>

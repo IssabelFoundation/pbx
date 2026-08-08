@@ -1,0 +1,88 @@
+<html>
+<header>
+<link rel="stylesheet" href="/themes/{$THEMENAME}/styles.css">
+<link rel="stylesheet" href="/themes/{$THEMENAME}/help.css">
+</header>
+<body>
+<h1>{$node_name}</h1>
+
+<p>A opção "Conferência" no Issabel permite criar e gerenciar conferências a qualquer momento. Aqui você pode ver todas as conferências atuais. Use o filtro para encontrar conferências passadas e futuras.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_conference_report.png" border="0" />
+<p>Figura 1</p></div>
+<br />
+
+<p>Se quiser ver os detalhes de qualquer conferência, clique diretamente no nome. Os parâmetros da conferência não podem ser editados.</p>
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_conference_view.png" border="0" />
+<p>Figura 2</p></div>
+<br />
+<p>Para excluir uma conferência, basta marcar a caixa de seleção ao lado do nome da conferência e clicar no botão "Excluir".</p>
+<br />
+<h2>Criando uma nova Conferência</h2>
+<p>Para criar uma nova conferência, clique no botão "Nova conferência" e preencha os campos obrigatórios <i>(Figura 3)</i>. Se desejar controlar uma conferência estática criada a partir do módulo "Configuração do PABX", substitua o "Número da Conferência" pelo número da conferência estática.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_conference_new.png" border="0" />
+<p>Figura 3</p></div>
+<br />
+
+<p>Abaixo, uma descrição de cada parâmetro:</p>
+
+<table class="inline">
+<tr>
+<th>Nome</th><th>Obrigatório</th><th>Descrição</th>
+</tr>
+<tr>
+<td>Nome da Conferência</td><td>Sim</td><td>Este é o nome da conferência. Ajuda a identificá-lo.</td>
+</tr>
+<tr>
+<td>PIN do Moderador</td><td>Não</td><td>Uma chave que o moderador precisa inserir para ingressar na conferência.</td>
+</tr>
+<tr>
+<td>PIN do Usuário</td><td>Não</td><td>Uma chave que o usuário precisa inserir para ingressar na conferência.</td>
+</tr>
+<tr>
+<td>Tempo de início</td><td>Sim</td><td>Selecione a data e a hora em que a conferência começará.</td>
+</tr>
+<tr>
+<td>Número da Conferência</td><td>Sim</td><td>Ao criar uma conferência, um número aleatório é gerado automaticamente neste campo. Este número identifica a conferência e você pode alterá-lo se desejar, mas certifique-se de que ele não esteja sendo usado por outra conferência.</td>
+</tr>
+<tr>
+<td>Dono da Conferência</td><td>Não</td><td>O usuário responsável pela conferência.</td>
+</tr>
+<tr>
+<td>Opções do Moderador</td><td>Não</td><td>Opções diferentes para o moderador.</td>
+</tr>
+<tr>
+<td>Opções do Usuário</td><td>Não</td><td>Opções diferentes para o usuário.</td>
+</tr>
+<tr>
+<td>Duração (HH:MM)</td><td>Não</td><td>A duração da conferência</td>
+</tr>
+<tr>
+<td>Máximo de Participantes</td><td>Sim</td><td>O número de usuários que podem participar da conferência simultaneamente.</td>
+</tr>
+</table>
+<br />
+
+<h2>Administração de Conferências</h2>
+<p>Para gerenciar uma conferência específica, clique no link Participantes na lista de Conferências em Andamento. Aqui você pode Convidar, Chutar ou Silenciar os participantes da Conferência e também ver o tempo decorrido de cada usuário.</p>
+
+<div class="hlp_figures"><img src="../modules/{$node_id}/images/hlp_conference_callers.png" border="0" />
+<p>Figura 4</p></div>
+<br />
+<h3>Convidar um participante</h3>
+<p>Há duas maneiras de adicionar um usuário à conferência:
+<ul style="list-style-type:decimal">
+<li>Selecione o número do ramal na lista suspensa e clique em "Convidar". Imediatamente, o telefone do usuário começará a tocar. Quando o usuário atender o telefone, ele participará da conferência.</li>
+<li>Ligue para <b>5555</b> e, quando solicitado, digite o número da conferência seguido da tecla cerquilha (#).</li>
+</ul>
+</p>
+
+<p>Se desejar silenciar um usuário, basta marcar a caixa de seleção na coluna "Silenciar" e clicar em "Silenciar". Se desejar encerrar uma chamada, marque a caixa de seleção na coluna "Chutar" e clique em "Chutar".</p>
+
+<p>Se desejar encerrar todas as chamadas, basta clicar no botão "Chutar todos".</p>
+
+<p>Para atualizar a lista de participantes atuais da conferência, clique no botão "Atualizar". Se desejar retornar à lista de conferências, clique no botão "Cancelar" (isso não cancelará a conferência em andamento).</p>
+
+</body>
+</html>
