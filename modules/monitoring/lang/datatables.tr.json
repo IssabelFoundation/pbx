@@ -1,0 +1,28 @@
+{
+  "sProcessing": "İşleniyor...",
+  "sLengthMenu": "_MENU_ kayıt göster",
+  "sZeroRecords": "Sonuç bulunamadı",
+  "sEmptyTable": "Bu tabloda veri yok",
+  "sInfo": "Toplam _TOTAL_ kayıttan _START_ ile _END_ arası kayıtlar gösteriliyor",
+  "sInfoEmpty": "Toplam 0 kayıttan 0 ile 0 arası kayıtlar gösteriliyor",
+  "sInfoFiltered": "(toplam _MAX_ kayıttan filtrelendi)",
+  "sInfoPostFix": "",
+  "sSearch": "Ara:",
+  "sUrl": "",
+  "sInfoThousands": ",",
+  "sLoadingRecords": "Yükleniyor...",
+  "oPaginate": {
+    "sFirst": "İlk",
+    "sLast": "Son",
+    "sNext": "Sonraki",
+    "sPrevious": "Önceki"
+  },
+  "oAria": {
+    "sSortAscending": ": Kolonu artan şekilde sıralamak için etkinleştir",
+    "sSortDescending": ": Kolonu azalan şekilde sıralamak için etkinleştir"
+  },
+  "buttons": {
+    "copy": "Kopyala",
+    "colvis": "Görünürlük"
+  }
+}
